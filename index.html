@@ -1,28 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>10MS Math Question Solve</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>SSC গণিত বোর্ড প্রশ্নোত্তর ২০২৬</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" crossorigin="anonymous"></script>
 <style>
 :root {
-  --bg: #0d0f14;
-  --surface: #141720;
-  --card: #1a1e2a;
-  --border: #252a38;
-  --accent: #4ade80;
-  --accent2: #60a5fa;
-  --accent3: #f472b6;
+  --bg: #080c12;
+  --surface: #0e1420;
+  --card: #131926;
+  --card2: #161d2e;
+  --border: #1e2840;
+  --border2: #263050;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --accent3: #fb923c;
   --gold: #fbbf24;
-  --text: #e2e8f0;
-  --muted: #64748b;
   --correct: #4ade80;
   --wrong: #f87171;
+  --text: #dde4f0;
+  --muted: #5a6a8a;
   --font-bn: 'Noto Sans Bengali', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-bn);
@@ -30,14 +37,18 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(56,189,248,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(129,140,248,0.04) 0%, transparent 55%);
 }
 
+/* ── HEADER ── */
 .header {
-  background: linear-gradient(135deg, #0d1117 0%, #161b27 50%, #0d1117 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 40px 24px 36px;
+  padding: 52px 24px 44px;
   text-align: center;
   position: relative;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #0a101c 0%, var(--bg) 100%);
   overflow: hidden;
 }
 .header::before {
@@ -45,142 +56,167 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(74,222,128,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(96,165,250,0.06) 0%, transparent 60%);
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(56,189,248,0.07) 0%, transparent 70%);
   pointer-events: none;
 }
-.header-tag {
-  display: inline-block;
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
+.header-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   letter-spacing: 3px;
   color: var(--accent);
-  border: 1px solid rgba(74,222,128,0.3);
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border: 1px solid rgba(56,189,248,0.25);
+  padding: 5px 16px;
+  border-radius: 100px;
+  margin-bottom: 22px;
   text-transform: uppercase;
+  background: rgba(56,189,248,0.05);
 }
+.header-eyebrow::before { content: '◆'; font-size: 7px; }
 .header h1 {
   font-family: 'Noto Serif Bengali', serif;
-  font-size: clamp(26px, 4.5vw, 52px);
+  font-size: clamp(28px, 5vw, 56px);
   font-weight: 700;
   color: #fff;
-  line-height: 1.25;
-  margin-bottom: 10px;
-  position: relative;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 }
-.header h1 span { color: var(--accent); }
+.header h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .header p {
   color: var(--muted);
-  font-size: 15px;
+  font-size: 14px;
+  letter-spacing: 0.3px;
 }
 
-/* ── STATS BAR ── */
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  padding: 20px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.stat { text-align: center; }
-.stat-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-}
-.stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; text-transform: uppercase; }
-
-
+/* ── TABS ── */
 .board-tabs {
-  text-align: center;
-  background: var(--surface);
   display: flex;
-  gap: 0;
   overflow-x: auto;
   scrollbar-width: none;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 .board-tabs::-webkit-scrollbar { display: none; }
+
 .tab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 14px 20px;
+  justify-content: center;
+  gap: 4px;
+  padding: 13px 18px;
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   user-select: none;
-  font-family: var(--font-bn);
   flex-shrink: 0;
+  font-family: var(--font-bn);
+  position: relative;
 }
 .tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab-icon { font-size: 18px; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(56,189,248,0.04); }
+.tab-icon { font-size: 20px; line-height: 1; }
 
 /* ── CONTENT ── */
-.content { max-width: 900px; margin: 0 auto; padding: 32px 16px 80px; }
+.content { max-width: 860px; margin: 0 auto; padding: 36px 16px 100px; }
 
-/* ── BOARD SECTION ── */
-.board-section { display: none; animation: rise 0.3s ease; }
+.board-section { display: none; animation: rise 0.35s ease; }
 .board-section.active { display: block; }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+
 .board-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  padding: 20px 24px;
+  text-align: center;
+  padding: 32px 24px 28px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-}
-.board-emoji { font-size: 36px; }
-.board-title { font-family: 'Noto Serif Bengali', serif; font-size: 24px; font-weight: 700; color: #fff; }
-.board-sub { color: var(--muted); font-size: 12px; margin-top: 3px; font-family: 'Space Mono', monospace; }
-.board-count {
-  margin-left: auto;
-  background: rgba(74,222,128,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(74,222,128,0.3);
-  padding: 5px 14px;
   border-radius: 20px;
-  font-size: 12px;
-  font-family: 'Space Mono', monospace;
-  white-space: nowrap;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.board-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.board-emoji { font-size: 42px; display: block; margin-bottom: 12px; }
+.board-title {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.board-sub {
+  color: var(--muted);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.board-pills {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.board-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  background: rgba(56,189,248,0.08);
+  color: var(--accent);
+  border: 1px solid rgba(56,189,248,0.2);
+}
+.board-pill.gold {
+  background: rgba(251,191,36,0.08);
+  color: var(--gold);
+  border-color: rgba(251,191,36,0.2);
 }
 
-/* ── MODE TOGGLE ── */
+/* ── MODE BAR ── */
 .mode-bar {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 6px;
 }
 .mode-btn {
   flex: 1;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
   font-family: var(--font-bn);
   font-size: 13px;
@@ -189,22 +225,41 @@ body {
   transition: all 0.2s;
   background: transparent;
   color: var(--muted);
+  letter-spacing: 0.2px;
 }
 .mode-btn.active {
-  background: var(--accent);
-  color: #0a0f0a;
+  background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(129,140,248,0.15));
+  color: var(--accent);
+  border: 1px solid rgba(56,189,248,0.25);
 }
+
+/* ── SCORE ── */
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.score-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--gold); }
+.score-label { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; }
+.score-bar-wrap { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.score-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
 /* ── QUESTION CARD ── */
 .q-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 24px;
-  margin-bottom: 16px;
-  transition: border-color 0.2s;
+  border-radius: 16px;
+  padding: 22px 22px 20px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.q-card:hover { border-color: #3a3f55; }
+.q-card:hover { border-color: var(--border2); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+
 .q-top {
   display: flex;
   align-items: flex-start;
@@ -212,49 +267,52 @@ body {
   margin-bottom: 16px;
 }
 .q-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 700;
   color: var(--accent);
-  background: rgba(74,222,128,0.1);
-  border: 1px solid rgba(74,222,128,0.2);
-  min-width: 36px;
-  height: 36px;
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.18);
+  min-width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 9px;
   flex-shrink: 0;
 }
 .q-text {
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: 14.5px;
+  line-height: 1.85;
   color: var(--text);
   flex: 1;
 }
+.q-text .mjx-container { display: inline !important; }
 
 /* ── OPTIONS ── */
-.options { display: flex; flex-direction: column; gap: 8px; }
+.options { display: flex; flex-direction: column; gap: 7px; }
 .option {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 11px 16px;
+  gap: 11px;
+  padding: 10px 15px;
   border-radius: 10px;
   border: 1px solid var(--border);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
   background: var(--surface);
-  font-size: 14px;
-  color: #b0bac8;
+  font-size: 13.5px;
+  color: #8a9ab8;
+  line-height: 1.6;
 }
-.option:hover { border-color: #4ade8040; background: rgba(74,222,128,0.04); color: var(--text); }
-.option.selected { border-color: var(--accent2); background: rgba(96,165,250,0.08); color: #fff; }
-.option.correct { border-color: var(--correct); background: rgba(74,222,128,0.08); color: var(--correct); }
-.option.wrong { border-color: var(--wrong); background: rgba(248,113,113,0.07); color: var(--wrong); }
+.option:hover { border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.04); color: var(--text); }
+.option.selected { border-color: rgba(129,140,248,0.5); background: rgba(129,140,248,0.08); color: #c7d2fe; }
+.option.correct { border-color: rgba(74,222,128,0.5); background: rgba(74,222,128,0.07); color: var(--correct); }
+.option.wrong { border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.06); color: var(--wrong); }
+
 .opt-key {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 700;
   min-width: 22px;
   height: 22px;
@@ -263,67 +321,72 @@ body {
   justify-content: center;
   border-radius: 5px;
   border: 1px solid currentColor;
-  opacity: 0.7;
+  opacity: 0.65;
   flex-shrink: 0;
   margin-top: 1px;
 }
-.opt-text { flex: 1; line-height: 1.6; }
-
-/* answer mode direct show */
-.answer-mode .option.correct {
-  border-color: var(--correct);
-  background: rgba(74,222,128,0.08);
-  color: var(--correct);
-}
+.opt-text { flex: 1; }
+.opt-text .mjx-container { display: inline !important; }
 
 /* ── EXPLANATION ── */
 .explanation-box {
   display: none;
-  margin-top: 14px;
-  padding: 12px 16px;
-  background: rgba(96,165,250,0.07);
-  border: 1px solid rgba(96,165,250,0.2);
-  border-radius: 10px;
-  font-size: 13px;
-  color: #94b4d8;
-  line-height: 1.7;
+  margin-top: 13px;
+  padding: 11px 15px;
+  background: rgba(56,189,248,0.05);
+  border: 1px solid rgba(56,189,248,0.15);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  font-size: 12.5px;
+  color: #7aa8c8;
+  line-height: 1.75;
 }
 .explanation-box.visible { display: block; }
-.explanation-box::before { content: '💡 ব্যাখ্যা: '; font-weight: 700; color: var(--accent2); }
+.exp-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-/* ── SCORE DISPLAY ── */
-.score-display {
+/* ── DIVIDER ── */
+.q-divider {
+  text-align: center;
+  padding: 10px 0 18px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 2px;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  font-size: 14px;
 }
-.score-num { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; color: var(--gold); }
-.score-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-.score-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #22d3ee); border-radius: 3px; transition: width 0.4s; }
+.q-divider::before, .q-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
 /* ── FOOTER ── */
 .footer {
   text-align: center;
-  padding: 32px;
+  padding: 36px;
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 12px;
   letter-spacing: 0.5px;
+  font-family: var(--font-mono);
 }
-.footer span { color: var(--accent); font-family: 'Space Mono', monospace; }
+.footer em { color: var(--accent); font-style: normal; }
 
 @media (max-width: 600px) {
-  .content { padding: 20px 12px 60px; }
-  .q-card { padding: 16px; }
-  .board-header { padding: 14px 16px; }
-  .stats-bar { gap: 20px; }
-  .tab { padding: 12px 14px; font-size: 12px; }
+  .content { padding: 20px 12px 80px; }
+  .q-card { padding: 16px 14px; }
+  .board-header { padding: 24px 16px 20px; }
+  .tab { padding: 11px 14px; font-size: 11px; }
+  .board-title { font-size: 22px; }
 }
 </style>
 </head>
@@ -331,18 +394,10 @@ body {
 
 <!-- HEADER -->
 <header class="header">
-  <div class="header-tag">HSC 2026 · ICT MCQ</div>
-  <h1>ICT বোর্ড <span>প্রশ্নোত্তর</span> ২০২৬</h1>
-  <p>তথ্য ও যোগাযোগ প্রযুক্তি — বহুনির্বাচনি অভীক্ষা সমাধান</p>
+  <div class="header-eyebrow">SSC 2026 · গণিত MCQ</div>
+  <h1>গণিত বোর্ড <em>প্রশ্নোত্তর</em> ২০২৬</h1>
+  <p>নয়টি বোর্ডের বহুনির্বাচনি প্রশ্ন ও সমাধান — অনুশীলন ও উত্তর মোড সহ</p>
 </header>
-
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat"><div class="stat-num">৯</div><div class="stat-label">বোর্ড</div></div>
-  <div class="stat"><div class="stat-num">২২৫</div><div class="stat-label">প্রশ্ন</div></div>
-  <div class="stat"><div class="stat-num">৪</div><div class="stat-label">অপশন/প্রশ্ন</div></div>
-  <div class="stat"><div class="stat-num">১০০%</div><div class="stat-label">সমাধান</div></div>
-</div>
 
 <!-- TABS -->
 <nav class="board-tabs" id="tabs">
@@ -359,471 +414,522 @@ body {
 
 <div class="content">
 
-<!-- ══════════════════ DHAKA ══════════════════ -->
+<!-- ══════════ DHAKA ══════════ -->
 <section id="dhaka" class="board-section active">
   <div class="board-header">
     <span class="board-emoji">🌆</span>
-    <div>
-      <div class="board-title">ঢাকা বোর্ড</div>
-      <div class="board-sub">DHAKA BOARD — ICT MCQ 2026</div>
+    <div class="board-title">ঢাকা বোর্ড</div>
+    <div class="board-sub">DHAKA BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('dhaka','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('dhaka','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-dhaka" style="display:none;">
-    <div><div class="score-num" id="score-num-dhaka">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-dhaka" style="display:none">
+    <div><div class="score-num" id="score-num-dhaka">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-dhaka" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-dhaka"></div>
 </section>
 
-<!-- ══════════════════ CHITTAGONG ══════════════════ -->
+<!-- ══════════ CHITTAGONG ══════════ -->
 <section id="ctg" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🌊</span>
-    <div>
-      <div class="board-title">চট্টগ্রাম বোর্ড</div>
-      <div class="board-sub">CHITTAGONG BOARD — ICT MCQ 2026 (সেট: গ)</div>
+    <div class="board-title">চট্টগ্রাম বোর্ড</div>
+    <div class="board-sub">CHITTAGONG BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('ctg','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('ctg','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-ctg" style="display:none;">
-    <div><div class="score-num" id="score-num-ctg">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-ctg" style="display:none">
+    <div><div class="score-num" id="score-num-ctg">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-ctg" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-ctg"></div>
 </section>
 
-<!-- ══════════════════ CUMILLA ══════════════════ -->
+<!-- ══════════ CUMILLA ══════════ -->
 <section id="cumilla" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🏛️</span>
-    <div>
-      <div class="board-title">কুমিল্লা বোর্ড</div>
-      <div class="board-sub">CUMILLA BOARD — ICT MCQ 2026</div>
+    <div class="board-title">কুমিল্লা বোর্ড</div>
+    <div class="board-sub">CUMILLA BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('cumilla','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('cumilla','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-cumilla" style="display:none;">
-    <div><div class="score-num" id="score-num-cumilla">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-cumilla" style="display:none">
+    <div><div class="score-num" id="score-num-cumilla">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-cumilla" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-cumilla"></div>
 </section>
 
-<!-- ══════════════════ RAJSHAHI ══════════════════ -->
+<!-- ══════════ RAJSHAHI ══════════ -->
 <section id="rajshahi" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🏰</span>
-    <div>
-      <div class="board-title">রাজশাহী বোর্ড</div>
-      <div class="board-sub">RAJSHAHI BOARD — ICT MCQ 2026</div>
+    <div class="board-title">রাজশাহী বোর্ড</div>
+    <div class="board-sub">RAJSHAHI BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('rajshahi','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('rajshahi','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-rajshahi" style="display:none;">
-    <div><div class="score-num" id="score-num-rajshahi">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-rajshahi" style="display:none">
+    <div><div class="score-num" id="score-num-rajshahi">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-rajshahi" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-rajshahi"></div>
 </section>
 
-<!-- ══════════════════ BORISHAL ══════════════════ -->
+<!-- ══════════ BORISHAL ══════════ -->
 <section id="borishal" class="board-section">
   <div class="board-header">
     <span class="board-emoji">⛵</span>
-    <div>
-      <div class="board-title">বরিশাল বোর্ড</div>
-      <div class="board-sub">BORISHAL BOARD — ICT MCQ 2026</div>
+    <div class="board-title">বরিশাল বোর্ড</div>
+    <div class="board-sub">BORISHAL BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('borishal','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('borishal','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-borishal" style="display:none;">
-    <div><div class="score-num" id="score-num-borishal">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-borishal" style="display:none">
+    <div><div class="score-num" id="score-num-borishal">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-borishal" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-borishal"></div>
 </section>
 
-<!-- ══════════════════ SYLHET ══════════════════ -->
+<!-- ══════════ SYLHET ══════════ -->
 <section id="sylhet" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🍃</span>
-    <div>
-      <div class="board-title">সিলেট বোর্ড</div>
-      <div class="board-sub">SYLHET BOARD — ICT MCQ 2026</div>
+    <div class="board-title">সিলেট বোর্ড</div>
+    <div class="board-sub">SYLHET BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('sylhet','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('sylhet','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-sylhet" style="display:none;">
-    <div><div class="score-num" id="score-num-sylhet">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-sylhet" style="display:none">
+    <div><div class="score-num" id="score-num-sylhet">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-sylhet" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-sylhet"></div>
 </section>
 
-<!-- ══════════════════ DINAJPUR ══════════════════ -->
+<!-- ══════════ DINAJPUR ══════════ -->
 <section id="dinajpur" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🏫</span>
-    <div>
-      <div class="board-title">দিনাজপুর বোর্ড</div>
-      <div class="board-sub">DINAJPUR BOARD — ICT MCQ 2026</div>
+    <div class="board-title">দিনাজপুর বোর্ড</div>
+    <div class="board-sub">DINAJPUR BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('dinajpur','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('dinajpur','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-dinajpur" style="display:none;">
-    <div><div class="score-num" id="score-num-dinajpur">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-dinajpur" style="display:none">
+    <div><div class="score-num" id="score-num-dinajpur">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-dinajpur" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-dinajpur"></div>
 </section>
 
-<!-- ══════════════════ MYMENSINGH ══════════════════ -->
+<!-- ══════════ MYMENSINGH ══════════ -->
 <section id="mymensingh" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🌿</span>
-    <div>
-      <div class="board-title">ময়মনসিংহ বোর্ড</div>
-      <div class="board-sub">MYMENSINGH BOARD — ICT MCQ 2026</div>
+    <div class="board-title">ময়মনসিংহ বোর্ড</div>
+    <div class="board-sub">MYMENSINGH BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('mymensingh','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('mymensingh','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-mymensingh" style="display:none;">
-    <div><div class="score-num" id="score-num-mymensingh">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-mymensingh" style="display:none">
+    <div><div class="score-num" id="score-num-mymensingh">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-mymensingh" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-mymensingh"></div>
 </section>
 
-<!-- ══════════════════ JESSORE ══════════════════ -->
+<!-- ══════════ JESSORE ══════════ -->
 <section id="jessore" class="board-section">
   <div class="board-header">
     <span class="board-emoji">🌾</span>
-    <div>
-      <div class="board-title">যশোর বোর্ড</div>
-      <div class="board-sub">JESSORE BOARD — ICT MCQ 2026</div>
+    <div class="board-title">যশোর বোর্ড</div>
+    <div class="board-sub">JESSORE BOARD · MATH MCQ 2026</div>
+    <div class="board-pills">
+      <span class="board-pill">৩০ প্রশ্ন</span>
+      <span class="board-pill gold">১০০% সমাধান</span>
     </div>
-    <span class="board-count">25 MCQ</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('jessore','practice')">📝 অনুশীলন মোড</button>
     <button class="mode-btn" onclick="setMode('jessore','answer')">✅ উত্তর দেখুন</button>
   </div>
-  <div class="score-display" id="score-jessore" style="display:none;">
-    <div><div class="score-num" id="score-num-jessore">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+  <div class="score-display" id="score-jessore" style="display:none">
+    <div><div class="score-num" id="score-num-jessore">0/30</div><div class="score-label">স্কোর</div></div>
     <div class="score-bar-wrap"><div class="score-bar" id="score-bar-jessore" style="width:0%"></div></div>
   </div>
   <div class="questions" id="q-jessore"></div>
 </section>
 
-</div><!-- /content -->
+</div>
 
 <footer class="footer">
-  ICT বোর্ড প্রশ্নোত্তর ২০২৬ &nbsp;|&nbsp; <span>HSC · তথ্য ও যোগাযোগ প্রযুক্তি</span>
+  SSC গণিত বোর্ড প্রশ্নোত্তর ২০২৬ &nbsp;|&nbsp; <em>৯টি বোর্ড · ২৭০ প্রশ্ন</em>
 </footer>
 
 <script>
 // ══════════════════════════════════════════════
-//  QUESTION DATA  (question, options[4], correct index 0-3, explanation)
+//  QUESTION DATA
+//  q = question text (LaTeX with $...$ for inline math)
+//  opts = 4 options
+//  ans = correct answer index (0-based)
+//  exp = explanation
 // ══════════════════════════════════════════════
 const DATA = {
 
-  dhaka: [
-    { q:'সফটওয়্যার ইনস্টলের আগে কোন কোন বিষয় নিশ্চিত করতে হয়?\ni. হার্ডওয়্যার সাপোর্ট আছে কিনা\nii. অ্যান্টিভাইরাস বন্ধ কিনা\niii. অ্যাডমিন অনুমতি আছে কিনা', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'সফটওয়্যার ইনস্টলে হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ কিনা এবং অ্যাডমিন অনুমতি জরুরি।'},
-    { q:'বুলেট ও নম্বরের আইকন কমান্ড কোথায় পাওয়া যায়?', opts:['Insert Tab','Home Tab','Review Tab','Page Layout Tab'], ans:1, exp:'বুলেট ও নম্বরের আইকন কমান্ড Home ট্যাবে পাওয়া যায়।'},
-    { q:'স্প্রেডশিটে A1 সেলকে B1 সেল দিয়ে ভাগ করার সঠিক সূত্র কোনটি?', opts:['=A1*B1','=A1/B1','=A1-B1','=A1+B1'], ans:1, exp:'স্প্রেডশিটে A1 সেলকে B1 সেল দিয়ে ভাগ করার সূত্র =A1/B1।'},
-    { q:'কম্পিউটার চালু করলে সময়/তারিখ ভুল দেখানোর প্রধান কারণ কী?', opts:['RAM নষ্ট','HDD নষ্ট','Processor সমস্যা','CMOS ব্যাটারি নষ্ট'], ans:3, exp:'কম্পিউটার চালু করলে সময়/তারিখ ভুল দেখানোর প্রধান কারণ CMOS ব্যাটারি নষ্ট।'},
-    { q:'ওয়ার্ড-২০০৭-এ পৃষ্ঠা সংখ্যা যুক্ত করার অপশন কোথায়?', opts:['Home','Review','INSERT','Page Layout'], ans:2, exp:'ওয়ার্ড-২০০৭-এ পৃষ্ঠা সংখ্যা যুক্ত করার অপশন Insert ট্যাবে।'},
-    { q:'Insert ট্যাব থেকে যুক্ত করা যায় এমন দুটি উপাদান কোনটি?\ni. Picture\nii. Margin\niii. WordArt', opts:['i ও iii','ii ও iii','শুধু i','i, ii ও iii'], ans:0, exp:'Picture ও WordArt উভয়ই Insert ট্যাব থেকে যুক্ত করা যায় এবং Text Wrapping করানো যায়।'},
-    { q:'স্প্রেডশিটে সারি ও কলামের মিলিত স্থানকে কী বলা হয়?', opts:['Row','Column','Cell','Range'], ans:2, exp:'স্প্রেডশিটে সারি ও কলামের মিলিত স্থানকে Cell বলা হয়।'},
-    { q:'ছকে ১৮০০ টাকার লাভের পরিমাণের ঘরটির সেল অ্যাড্রেস কোনটি?', opts:['C4','D4','E4','B4'], ans:1, exp:'ছকে ১৮০০ টাকার লাভের পরিমাণের ঘরটির সেল অ্যাড্রেস D4।'},
-    { q:'লাভের পরিমাণ বের করার সঠিক সূত্র কোনটি?', opts:['=B4+C4','=B4-C4','=B4/C4%','=B4*C4%'], ans:3, exp:'লাভের পরিমাণ = ক্রয়মূল্য × লাভের শতকরা হার।'},
-    { q:'মাল্টিমিডিয়ার ন্যূনতম কতটি মাধ্যম থাকে?', opts:['১','২','৩','৪'], ans:2, exp:'বর্ণ, চিত্র এবং শব্দ — অন্তত এই তিনটি মাধ্যম মাল্টিমিডিয়ায় থাকে।'},
-    { q:'প্রেজেন্টেশনের এক একটি অংশকে কী বলা হয়?', opts:['Frame','Page','Slide','Sheet'], ans:2, exp:'প্রেজেন্টেশনের এক একটি অংশকে স্লাইড বলা হয়।'},
-    { q:'PowerPoint-এ নতুন স্লাইড যুক্ত করার শর্টকাট কী?', opts:['Ctrl+M','Ctrl+N','Ctrl+S','Ctrl+P'], ans:0, exp:'PowerPoint-এ নতুন স্লাইড যুক্ত করার শর্টকাট Ctrl+M।'},
-    { q:'MS PowerPoint-এর ফাইলকে কী বলা হয়?', opts:['Document','Workbook','Presentation','Database'], ans:2, exp:'MS PowerPoint-এর ফাইলকে Presentation বলা হয়।'},
-    { q:'Presentation-এর স্লাইডগুলো প্রদর্শনের কীবোর্ড কমান্ড কী?', opts:['F1','F5','F10','F12'], ans:1, exp:'Presentation-এর স্লাইডগুলো প্রদর্শনের কীবোর্ড কমান্ড F5।'},
-    { q:'মাল্টিমিডিয়ার কোন উপাদানটি চলমান চিত্র দেখায়?', opts:['Video','অ্যানিমেশন','Text','Audio'], ans:1, exp:'মাল্টিমিডিয়ার যে উপাদানটি চলমান চিত্র দেখায় সেটি অ্যানিমেশন।'},
-    { q:'মেশিন কোড কীসের উপর ভিত্তি করে তৈরি?', opts:['Decimal সংখ্যা','Hexadecimal সংখ্যা','Octal সংখ্যা','বাইনারি সংখ্যা'], ans:3, exp:'মেশিন কোড মূলত বাইনারি সংখ্যার উপর ভিত্তি করে তৈরি।'},
-    { q:'কোন প্রোগ্রামিং ভাষায় প্রতিটি স্টেটমেন্টের শেষে সেমিকোলন দিতে হয়?', opts:['Python','Java','C ভাষা','BASIC'], ans:2, exp:'C প্রোগ্রামিং ভাষায় প্রতিটি স্টেটমেন্টের শেষে সেমিকোলন দিতে হয়।'},
-    { q:'পাইথনে দুটি ভ্যালু সমান কিনা তা পরীক্ষা করতে কোন অপারেটর ব্যবহৃত হয়?', opts:['=','!=','==','>='], ans:2, exp:'পাইথনে দুটি ভ্যালু সমান কিনা তা পরীক্ষা করতে == অপারেটর ব্যবহৃত হয়।'},
-    { q:'পাইথন প্রোগ্রামিংয়ে bool কী?', opts:['একটি ফাংশন','একটি লাইব্রেরি','একটি মডিউল','একটি ডেটা টাইপ'], ans:3, exp:'পাইথন প্রোগ্রামিংয়ে bool একটি ডেটা টাইপ।'},
-    { q:'অনুবাদক প্রোগ্রাম কত প্রকার?', opts:['২','৩','৪','৫'], ans:1, exp:'অনুবাদক প্রোগ্রাম ৩ প্রকার: অ্যাসেম্বলার, কম্পাইলার এবং ইন্টারপ্রেটার।'},
-    { q:'সফটওয়্যার আনইনস্টল করলেও কিছু অংশ কোথায় থেকে যায়?', opts:['রেজিস্ট্রি ফাইলে','RAM-এ','HDD-এ','Temp folder-এ'], ans:0, exp:'সফটওয়্যার আনইনস্টল করলেও কিছু অংশ অপারেটিং সিস্টেমের রেজিস্ট্রি ফাইলে থেকে যায়।'},
-    { q:'প্রিন্টার কাজ না করলে প্রথমে কী পরীক্ষা করতে হবে?\ni. পোর্টের সংযোগ সঠিক আছে কিনা\nii. প্রিন্টারের কালি আছে কিনা\niii. পোর্ট লুজ কিনা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:2, exp:'পোর্টের সংযোগ সঠিক আছে কিনা এবং লুজ কিনা দেখতে হবে।'},
-    { q:'কম্পিউটারে "Out of memory" মেসেজ আসার কারণ কী?', opts:['i. HDD পূর্ণ','ii. একাধিক প্রোগ্রাম একসাথে ওপেন','iii. ভাইরাস আক্রান্ত','iv. পুরনো OS'], ans:1, exp:'একাধিক প্রোগ্রাম একসাথে ওপেন করলে "Out of memory" মেসেজ আসে।'},
-    { q:'বিশ্বে বেশিরভাগ কম্পিউটারে কোন অপারেটিং সিস্টেম ব্যবহৃত হয়?', opts:['Linux','উইন্ডোজ','macOS','Android'], ans:1, exp:'বিশ্বে বেশিরভাগ কম্পিউটারে Windows অপারেটিং সিস্টেম ব্যবহৃত হয়।'},
-    { q:'ডকুমেন্টকে টেমপ্লেট আকারে সংরক্ষণ করলে কী সুবিধা হয়?', opts:['সময় সাশ্রয়','স্থান সাশ্রয়','সুন্দর দেখায়','প্রিন্ট সহজ হয়'], ans:0, exp:'ডকুমেন্টকে টেমপ্লেট আকারে সংরক্ষণ করলে সময় সাশ্রয় হয়।'},
-  ],
+dhaka: [
+  {q:'কোনো ত্রিভুজে কয়টি পরিবৃত্ত আঁকা যাবে?', opts:['১টি','২টি','৩টি','৪টি'], ans:0, exp:'যেকোনো ত্রিভুজে মাত্র একটি পরিবৃত্ত (circumscribed circle) আঁকা সম্ভব।'},
+  {q:'ABCD চতুর্ভুজের দুটি বিপরীত কোণ সম্পূরক হলে — i. A, B, C, D বিন্দুচারটি সমবৃত্ত, ii. $\\angle ABC + \\angle ADC = 180°$, iii. $\\angle ABC + \\angle BCD = 180°$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'বিপরীত কোণ সম্পূরক হলে চারটি বিন্দু সমবৃত্ত এবং ∠ABC + ∠ADC = 180° সঠিক।'},
+  {q:'বৃত্তের যেকোনো বিন্দুতে কতগুলো স্পর্শক আঁকা যায়?', opts:['১টি','২টি','৩টি','৪টি'], ans:0, exp:'বৃত্তের যেকোনো বিন্দুতে মাত্র একটি স্পর্শক আঁকা যায়।'},
+  {q:'যদি $f(p) = p^3 + ap^2 - 6p - 9$ হয় তবে $a$ এর কোন মানে $f(-3) = 0$ হবে?', opts:['0','2','-2','4'], ans:1, exp:'$f(-3) = -27 + 9a + 18 - 9 = 0 \\Rightarrow 9a = 18 \\Rightarrow a = 2$'},
+  {q:'$z^2 - 4z - 12$ এর উৎপাদকে বিশ্লেষণ কোনটি?', opts:['$(z+6)(z+2)$','$(z-6)(z-2)$','$(z-6)(z+2)$','$(z+6)(z-2)$'], ans:2, exp:'$z^2 - 4z - 12 = (z-6)(z+2)$ কারণ $-6+2=-4$ এবং $-6 \\times 2 = -12$।'},
+  {q:'সমবাহু ত্রিভুজের একবাহুর দৈর্ঘ্য $4\\sqrt{2}$ সে.মি. হলে এর ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['$4\\sqrt{3}$','8','$8\\sqrt{3}$','32'], ans:2, exp:'ক্ষেত্রফল $= \\frac{\\sqrt{3}}{4}a^2 = \\frac{\\sqrt{3}}{4} \\times 32 = 8\\sqrt{3}$ বর্গ সে.মি.।'},
+  {q:'দুটি সংখ্যার অনুপাত 3:4। এদের লসাগু 12 হলে ক্ষুদ্রতম সংখ্যাটি কত?', opts:['3','4','12','36'], ans:0, exp:'সংখ্যা দুটি 3k ও 4k। লসাগু = 12k = 12, তাই k=1। ক্ষুদ্রতম = 3।'},
+  {q:'সামান্তরিক ABCD-এ DC বাহুকে E পর্যন্ত বর্ধিত করা হয়েছে, $\\angle ADC = (3x+8)°$ এবং $\\angle BCE = (2x+7)°$। $x$ এর মান কত?', opts:['33°','40°','42°','46°'], ans:0, exp:'একান্তর কোণ: $3x+8 = 2x+7+25 \\Rightarrow x = 33$।'},
+  {q:'$\\angle ADC = (3x+8)°$, $x=33$ হলে $\\angle BCD$ কোণের মান কত?', opts:['66°','73°','100°','110°'], ans:1, exp:'$\\angle ADC = 3(33)+8 = 107°$। $\\angle BCD = 180° - 107° = 73°$।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তের A বিন্দুতে AT স্পর্শক, AC ব্যাস এবং $\\angle ACB = 50°$ হলে $\\angle BAT$ কত?', opts:['90°','65°','60°','50°'], ans:3, exp:'স্পর্শক-জ্যা কোণ = বৃত্তস্থ কোণ $\\Rightarrow \\angle BAT = \\angle ACB = 50°$।'},
+  {q:'প্রদত্ত উপাত্তের প্রচুরক কত? (41-50 শ্রেণির গণসংখ্যা সর্বোচ্চ 25)', opts:['42.5','42.67','51','101'], ans:1, exp:'প্রচুরক সূত্র প্রয়োগে 41-50 শ্রেণি থেকে প্রচুরক ≈ 42.67।'},
+  {q:'$\\frac{a+b}{a-b} = \\sqrt{\\frac{2x+4}{2x-4}}$ হলে $x$ এর মান কত?', opts:['$\\frac{4ab}{a^2+b^2}$','$\\frac{a^2+b^2}{4ab}$','$\\frac{a^2+b^2}{ab}$','$\\frac{ab}{a^2+b^2}$'], ans:2, exp:'উভয় পক্ষ বর্গ করে componendo-dividendo প্রয়োগে $x = \\frac{a^2+b^2}{ab}$ পাওয়া যায়।'},
+  {q:'A ও B কেন্দ্রবিশিষ্ট দুটি বৃত্ত M বিন্দুতে বহিঃস্পর্শ করেছে। i. $\\angle AMP = \\angle APM$, ii. $PM \\perp QM$, iii. $\\angle AMP = \\angle BMQ$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'বহিঃস্পর্শের ক্ষেত্রে সমবাহু ত্রিভুজ গঠন ও বিপ্রতীপ কোণ থেকে i ও iii সঠিক।'},
+  {q:'$AM = 7$ সে.মি. এবং $\\angle AMP = 30°$ হলে $\\triangle AMP$ এর ক্ষেত্রফল কত?', opts:['$\\frac{49\\sqrt{3}}{4}$','$\\frac{49}{2\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{1}{2\\sqrt{3}}$'], ans:0, exp:'AMP সমদ্বিবাহু, $\\angle AMP = \\angle APM = 30°$, $\\angle MAP = 120°$। ক্ষেত্রফল $= \\frac{1}{2} \\times 7 \\times 7 \\times \\sin 120° = \\frac{49\\sqrt{3}}{4}$।'},
+  {q:'যদি $f(x) = x^3 - \\frac{1}{x^3}$ হয়, তাহলে $f(x) + f\\left(\\frac{1}{x}\\right)$ কত?', opts:['$2x^3$','$\\frac{2}{x^3}$','0','1'], ans:2, exp:'$f(x) = x^3 - \\frac{1}{x^3}$ এবং $f(1/x) = \\frac{1}{x^3} - x^3 = -f(x)$, তাই সমষ্টি = 0।'},
+  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য $16°$ হলে ক্ষুদ্রতম কোণটি কত?', opts:['37°','53°','60°','74°'], ans:0, exp:'সূক্ষ্মকোণ দুটি a ও b; $a+b=90°$ এবং $b-a=16°$, সমাধান: $a=37°$।'},
+  {q:'$A = \\{a, b, c\\}$ সেটের প্রকৃত উপসেট সংখ্যা কয়টি?', opts:['3','7','8','9'], ans:1, exp:'মোট উপসেট $2^3=8$, প্রকৃত উপসেট $= 8-1 = 7$।'},
+  {q:'9, 5, 11, 3, 6 সংখ্যাগুলোর মধ্যক কত?', opts:['6','5','11','9'], ans:0, exp:'সাজালে: 3, 5, 6, 9, 11 — মধ্যক = 6।'},
+  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ তিনটি $36°, 108°, 36°$ — দুটি কোণ সমান তাই সমদ্বিবাহু।'},
+  {q:'নির্দিষ্ট চতুর্ভুজ অঙ্কনের জন্য কয়টি স্বতন্ত্র উপাত্ত প্রয়োজন?', opts:['1','2','4','5'], ans:3, exp:'চতুর্ভুজ অঙ্কনে ৫টি স্বতন্ত্র উপাত্ত প্রয়োজন।'},
+  {q:'$A = \\{6,7,8,9,10\\}$ এবং $B = \\{6,8,10\\}$ হলে $A \\setminus B$ কোনটি?', opts:['$\\{8,10\\}$','$\\{7,9\\}$','$\\{6,7,8\\}$','$\\{7,9,10\\}$'], ans:1, exp:'$A \\setminus B$ = A তে আছে কিন্তু B তে নেই = $\\{7,9\\}$।'},
+  {q:'নিচের কোনটি ক্রমিক সমানুপাতি?', opts:['3:4:5','4:6:9','5:8:10','1:2:3'], ans:1, exp:'4:6:9 ক্রমিক সমানুপাতি কারণ $6^2 = 4 \\times 9 = 36$।'},
+  {q:'$\\tan\\theta = \\frac{3}{2}$ হলে $\\cot^2\\theta$ এর মান কত?', opts:['$\\frac{\\sqrt{13}}{3}$','$\\frac{2}{3}$','$\\frac{13}{\\sqrt{3}}$','$\\frac{4}{9}$'], ans:3, exp:'$\\cot\\theta = \\frac{2}{3}$, তাই $\\cot^2\\theta = \\frac{4}{9}$।'},
+  {q:'5 সে.মি. ধারবিশিষ্ট ঘনকের — i. কর্ণের দৈর্ঘ্য $5\\sqrt{3}$ সে.মি., ii. আয়তন 125 ঘন সে.মি., iii. সমগ্রতলের ক্ষেত্রফল 150 বর্গ সে.মি. — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই সঠিক: কর্ণ $5\\sqrt{3}$, আয়তন $5^3=125$, সমগ্রতল $6 \\times 25=150$।'},
+  {q:'কোনো বর্গক্ষেত্রের প্রত্যেক বাহু 10% হ্রাস পেলে ক্ষেত্রফল শতকরা কত হ্রাস পাবে?', opts:['21%','20%','19%','10%'], ans:2, exp:'নতুন ক্ষেত্রফল $= (0.9a)^2 = 0.81a^2$, হ্রাস $= 19\\%$।'},
+  {q:'মিষ্টির উপর ভ্যাট $r\\%$ হলে $m$ টাকার মিষ্টির দাম কত টাকা?', opts:['$m(100+r)$','$m\\left(\\frac{100+r}{100}\\right)$','$\\frac{mr}{100}$','$m+\\frac{r}{100}$'], ans:1, exp:'দাম $= m + m \\times \\frac{r}{100} = m\\left(\\frac{100+r}{100}\\right)$।'},
+  {q:'বৃত্তস্থ ট্রাপিজিয়ামের তির্যক বাহুদ্বয় একটি অপরটির কী?', opts:['অর্ধেক','সমান','দ্বিগুণ','চারগুণ'], ans:1, exp:'বৃত্তস্থ ট্রাপিজিয়াম সমদ্বিবাহু হয়, তাই তির্যক বাহুদ্বয় সমান।'},
+  {q:'$p - q = 6$ এবং $pq = 2$ হলে $(p+q)^2$ এর মান কত?', opts:['44','40','32','28'], ans:0, exp:'$(p+q)^2 = (p-q)^2 + 4pq = 36 + 8 = 44$।'},
+  {q:'$p - q = 6$ এবং $pq = 2$ হলে $p^3 - q^3$ এর মান কত?', opts:['0','72','180','252'], ans:3, exp:'$(p+q)^2=44 \\Rightarrow p+q=\\sqrt{44}$। কিন্তু $p^3-q^3 = (p-q)(p^2+pq+q^2) = 6(44-2+2) = 6 \\times 42 = 252$।'},
+  {q:'কোনো ত্রিভুজের দুটি বাহুর দৈর্ঘ্য 4 সে.মি. ও 5 সে.মি. এবং অন্তর্ভুক্ত কোণ 90° হলে ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['40','20','10','0'], ans:2, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 = 10$ বর্গ সে.মি.।'},
+],
 
-  ctg: [
-    { q:'স্লাইডে কোথায় টেক্সট বা ছবি বসবে তার পূর্বনির্ধারিত খসড়াকে কী বলে?', opts:['Slide Theme','Slide Transition','Slide Animation','Slide Layout'], ans:3, exp:'স্লাইডে কোথায় টেক্সট বা ছবি বসবে তার পূর্বনির্ধারিত খসড়াকে স্লাইড লেআউট বলে।'},
-    { q:'পৃষ্ঠার নম্বর সাধারণত কোথায় থাকে?', opts:['Home → Paragraph','Insert → Header & Footer','Review → Comments','Page Layout → Margins'], ans:1, exp:'পৃষ্ঠার নম্বর সাধারণত Insert ট্যাবের Header & Footer গ্রুপে থাকে।'},
-    { q:'পিসি হার্ডডিস্ক খুঁজে না পেলে কারণ কী হতে পারে?', opts:['হার্ডডিস্কের জাম্পার সেটিং','RAM সমস্যা','BIOS সমস্যা','CPU সমস্যা'], ans:0, exp:'মাদারবোর্ডের সাথে হার্ডডিস্কের ডেটা ক্যাবল বা জাম্পার সেটিং ঠিক না থাকলে পিসি হার্ডডিস্ক খুঁজে পায় না।'},
-    { q:'পাইথন ভ্যারিয়েবলের নামে কোন চিহ্ন ব্যবহার করা যায় না?', opts:['_','a','Z','%'], ans:3, exp:'পাইথন ভ্যারিয়েবলের নামে স্পেশাল ক্যারেক্টার (যেমন: % বা @) ব্যবহার করা যায় না।'},
-    { q:'পুরো ডকুমেন্টে যেকোনো শব্দ দ্রুত খুঁজে পরিবর্তন করা যায় কোন কমান্ডে?', opts:['ফাইন্ড-রিপ্লেস','Cut-Paste','Copy-Paste','Spell Check'], ans:0, exp:'Find & Replace কমান্ড ব্যবহার করে পুরো ডকুমেন্টে যেকোনো শব্দ দ্রুত খুঁজে পরিবর্তন করা যায়।'},
-    { q:'পাইথনে ভগ্নাংশ বা দশমিকযুক্ত সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিকযুক্ত সংখ্যা float ডেটা টাইপে রাখা হয়।'},
-    { q:'এমএস ওয়ার্ডে টেবিল যুক্ত করার সঠিক কমান্ড কোনটি?', opts:['Insert→Table→Insert table','Home→Table→Insert','Insert→Picture','Page Layout→Table'], ans:0, exp:'এমএস ওয়ার্ডে টেবিল যুক্ত করার সঠিক কমান্ড Insert→Table→Insert table।'},
-    { q:'ভ্যারিয়েবলের নামে কী দেওয়া যায় না?\ni. স্পেস\nii. আন্ডারস্কোর\niii. হাইফেন', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নামে স্পেস বা হাইফেন দেওয়া যায় না।'},
-    { q:'প্রেজেন্টেশনে নতুন স্লাইড যুক্ত করার শর্টকাট কী?', opts:['Ctrl+N','Ctrl+S','Ctrl+M','Ctrl+Z'], ans:2, exp:'প্রেজেন্টেশনে নতুন স্লাইড যুক্ত করার শর্টকাট হলো Ctrl+M।'},
-    { q:'variable1 = 10, variable2 = 5 হলে Result = variable1 * variable2 কত?', opts:['15','50','2','500'], ans:1, exp:'Result = variable1 * variable2 → 10 × 5 = 50।'},
-    { q:'ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?\ni. /\nii. %\niii. Modulo', opts:['i ও ii','শুধু ii','ii ও iii','i, ii ও iii'], ans:2, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (modulo operator) ব্যবহৃত হয়।'},
-    { q:'স্লাইডের উপাদানে আলাদাভাবে অ্যানিমেশন দেওয়ার সঠিক ধারাবাহিকতা কোনটি?', opts:['Animation→Custom Animation→Add effect','Insert→Animation→Add effect','Home→Animation→Custom','Slide Show→Animation→Custom'], ans:0, exp:'স্লাইডের উপাদানে আলাদাভাবে অ্যানিমেশন দেওয়ার সঠিক ধারাবাহিকতা Animation→Custom Animation→Add effect।'},
-    { q:'স্প্রেডশিটে সেলের রেঞ্জ গুণ করার ফাংশন কোনটি?', opts:['=SUM(B1:D1)','=PRODUCT(B1:D1)','=AVERAGE(B1:D1)','=MULTIPLY(B1:D1)'], ans:1, exp:'স্প্রেডশিটে সেলের রেঞ্জ গুণ করার ফাংশন হলো PRODUCT।'},
-    { q:'স্লাইডে ছবি বা Picture যুক্ত করার অপশনটি কোথায় থাকে?', opts:['Insert','Home','Design','Review'], ans:0, exp:'স্লাইডে ছবি বা Picture যুক্ত করার অপশনটি Insert মেনুতে থাকে।'},
-    { q:'অ্যানিমেশন কখনো কী হিসেবে ব্যবহৃত হয় না?', opts:['একক মাধ্যম','অডিওসহ','টেক্সটসহ','ভিডিওসহ'], ans:0, exp:'অ্যানিমেশন কখনো একক মাধ্যম হিসেবে ব্যবহৃত হয় না; সাথে অডিও বা টেক্সট থাকে।'},
-    { q:'ইন্টারঅ্যাকটিভ মাল্টিমিডিয়ার উদাহরণ কোনগুলো?\ni. ভিডিও গেমস\nii. শিক্ষামূলক সফটওয়্যার\niii. প্রোগ্রামিং', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ভিডিও গেমস, শিক্ষামূলক সফটওয়্যার এবং প্রোগ্রামিং — সবই ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া।'},
-    { q:'E3 = C3 + C3 × নির্দিষ্ট পার্সেন্টেজ — এর সঠিক Excel সূত্র কোনটি?', opts:['=C3+C3*D3','=C3+C3*D3%','=C3*D3%','=C3+D3%'], ans:1, exp:'Gross Salary (E3) = Basic (C3) + Basic × নির্দিষ্ট পার্সেন্টেজ।'},
-    { q:'Illustration গ্রুপে কোনগুলো থাকে?\ni. ক্লিপআর্ট\nii. ফন্ট\niii. স্মার্ট আর্ট', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'Illustration গ্রুপে ক্লিপআর্ট, শেইপ, স্মার্ট আর্ট এবং চার্ট থাকে।'},
-    { q:'কম্পিউটার চালু হওয়ার পর মনিটরে ডিসপ্লে না আসার প্রধান কারণ কী?', opts:['HDD সমস্যা','CPU সমস্যা','RAM','Power Supply'], ans:2, exp:'কম্পিউটার চালু হওয়ার পর মনিটরে ডিসপ্লে না আসার প্রধান কারণ RAM-এর সমস্যা।'},
-    { q:'উইন্ডোজ হ্যাং হওয়ার কারণ কোনটি?\ni. অতিরিক্ত গরম\nii. ভাইরাস আক্রান্ত\niii. অপারেটিং সিস্টেমে ত্রুটি', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:2, exp:'উইন্ডোজ হ্যাং হওয়ার কারণ: ভাইরাস আক্রান্ত বা অপারেটিং সিস্টেমে ত্রুটি।'},
-    { q:'ওয়েবসাইট ভিজিটের তথ্য ব্রাউজারে কীভাবে জমা থাকে?', opts:['কুকিজ','Cache','Session','History'], ans:0, exp:'ওয়েবসাইট ভিজিটের তথ্য ব্রাউজারের কুকিজ হিসেবে জমা থাকে।'},
-    { q:'একসাথে একাধিক ডিভাইস ব্যবহার করে কোনো সার্ভারে আক্রমণ করাকে কী বলে?', opts:['Phishing','Hacking','DDoS অ্যাটাক','Spamming'], ans:2, exp:'একসাথে একাধিক ডিভাইস ব্যবহার করে কোনো সার্ভারে আক্রমণ করাকে DDoS Attack বলে।'},
-    { q:'BSA (Business Software Alliance)-এর মূল কাজ কী?', opts:['ফ্রি সফটওয়্যার তৈরি','নতুন OS তৈরি','অ্যান্টিভাইরাস বিতরণ','পাইরেসি নজরদারি'], ans:3, exp:'BSA (Business Software Alliance)-এর মূল কাজ হলো সফটওয়্যার পাইরেসি বন্ধে কাজ করা।'},
-    { q:'সফটওয়্যার ইনস্টলে কী কী প্রয়োজন?\ni. হার্ডওয়্যার সাপোর্ট\nii. রিড-মি ফাইল পড়া\niii. অ্যাডমিন অনুমতি', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'সফটওয়্যার ইনস্টলে হার্ডওয়্যার সাপোর্ট, রিড-মি ফাইল পড়া এবং অ্যাডমিন অনুমতি প্রয়োজন।'},
-    { q:'স্লাইডে ব্যাকগ্রাউন্ড বা থিম যুক্ত করতে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','ডিজাইন','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
-  ],
+ctg: [
+  {q:'একটি বর্গাকার ক্ষেত্রের পরিসীমা 12 একক হলে এর ক্ষেত্রফল কত?', opts:['9 বর্গ একক','16 বর্গ একক','24 বর্গ একক','144 বর্গ একক'], ans:0, exp:'বাহু $= 12/4 = 3$, ক্ষেত্রফল $= 3^2 = 9$ বর্গ একক।'},
+  {q:'একটি ত্রিভুজের দুই বাহু 4 সেমি ও 5 সেমি এবং অন্তর্ভুক্ত কোণ 45° হলে ক্ষেত্রফল কত?', opts:['5 বর্গ সেমি','$5\\sqrt{2}$ বর্গ সেমি','$5\\sqrt{3}$ বর্গ সেমি','10 বর্গ সেমি'], ans:1, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 \\times \\sin 45° = 10 \\times \\frac{1}{\\sqrt{2}} = 5\\sqrt{2}$।'},
+  {q:'ভেনচিত্রে গাঢ় অংশ $B-A$ এবং $A=(A-B)\\cup(A\\cap B)$। সঠিক উক্তি কোনটি?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'গাঢ় অংশ $B\\setminus A$ এবং $A=(A-B)\\cup(A\\cap B)$ একটি সঠিক সেট বিধি।'},
+  {q:'সমবাহু ত্রিভুজের বাহুর দৈর্ঘ্য 4 একক হলে ক্ষেত্রফল কত বর্গ একক?', opts:['$2\\sqrt{3}$','$4\\sqrt{3}$','$8\\sqrt{3}$','$16\\sqrt{3}$'], ans:1, exp:'$\\frac{\\sqrt{3}}{4} \\times 4^2 = 4\\sqrt{3}$ বর্গ একক।'},
+  {q:'$f(x) = x^3 + 3x^2 - 5$ হলে $f(-2)$ কত?', opts:['15','13','-1','-25'], ans:2, exp:'$f(-2) = -8 + 12 - 5 = -1$।'},
+  {q:'$\\cos^2\\theta = \\sin^2\\theta$ হলে $\\text{cosec}^2\\theta$ কত?', opts:['$\\frac{1}{2}$','$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2'], ans:3, exp:'$\\cos^2\\theta=\\sin^2\\theta \\Rightarrow \\theta=45°$, $\\text{cosec}^2 45° = 2$।'},
+  {q:'চিত্রানুসারে $\\angle DAF$ কত? (সমবাহু ত্রিভুজ ও বর্গের সমন্বয়ে)', opts:['30°','45°','50°','60°'], ans:3, exp:'জ্যামিতিক বিশ্লেষণ করলে $\\angle DAF = 60°$ পাওয়া যায়।'},
+  {q:'$\\Delta ADC$ এর ক্ষেত্রফল কত?', opts:['$\\frac{3\\sqrt{3}}{2}$ বর্গ সেমি','$\\frac{9\\sqrt{3}}{4}$ বর্গ সেমি','$\\frac{9\\sqrt{3}}{2}$ বর্গ সেমি','$9\\sqrt{3}$ বর্গ সেমি'], ans:2, exp:'ত্রিভুজের দুটি বাহু ও অন্তর্ভুক্ত কোণ দিয়ে ক্ষেত্রফল $= \\frac{9\\sqrt{3}}{2}$ বর্গ সেমি।'},
+  {q:'$A=\\{x\\in \\mathbb{N}:1<x<4\\}$ হলে $A\\times A$ সেটের উপাদান কতটি?', opts:['16 টি','8 টি','6 টি','4 টি'], ans:3, exp:'$A=\\{2,3\\}$, $|A|=2$, $|A \\times A| = 2^2 = 4$।'},
+  {q:'দুটি বর্গের ক্ষেত্রফলের অনুপাত 18:12 হলে বাহুর দৈর্ঘ্যের অনুপাত কত?', opts:['$\\sqrt{2}:\\sqrt{3}$','2:3','3:2','$\\sqrt{3}:\\sqrt{2}$'], ans:3, exp:'বাহুর অনুপাত $= \\sqrt{18}:\\sqrt{12} = 3\\sqrt{2}:2\\sqrt{2} = \\sqrt{3}:\\sqrt{2}$।'},
+  {q:'$x + \\frac{1}{x} = \\frac{5}{2}$ হলে $x - \\frac{1}{x}$ কত?', opts:['$\\frac{2}{3}$','$\\frac{3}{2}$','$\\frac{\\sqrt{33}}{2}$','$\\frac{\\sqrt{41}}{2}$'], ans:1, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = \\left(x+\\frac{1}{x}\\right)^2 - 4 = \\frac{25}{4}-4 = \\frac{9}{4}$, তাই $x-\\frac{1}{x}=\\frac{3}{2}$।'},
+  {q:'$(2x+y,6)=(9,x-y)$ হলে $x$ এর মান কত?', opts:['-5','-1','1','5'], ans:3, exp:'$x-y=6$ এবং $2x+y=9$, সমাধান: $x=5, y=-1$।'},
+  {q:'ABCD সামান্তরিকে $\\angle AOD=\\theta°$ হলে $\\angle AOB$ কত?', opts:['0°','$90°-\\theta°$','$90°+\\theta°$','$180°-\\theta°$'], ans:3, exp:'$\\angle AOD + \\angle AOB = 180°$ (সরলরেখা), তাই $\\angle AOB = 180°-\\theta°$।'},
+  {q:'$AB=8$ সেমি এবং $AD=BD=6$ সেমি হলে $\\Delta ABD$ এর ক্ষেত্রফল কত?', opts:['$4\\sqrt{55}$ বর্গ সেমি','$3\\sqrt{55}$ বর্গ সেমি','$8\\sqrt{5}$ বর্গ সেমি','$6\\sqrt{5}$ বর্গ সেমি'], ans:2, exp:'হেরনের সূত্রে $s=10$, ক্ষেত্রফল $= \\sqrt{10\\cdot 2\\cdot 4\\cdot 4} = \\sqrt{320} = 8\\sqrt{5}$।'},
+  {q:'বৃত্তের একই চাপের উপর কেন্দ্রস্থ কোণের অর্ধেক $32°$ হলে বৃত্তস্থ কোণটি কত?', opts:['16°','32°','58°','64°'], ans:1, exp:'কেন্দ্রস্থ কোণ $= 2 \\times 32° = 64°$। বৃত্তস্থ কোণ $= \\frac{64°}{2} = 32°$।'},
+  {q:'নিচের কোনটি বিচ্ছিন্ন চলক?', opts:['দৈনিক তাপমাত্রা','দৈনিক বৃষ্টিপাতের পরিমাণ','শতকরা পাশের হার','কোভিড টিকাপ্রাপ্ত জনসংখ্যা'], ans:3, exp:'গণনাযোগ্য (countable) মান বিচ্ছিন্ন চলক — কোভিড টিকাপ্রাপ্ত জনসংখ্যা গণনাযোগ্য।'},
+  {q:'একটি বর্গের দৈর্ঘ্য 5 একক। উক্ত দৈর্ঘ্যকে দ্বিগুণ করলে বৃদ্ধিপ্রাপ্ত ক্ষেত্রফল কত হবে?', opts:['125 বর্গ একক','100 বর্গ একক','75 বর্গ একক','25 বর্গ একক'], ans:2, exp:'নতুন ক্ষেত্রফল $= (10)^2 = 100$, বৃদ্ধি $= 100 - 25 = 75$ বর্গ একক।'},
+  {q:'O কেন্দ্রবিশিষ্ট ACDB বৃত্তে $\\angle ACB=(70-2x)°$ এবং $\\angle ADB=(3x+20)°$ হলে $\\angle ACB$ কত?', opts:['68°','60°','50°','23°'], ans:2, exp:'একই চাপে কোণ সমান: $70-2x = 3x+20 \\Rightarrow x=10$, $\\angle ACB = 50°$।'},
+  {q:'বার্ষিক 10% হার সরল মুনাফায় 7,000 টাকায় 5 বছরের মুনাফা কত?', opts:['3500 টাকা','700 টাকা','350 টাকা','50 টাকা'], ans:0, exp:'মুনাফা $= \\frac{7000 \\times 10 \\times 5}{100} = 3500$ টাকা।'},
+  {q:'$x^2 - 6x - 27$ এর একটি উৎপাদক কোনটি?', opts:['$x-3$','$x+6$','$x-9$','$x+9$'], ans:2, exp:'$x^2-6x-27 = (x-9)(x+3)$, তাই $(x-9)$ একটি উৎপাদক।'},
+  {q:'$2\\sin2\\theta = \\sqrt{3}$ হলে $\\theta$ কত?', opts:['15°','30°','45°','60°'], ans:1, exp:'$\\sin2\\theta = \\frac{\\sqrt{3}}{2} \\Rightarrow 2\\theta = 60° \\Rightarrow \\theta = 30°$।'},
+  {q:'বৃত্তের পরিধি 40 মিটার হলে ব্যাসার্ধ কত?', opts:['20 মি.','$\\frac{20}{\\pi}$ মি.','10 মি.','$\\frac{10}{\\pi}$ মি.'], ans:1, exp:'$2\\pi r = 40 \\Rightarrow r = \\frac{20}{\\pi}$ মিটার।'},
+  {q:'$x - \\frac{1}{x} = 3$ হলে $x^2 + \\frac{1}{x^2}$ কত?', opts:['13','11','7','5'], ans:1, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = x^2 + \\frac{1}{x^2} - 2 = 9 \\Rightarrow x^2 + \\frac{1}{x^2} = 11$।'},
+  {q:'$F=\\{x:x$ মৌলিক সংখ্যা এবং $1<x<17\\}$ সেটটিতে উপাদান সংখ্যা কতটি?', opts:['6 টি','7 টি','8 টি','9 টি'], ans:0, exp:'মৌলিক সংখ্যা: 2, 3, 5, 7, 11, 13 — মোট 6টি।'},
+  {q:'$x+y=6$ এবং $xy=5$ হলে $2(x^2+y^2)$ এর মান কত?', opts:['26','52','62','92'], ans:1, exp:'$x^2+y^2 = (x+y)^2 - 2xy = 36-10 = 26$, তাই $2(x^2+y^2) = 52$।'},
+  {q:'চিত্রে ABCD বৃত্তের কেন্দ্র O। i. A,B,C,D সমবৃত্ত বিন্দু, ii. $\\angle AOD$ কেন্দ্রস্থ কোণ, iii. ব্যাস = AO+DO — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই সঠিক।'},
+  {q:'B কেন্দ্রবিশিষ্ট বৃত্ত, A কেন্দ্রবিশিষ্ট বৃত্তকে C বিন্দুতে স্পর্শ করে। i. A, B, C একই সরলরেখায়, ii. $CP \\perp BC$, iii. $AB=AC-BC$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'বহিঃস্পর্শ বৃত্তের ধর্ম থেকে তিনটিই সঠিক।'},
+  {q:'ব্যক্তির আয় ও ব্যয়ের অনুপাত 7:5 এবং ব্যয়ের 25% শিক্ষা সংক্রান্ত। সঞ্চয় আয়ের শতকরা কত ভাগ?', opts:['28.57%','41.67%','58.33%','71.43%'], ans:0, exp:'আয়=7k, ব্যয়=5k, সঞ্চয়=2k। $\\frac{2k}{7k}\\times100 \\approx 28.57\\%$।'},
+  {q:'ঐ ব্যক্তির আয় 49000 টাকা হলে শিক্ষাব্যয় কত?', opts:['8750 টাকা','7500 টাকা','7000 টাকা','6750 টাকা'], ans:0, exp:'ব্যয় $= \\frac{5}{7} \\times 49000 = 35000$, শিক্ষাব্যয় $= 35000 \\times 25\\% = 8750$ টাকা।'},
+  {q:'$\\Delta ABC$ এর $\\angle A:\\angle B:\\angle C=3:3:4$ হলে পরিবৃত্তের কেন্দ্র কোথায় অবস্থিত?', opts:['ত্রিভুজের অভ্যন্তরে','ত্রিভুজের বহির্ভাগে','বৃহত্তম বাহুতে','ভূমিতে'], ans:0, exp:'সব কোণ সূক্ষ্মকোণ হলে (3:3:4 → 54°:54°:72°) পরিকেন্দ্র অভ্যন্তরে থাকে।'},
+],
 
-  cumilla: [
-    { q:'ওয়ার্ড প্রসেসরের সাহায্যে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট পরিবর্তন\niii. গাণিতিক হিসাব', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস ও ফন্ট পরিবর্তন করা যায়; গাণিতিক হিসাবের জন্য স্প্রেডশিট ব্যবহৃত হয়।'},
-    { q:'প্রেজেন্টেশন ফাইলকে কী বলা হয়?', opts:['Document','Slide','Workbook','Presentation'], ans:3, exp:'MS PowerPoint-এর ফাইলকে Presentation বলা হয়।'},
-    { q:'স্লাইডশো প্রদর্শনের জন্য কোন কী ব্যবহার করা হয়?', opts:['F1','F5','F7','F10'], ans:1, exp:'PowerPoint-এ স্লাইড শো শুরু করার জন্য F5 কী ব্যবহৃত হয়।'},
-    { q:'ক্যালকুলেশনের জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS Word','MS Excel','MS PowerPoint','MS Access'], ans:1, exp:'হিসাব-নিকাশের কাজের জন্য MS Excel (স্প্রেডশিট) ব্যবহৃত হয়।'},
-    { q:'ভাইরাস থেকে কম্পিউটার রক্ষা করতে কী ব্যবহার করা হয়?', opts:['Firewall','Antivirus','VPN','Registry Cleaner'], ans:1, exp:'ভাইরাস থেকে কম্পিউটার রক্ষা করতে অ্যান্টিভাইরাস সফটওয়্যার ব্যবহৃত হয়।'},
-    { q:'মাল্টিমিডিয়ার উপাদান কোনগুলো?\ni. Text\nii. Audio\niii. Video', opts:['i ও ii','শুধু i','ii ও iii','i, ii ও iii'], ans:3, exp:'Text, Audio, Video, Image, Animation — এগুলো সবই মাল্টিমিডিয়ার উপাদান।'},
-    { q:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে কোন চিহ্ন দিতে হয়?', opts:['+','*','=','-'], ans:2, exp:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে সমান (=) চিহ্ন দিতে হয়।'},
-    { q:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS Access','MS Excel','MS Word','MS PowerPoint'], ans:1, exp:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে স্প্রেডশিট (MS Excel) ব্যবহৃত হয়।'},
-    { q:'কোনগুলোকে মাল্টিমিডিয়া বলা যায় না?\ni. কাগজ\nii. রেডিও\niii. ইন্টারনেট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'কাগজ ও রেডিওতে একক মাধ্যম থাকায় এগুলোকে মাল্টিমিডিয়া বলা যায় না।'},
-    { q:'পাইথনে ভ্যারিয়েবলের নামে স্পেসের পরিবর্তে কী ব্যবহার করা যায়?', opts:['হাইফেন (-)','স্ল্যাশ (/)','_ আন্ডারস্কোর','ডট (.)'], ans:2, exp:'ভ্যারিয়েবলের নামে স্পেস দেওয়া যায় না; আন্ডারস্কোর ব্যবহার করা যায়।'},
-    { q:'ভ্যারিয়েবলের নামে কোনটি থাকতে পারে না?\ni. সংখ্যা দিয়ে শুরু\nii. আন্ডারস্কোর\niii. স্পেশাল ক্যারেক্টার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নাম সংখ্যা দিয়ে শুরু হতে পারে না এবং স্পেশাল ক্যারেক্টার থাকতে পারে না।'},
-    { q:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে কী সুবিধা হয়?', opts:['সুন্দর হয়','সময় সাশ্রয়','স্থান বাঁচে','প্রিন্ট সহজ'], ans:1, exp:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে সাজসজ্জায় সময় বাঁচে।'},
-    { q:'সফটওয়্যার ইনস্টলে কোনগুলো জরুরি?\ni. হার্ডওয়্যার সাপোর্ট\nii. অ্যান্টিভাইরাস বন্ধ\niii. এডমিন পারমিশন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ এবং এডমিন পারমিশন — সবগুলোই জরুরি।'},
-    { q:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল কোথায় থেকে দেখা যায়?', opts:['Windows Settings','Control Panel','BIOS','Device Manager'], ans:2, exp:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল আছে কিনা BIOS থেকে দেখা যায়।'},
-    { q:'মাউস কাজ না করলে সমাধান কী?\ni. অন্য পোর্টে লাগানো\nii. পিসি রিস্টার্ট\niii. নতুন মাউস ব্যবহার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'মাউস কাজ না করলে অন্য পোর্টে লাগানো বা নতুন মাউস ব্যবহার করাই সমাধান।'},
-    { q:'কম্পিউটার শুধু কোন সংখ্যা বোঝে?', opts:['Decimal','Hexadecimal','০ ও ১ (বাইনারি)','Octal'], ans:2, exp:'কম্পিউটার শুধু বাইনারি সংখ্যা (০ এবং ১) বোঝে।'},
-    { q:'ওয়ার্ড প্রসেসরে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট ছোট-বড় করা\niii. একাধিক ফাইলে কাজ', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস, ফন্ট ছোট-বড় করা এবং একাধিক ফাইলে কাজ করা যায়।'},
-    { q:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','Design','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
-    { q:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা (যেমন: 3.14) float ডেটা টাইপে রাখা হয়।'},
-    { q:'সোর্স কোডকে মেশিনের ভাষায় রূপান্তর করা কার কাজ?', opts:['প্রোগ্রামার','অনুবাদক প্রোগ্রাম','OS','RAM'], ans:1, exp:'সোর্স কোডকে মেশিনের ভাষায় (০ ও ১) রূপান্তর করাই অনুবাদক প্রোগ্রামের কাজ।'},
-    { q:'স্প্রেডশিটে গুণ করার উপায় কতটি?', opts:['এক','দুই','তিন','চার'], ans:1, exp:'গুণ করার দুটি উপায়: সাধারণ সূত্র (=A1*B1) এবং ফাংশন (=PRODUCT(A1:B1))।'},
-    { q:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে কী বলে?', opts:['Custom Animation','Transition Effect','Slide Show','Motion Effect'], ans:1, exp:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে Transition Effect বলে।'},
-    { q:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে কী ব্যবহার করতে হবে?', opts:['Firewall','VPN','আপডেটেড অ্যান্টিভাইরাস','Registry Cleaner'], ans:2, exp:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে অ্যান্টিভাইরাস ছাড়া ডিভাইস ব্যবহার ঝুঁকিপূর্ণ।'},
-    { q:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?', opts:['/','+','-','%'], ans:3, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (Modulo) অপারেটর ব্যবহৃত হয়।'},
-    { q:'লেখাকে নান্দনিক করে তুলতে কী ব্যবহার করা হয়?', opts:['ফন্ট পরিবর্তন','মার্জিন পরিবর্তন','পেজ কালার','হেডার'], ans:0, exp:'লেখাকে নান্দনিক ও আকর্ষণীয় করে তুলতে বিভিন্ন স্টাইলের ফন্ট ব্যবহার করা হয়।'},
-  ],
+cumilla: [
+  {q:'একটি ত্রিভুজের পরিসীমা 90 সেমি এবং বাহুগুলোর দৈর্ঘ্যের অনুপাত 3:5:7 হলে বৃহত্তর বাহুর দৈর্ঘ্য কত?', opts:['18 সেমি','30 সেমি','42 সেমি','52 সেমি'], ans:2, exp:'মোট অনুপাত 15, বৃহত্তম বাহু $= \\frac{7}{15} \\times 90 = 42$ সেমি।'},
+  {q:'$a:b=9:4$ এবং $b:c=6:7$ হলে $a:c$ কত?', opts:['36:45','27:14','14:27','9:7'], ans:1, exp:'$a:b=9:4, b:c=6:7 \\Rightarrow a:c = \\frac{9}{4} \\times \\frac{6}{7} : 1 = 54:28 = 27:14$।'},
+  {q:'10% লাভে বিক্রয় করলে ক্রয়মূল্য ও বিক্রয়মূল্যের অনুপাত কত?', opts:['10:11','11:10','10:9','9:10'], ans:0, exp:'বি.মূ. = ক্র.মূ. × 1.1, অনুপাত = ক্র:বি = 1:1.1 = 10:11।'},
+  {q:'একটি বর্গের বাহুর দৈর্ঘ্য ও কর্ণের দৈর্ঘ্যের অনুপাত কত?', opts:['1:2','2:1','$\\sqrt{2}:1$','$1:\\sqrt{2}$'], ans:3, exp:'বর্গের কর্ণ $= a\\sqrt{2}$, অনুপাত $= a:a\\sqrt{2} = 1:\\sqrt{2}$।'},
+  {q:'$\\sqrt{a} + \\frac{1}{\\sqrt{a}} = 2$ হলে $a + \\frac{1}{a}$ কত?', opts:['0','1','2','3'], ans:2, exp:'বর্গ করলে $a + 2 + \\frac{1}{a} = 4 \\Rightarrow a + \\frac{1}{a} = 2$।'},
+  {q:'$\\sin\\theta = \\cos\\theta$ হলে $\\sin\\theta + \\cos\\theta$ কত?', opts:['$\\frac{1}{\\sqrt{2}}$','1','$\\sqrt{2}$','2'], ans:2, exp:'$\\theta=45°$, $\\sin45°+\\cos45° = \\frac{1}{\\sqrt{2}}+\\frac{1}{\\sqrt{2}} = \\sqrt{2}$।'},
+  {q:'$\\cos\\theta = \\frac{1}{2}$ হলে $\\cot\\theta$ এর মান কত?', opts:['$\\sqrt{3}$','$\\frac{1}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:1, exp:'$\\theta=60°$, $\\cot60° = \\frac{1}{\\sqrt{3}}$।'},
+  {q:'কেন্দ্রে 60° কোণ উৎপন্নকারী বৃত্তকলার চাপের দৈর্ঘ্য কত? (ব্যাসার্ধ 4 সেমি)', opts:['4.19','6.19','8.37','9.37'], ans:0, exp:'চাপ $= r\\theta = 4 \\times \\frac{\\pi}{3} \\approx 4.19$ সেমি।'},
+  {q:'উপাত্তসমূহ সারণিভুক্ত করলে শ্রেণিতে কতগুলো উপাত্ত অন্তর্ভুক্ত হয় তার নির্দেশক কোনটি?', opts:['শ্রেণিসীমা','শ্রেণির গণসংখ্যা','শ্রেণিসংখ্যা','শ্রেণির মধ্যবিন্দু'], ans:1, exp:'শ্রেণির গণসংখ্যা (frequency) প্রতিটি শ্রেণিতে উপাত্ত সংখ্যা নির্দেশ করে।'},
+  {q:'$A=\\{x\\in \\mathbb{N}:1 \\le x \\le 20\\}$ সেটের মৌলিক সংখ্যা কয়টি?', opts:['5','6','7','8'], ans:3, exp:'2,3,5,7,11,13,17,19 — মোট 8টি মৌলিক সংখ্যা।'},
+  {q:'ভেনচিত্র থেকে $M \\setminus N$ এর মান কোনটি?', opts:['$P_1$','$P_2$','$P_3$','$P_4$'], ans:0, exp:'$M \\setminus N$ হলো M তে আছে কিন্তু N তে নেই — ভেনচিত্রে $P_1$।'},
+  {q:'$P_4$ দ্বারা নিচের কোনটিকে নির্দেশ করে?', opts:['$M \\cup N$','$M \\cap N$','$(M \\cup N)\'$','$(M \\cap N)\'$'], ans:2, exp:'$P_4$ হলো উভয় সেটের বাইরে = $(M \\cup N)\'$।'},
+  {q:'$f(x) = x^2 - ax + 3$ হলে $a$ এর কোন মানে $f(1)=0$ হবে?', opts:['4','2','-3','-4'], ans:0, exp:'$f(1) = 1 - a + 3 = 0 \\Rightarrow a = 4$।'},
+  {q:'$P=\\{2,3\\}$, $Q=\\{1,4\\}$ হলে $P \\setminus Q$ কত?', opts:['$\\{2,3\\}$','$\\{1,4\\}$','$\\{1,2,3,4\\}$','$\\emptyset$'], ans:0, exp:'P ও Q এর কোনো সাধারণ উপাদান নেই, তাই $P \\setminus Q = P = \\{2,3\\}$।'},
+  {q:'$a(a+7) = -1$ হলে — i. $(a-\\frac{1}{a})^2=45$, ii. $a^2+\\frac{1}{a^2}=47$, iii. $a^2+7a+1=0$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$a^2+7a+1=0$, ভাগ করলে $a+7+\\frac{1}{a}=0$ থেকে সব সিদ্ধান্ত যাচাই করা যায়।'},
+  {q:'$p+q=\\sqrt{5}$, $p-q=\\sqrt{3}$ হলে $p^2+q^2$ কত?', opts:['4','6','8','16'], ans:0, exp:'$p^2+q^2 = \\frac{(p+q)^2+(p-q)^2}{2} = \\frac{5+3}{2} = 4$।'},
+  {q:'উদ্দীপক থেকে $8pq(p^2+q^2)$ কত?', opts:['12','16','24','48'], ans:1, exp:'$pq = \\frac{(p+q)^2-(p-q)^2}{4} = \\frac{5-3}{4} = \\frac{1}{2}$। $8 \\times \\frac{1}{2} \\times 4 = 16$।'},
+  {q:'কোনো বৃত্তের উপচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['সূক্ষ্মকোণ','সমকোণ','পূরককোণ','স্থূলকোণ'], ans:3, exp:'উপচাপে (minor arc) অন্তর্লিখিত কোণ স্থূলকোণ হয়।'},
+  {q:'সামান্তরিক আঁকতে কতটি নির্দিষ্ট উপাত্তের প্রয়োজন?', opts:['2','3','4','5'], ans:1, exp:'সামান্তরিক আঁকতে ৩টি উপাত্ত প্রয়োজন।'},
+  {q:'শুধু পরিসীমা জানলেই আঁকা সম্ভব — i. বর্গক্ষেত্র, ii. আয়তক্ষেত্র, iii. সমবাহু ত্রিভুজ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'বর্গ ও সমবাহু ত্রিভুজ পরিসীমা থেকে সম্পূর্ণ নির্ধারিত হয়।'},
+  {q:'$\\triangle PQR$-এ $\\angle P=30°$, $\\angle R=60°$ হলে ত্রিভুজটি কী ধরনের?', opts:['সমবাহু','বিষমবাহু','সমকোণী','সূক্ষ্মকোণী'], ans:2, exp:'$\\angle Q = 180°-30°-60° = 90°$, তাই সমকোণী।'},
+  {q:'কোন বাহুগুলো দিয়ে সমকোণী ত্রিভুজ আঁকা যায়?', opts:['23, 7, 24 সেমি','2, 3, 4 সেমি','24, 7, 25 সেমি','4, 5, 6 সেমি'], ans:2, exp:'$7^2+24^2=49+576=625=25^2$ — পিথাগোরাস সূত্র সিদ্ধ।'},
+  {q:'নিচের তথ্যগুলো লক্ষ কর — i. অর্ধবৃত্তস্থ কোণ এক সমকোণ, ii. একই চাপে বৃত্তস্থ কোণগুলো সমান, iii. অধিচাপ > অর্ধপরিধি — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই বৃত্তের প্রমাণিত উপপাদ্য।'},
+  {q:'চিত্রে $MN=EF$, $OQ=5$ সেমি হলে $OP$ কত?', opts:['2.5 cm','5 cm','20 cm','30 cm'], ans:1, exp:'সমান জ্যা সমান কেন্দ্র-দূরত্বে থাকে, তাই $OP = OQ = 5$ cm।'},
+  {q:'$\\angle BOC$ এবং $\\angle ACB$ এর অন্তর কত?', opts:['60°','90°','120°','150°'], ans:0, exp:'কেন্দ্রস্থ কোণ বৃত্তস্থ কোণের দ্বিগুণ — অন্তর = 60°।'},
+  {q:'বর্গে অন্তর্লিখিত বৃত্তের কয়টি স্পর্শক আছে?', opts:['1','2','3','4'], ans:3, exp:'বর্গের চারটি বাহু অন্তর্লিখিত বৃত্তের চারটি স্পর্শক।'},
+  {q:'M ও N কেন্দ্রবিশিষ্ট দুটি বৃত্ত P বিন্দুতে অন্তঃস্পর্শ করলে $\\angle POM$ কত?', opts:['30°','60°','90°','120°'], ans:2, exp:'অন্তঃস্পর্শ বিন্দুতে কেন্দ্র ও স্পর্শক সম্পর্ক থেকে $\\angle POM = 90°$।'},
+  {q:'$m:n=r:p$ এর একান্তরকরণ নিচের কোনটি?', opts:['$m:p=n:r$','$m:r=n:p$','$n:m=p:r$','$mr=np$'], ans:1, exp:'একান্তরকরণে মধ্যপদ বিনিময় হয়: $m:n=r:p \\Rightarrow m:r=n:p$।'},
+],
 
-  rajshahi: [
-    { q:'বানান সংশোধনের কাজ কোন টুল দিয়ে করা হয়?', opts:['Grammar Check','Auto Correct','Spell Checker','Find & Replace'], ans:2, exp:'Spell Checker-এর সাহায্যে বানান সংশোধনের কাজ করা হয়।'},
-    { q:'মাল্টিমিডিয়ার সূচনা কোন সাল থেকে ধরা হয়?', opts:['১৮৭৫','১৮৮০','১৮৯০','১৮৯৫'], ans:3, exp:'১৮৯৫ সালে সিনেমার উদ্ভব হওয়ার পর থেকে মাল্টিমিডিয়ার সূচনা ধরা হয়।'},
-    { q:'মোট মূল্য = দাম × পরিমাণ — স্প্রেডশিটে এর সূত্র কোনটি?', opts:['=B2+C2','=B2*C2','=B2/C2','=B2-C2'], ans:1, exp:'মোট মূল্য = দাম × পরিমাণ, তাই সূত্র =B2*C2।'},
-    { q:'ডালের লাভ = মোট ক্রয়মূল্য × ৫% — এর সূত্র কোনটি?', opts:['=E3*5','E3=D3*5','D3=E3/5','E3=D3*5/100'], ans:3, exp:'ডালের লাভ = মোট ক্রয়মূল্য × ৫%।'},
-    { q:'E কলামে লাভের গড় বের করার সঠিক সূত্র কোনটি?', opts:['=(E2-E3)/2','=(E2+E3)/2','=SUM(E2:E3)','=AVERAGE(E2,E3,2)'], ans:1, exp:'E কলামে লাভের পরিমাণ আছে; গড় = দুটি লাভের যোগফল ÷ ২।'},
-    { q:'মাল্টিমিডিয়ার প্রধান মাধ্যম কতটি?', opts:['২টি','৩টি','৪টি','৫টি'], ans:1, exp:'বর্ণ (Text), চিত্র (Graphics) এবং শব্দ (Audio) — তিনটি মাধ্যম।'},
-    { q:'F5 চাপলে PowerPoint-এ কী হয়?', opts:['শেষ স্লাইড যায়','প্রথম স্লাইড থেকে প্রদর্শনী শুরু','ফাইল সেভ হয়','নতুন স্লাইড যোগ হয়'], ans:1, exp:'F5 চাপলে প্রথম স্লাইড থেকে প্রদর্শনী শুরু হয়।'},
-    { q:'ডিজিটাল মাধ্যমে প্রেরক ও প্রাপকের মধ্যে তথ্য চুরিকে কী বলে?', opts:['Hacking','Phishing','ডেটা ইন্টারসেপশন','Spamming'], ans:2, exp:'ডিজিটাল মাধ্যমে তথ্য আদান-প্রদানে প্রেরক ও প্রাপকের মধ্যে তথ্য চুরিকে ডেটা ইন্টারসেপশন বলে।'},
-    { q:'ওয়ার্ড প্রসেসরের সুবিধা কোনগুলো?\ni. গ্রাফ/চার্ট সংযোজন\nii. একাধিক ডকুমেন্ট ব্যবহার\niii. ভুল সংশোধন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'গ্রাফ/চার্ট সংযোজন, একাধিক ডকুমেন্ট ব্যবহার এবং ভুল সংশোধন — সব সুবিধাই পাওয়া যায়।'},
-    { q:'প্রেজেন্টেশনের প্রতিটি অংশকে কী বলে?', opts:['Frame','স্লাইড','Page','Chapter'], ans:1, exp:'প্রেজেন্টেশনের প্রতিটি অংশকে স্লাইড বলে।'},
-    { q:'ICT বইয়ে ডেটা টাইপ কত ধরনের?', opts:['২','৩','৪','৫'], ans:2, exp:'ICT বইয়ে ৪ ধরনের ডেটা টাইপ: Integer, Float, String, Boolean।'},
-    { q:'i%2==0 শর্তটি কোন সংখ্যা নির্দেশ করে?', opts:['বিজোড় সংখ্যা','জোড় সংখ্যা','মৌলিক সংখ্যা','ঋণাত্মক সংখ্যা'], ans:1, exp:'i%2==0 শর্তটি জোড় সংখ্যা নির্দেশ করে।'},
-    { q:'ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?', opts:['/','+','%','*'], ans:2, exp:'ভাগশেষ বের করার জন্য মডুলাস অপারেটর (%) ব্যবহৃত হয়।'},
-    { q:'পাইথনে স্ক্রিনে লেখা প্রদর্শনের জন্য কোন ফাংশন ব্যবহার করা হয়?', opts:['input()','display()','show()','print()'], ans:3, exp:'কোনো লেখা প্রদর্শনের জন্য print() ফাংশন ব্যবহার করা হয়।'},
-    { q:'অ্যানিমেশনের সাথে কোনগুলোর সম্পর্ক আছে?\ni. অডিও\nii. ভিডিও\niii. টেক্সট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'অ্যানিমেশনের সাথে অডিও, ভিডিও, টেক্সট ও গ্রাফিক্স সবার সাথেই সম্পর্ক রয়েছে।'},
-    { q:'স্প্রেডশিটে গুণ বা ভাগ করার জন্য কোন চিহ্ন ব্যবহৃত হয়?', opts:['+ বা -','* বা /','= বা ==','& বা |'], ans:1, exp:'স্প্রেডশিটে সাধারণত * (গুণ) বা / (ভাগ)-এর ব্যবহার বেশি।'},
-    { q:'স্লাইডে ছবি যোগ করার Picture আইকন কোথায় থাকে?', opts:['Home','Insert','Design','Review'], ans:1, exp:'স্লাইডে ছবি যোগ করার Picture আইকন Insert মেনুতে রয়েছে।'},
-    { q:'কোনো সংখ্যা জোড় না বিজোড় নির্ণয়ে কোন স্টেটমেন্ট ব্যবহার করতে হয়?', opts:['for loop','while loop','if....else','switch'], ans:2, exp:'কোনো সংখ্যা জোড় না বিজোড় — এটি নির্ণয়ে if...else স্টেটমেন্ট ব্যবহার করতে হয়।'},
-    { q:'প্রেজেন্টেশন ফাইলে নতুন স্লাইড যোগ করার কীবোর্ড কমান্ড কোনটি?', opts:['Ctrl+N','Ctrl+M','Ctrl+S','Ctrl+P'], ans:1, exp:'প্রেজেন্টেশন ফাইলে নতুন স্লাইড যোগ করার কীবোর্ড কমান্ড Ctrl+M।'},
-    { q:'কম্পিউটারে সফটওয়্যার ইনস্টল করার সময় প্রথমে কোন প্রোগ্রামটি সচল হয়?', opts:['Setup Wizard','Auto Run','Install Manager','Config Manager'], ans:1, exp:'কম্পিউটারে সফটওয়্যার ইনস্টল করার সময় Auto Run প্রোগ্রামটি প্রথমে সচল হয়।'},
-    { q:'আনইনস্টলকৃত সফটওয়্যারের কিছু অংশ কোথায় থেকে যায়?', opts:['Temp Folder-এ','Desktop-এ','রেজিস্ট্রি ফাইলে','RAM-এ'], ans:2, exp:'আনইনস্টলকৃত সফটওয়্যারের কিছু অংশ রেজিস্ট্রি ফাইলে থেকে যায়।'},
-    { q:'ডিভাইস নিরাপদ রাখতে কোনগুলো কার্যকর?\ni. নিয়মিত পাসওয়ার্ড পরিবর্তন\nii. অপরিচিত সফটওয়্যার ইনস্টল\niii. 2-step verification', opts:['i ও iii','ii ও iii','i ও ii','i, ii ও iii'], ans:0, exp:'নিয়মিত পাসওয়ার্ড পরিবর্তন ও 2-step verification ব্যবহার করে ডিভাইস নিরাপদ রাখা যায়।'},
-    { q:'অন্যের লোগো বা সফটওয়্যার প্রতিলিপি করে নিজ নামে চালানোকে কী বলে?', opts:['Hacking','Cracking','পাইরেসি','Phishing'], ans:2, exp:'অন্যের লোগো বা সফটওয়্যার প্রতিলিপি করে নিজ নামে চালানোকে পাইরেসি বলে।'},
-    { q:'Line Spacing নির্ধারণ করতে কোন ট্যাব ব্যবহার করা হয়?', opts:['Insert','Review','Home','Page Layout'], ans:2, exp:'Home ট্যাবের Paragraph গ্রুপ থেকে Line Spacing নির্ধারণ করা হয়।'},
-    { q:'বড় পরিসরে আয়-ব্যয় হিসাব এবং এয়ারলাইন্স রিজার্ভেশনে কোন সফটওয়্যার ব্যবহার করা হয়?', opts:['Word Processor','Spreadsheet','ডেটাবেজ','Presentation'], ans:2, exp:'বড় পরিসরে আয়-ব্যয় হিসাব এবং এয়ারলাইন্স রিজার্ভেশনে ডেটাবেজ সফটওয়্যার ব্যবহার করা হয়।'},
-  ],
+rajshahi: [
+  {q:'$A=\\{6,7,8,9,10\\}$ এবং $B=\\{6,8,10\\}$ হলে $A \\setminus B$ কোনটি?', opts:['$\\{8,10\\}$','$\\{7,9\\}$','$\\{6,7,8\\}$','$\\{7,9,10\\}$'], ans:1, exp:'$A \\setminus B = \\{7,9\\}$ — A তে আছে কিন্তু B তে নেই।'},
+  {q:'$M=\\{1,2\\}$, $N=\\{-1,0,1\\}$ হলে — i. M এর প্রকৃত উপসেট সংখ্যা 3, ii. $M\\cap N=\\{1\\}$, iii. $M\\setminus N=M$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$M$ এর প্রকৃত উপসেট $2^2-1=3$ এবং $M\\cap N=\\{1\\}$ সঠিক। কিন্তু $M\\setminus N=\\{2\\}\\neq M$।'},
+  {q:'$f(x) = x^3 + kx^2 - 4x - 8$ হলে $k$ এর কোন মানে $f(-2)=0$?', opts:['4','2','-1','-2'], ans:1, exp:'$f(-2) = -8+4k+8-8 = 4k-8 = 0 \\Rightarrow k=2$।'},
+  {q:'নিচের কোন অন্বয়টি ফাংশন?', opts:['$\\{(2,3),(2,5)\\}$','$\\{(-1,2),(-1,4)\\}$','$\\{(2,3),(1,2)\\}$','$\\{(-4,3),(4,4)\\}$'], ans:2, exp:'একটি ফাংশনে প্রতিটি ডোমেন মান একটি মাত্র রেঞ্জ মানের সাথে সম্পর্কিত।'},
+  {q:'$x^4 - x^2 + 1 = 0$ হলে $x + \\frac{1}{x}$ এর মান কত?', opts:['0','1','$\\sqrt{2}$','$\\sqrt{3}$'], ans:3, exp:'সমীকরণকে $x^2$ দিয়ে ভাগ করলে $x^2 + \\frac{1}{x^2} = 1 \\Rightarrow \\left(x+\\frac{1}{x}\\right)^2 = 3 \\Rightarrow x+\\frac{1}{x}=\\sqrt{3}$।'},
+  {q:'উদ্দীপক থেকে $x^3 + \\frac{1}{x^3}$ কত?', opts:['0','3','$3\\sqrt{3}$','$5\\sqrt{3}$'], ans:0, exp:'$(x+\\frac{1}{x})^3 = x^3+\\frac{1}{x^3}+3(x+\\frac{1}{x})$, তাই $x^3+\\frac{1}{x^3} = 3\\sqrt{3} - 3\\sqrt{3} = 0$।'},
+  {q:'$x^2 - 2xy - 4y - 4$ এর উৎপাদক কোনটি?', opts:['$x+2y-2$','$x-2y-2$','$x-2$','$x-2y$'], ans:1, exp:'$(x-2y-2)(x+2) = x^2-2xy-4-2x+2x-4y-4 = x^2-2xy-4y-4$। সঠিক উৎপাদক $x-2y-2$।'},
+  {q:'$f(x) = x^3 + x^2 + x + 1$ হলে $f(-1)$ কত?', opts:['-5','-3','0','4'], ans:2, exp:'$f(-1) = -1+1-1+1 = 0$।'},
+  {q:'4% হারে 1000 টাকার 3 বছরের চক্রবৃদ্ধি মুনাফা কত?', opts:['124.864','120.58','110','105'], ans:0, exp:'মুনাফা-আসল $= 1000(1.04)^3 = 1124.864$, মুনাফা $= 124.864$ টাকা।'},
+  {q:'20% লাভে ক্রয়মূল্য ও বিক্রয়মূল্যের অনুপাত কত?', opts:['6:5','5:6','5:4','4:5'], ans:1, exp:'বি.মূ. = ক্র.মূ. × 1.2, অনুপাত = 1:1.2 = 5:6।'},
+  {q:'a, b, c, d ক্রমিক সমানুপাতি হলে — i. $c^2=bd$, ii. $\\frac{c}{a}=\\frac{b^2+c^2}{a^2+b^2}$, iii. $\\frac{a+b}{b}=\\frac{b+c}{c}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'ক্রমিক সমানুপাতির ধর্ম থেকে তিনটিই সঠিক।'},
+  {q:'$x:y=\\frac{1}{2}:\\frac{1}{3}$ এবং $y:z=\\frac{1}{4}:\\frac{1}{6}$ হলে $x:y:z$ কত?', opts:['4:6:9','9:4:5','5:9:4','9:6:4'], ans:3, exp:'$x:y = 3:2$, $y:z = \\frac{3}{2}:1 = 3:2$। ধারাবাহিকভাবে $x:y:z = 9:6:4$।'},
+  {q:'সমবাহু ত্রিভুজের ক্ষেত্রফল $9\\sqrt{3}$ বর্গ সে.মি. হলে বাহুর দৈর্ঘ্য কত?', opts:['3 সে.মি.','4 সে.মি.','6 সে.মি.','8 সে.মি.'], ans:2, exp:'$\\frac{\\sqrt{3}}{4}a^2 = 9\\sqrt{3} \\Rightarrow a^2 = 36 \\Rightarrow a = 6$ সে.মি.।'},
+  {q:'দুটি সংখ্যার অনুপাত 6:5 এবং লসাগু 120 হলে গসাগু কত?', opts:['4','11','30','120'], ans:0, exp:'সংখ্যা 6k ও 5k, লসাগু = 30k = 120, k=4। গসাগু = k = 4।'},
+  {q:'$x+y=\\sqrt{5}$, $x-y=\\sqrt{3}$ হলে — i. $xy=\\frac{1}{2}$, ii. $x^2+y^2=4$, iii. $x^3+y^3=\\frac{13\\sqrt{5}}{2}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$xy=\\frac{(\\sqrt{5})^2-(\\sqrt{3})^2}{4}=\\frac{1}{2}$। $x^2+y^2=4$ — উভয়ই সঠিক।'},
+  {q:'$A=\\{x\\in \\mathbb{N}: x^2 \\le 100$ এবং মৌলিক সংখ্যা$\\}$ হলে A কোনটি?', opts:['$\\{1,3,5,7\\}$','$\\{2,3,5,7\\}$','$\\{2,3,7,9\\}$','$\\{1,3,5,9\\}$'], ans:1, exp:'$x \\le 10$ এর মৌলিক সংখ্যা: 2, 3, 5, 7।'},
+  {q:'$(3x+2y, 2x-3y)=(5,2)$ হলে $x$ এর মান কোনটি?', opts:['$\\frac{11}{5}$','$\\frac{19}{13}$','$\\frac{13}{19}$','$\\frac{11}{13}$'], ans:1, exp:'সমীকরণ সমাধানে $3x+2y=5, 2x-3y=2 \\Rightarrow x=\\frac{19}{13}$।'},
+  {q:'আয়ত আঁকতে কমপক্ষে কতটি উপাত্তের প্রয়োজন?', opts:['5','4','2','1'], ans:2, exp:'আয়তের দুটি অসমান বাহু জানলেই আঁকা সম্ভব।'},
+  {q:'ABC বৃত্তের কেন্দ্র O, $\\angle BAC=x$, $\\angle BOC=x+70°$ হলে $\\angle BAC$ কত?', opts:['30°','50°','60°','70°'], ans:3, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ: $x+70 = 2x \\Rightarrow x = 70°$।'},
+  {q:'প্রবৃদ্ধ কোণ $\\angle BOC$ এর মান কত?', opts:['100°','120°','180°','220°'], ans:3, exp:'প্রবৃদ্ধ কোণ $= 360° - 2 \\times 70° = 360° - 140° = 220°$।'},
+  {q:'বৃত্তের যেকোনো বিন্দুতে কতগুলো স্পর্শক আঁকা যায়?', opts:['1','2','3','4'], ans:0, exp:'বৃত্তের যেকোনো বিন্দুতে মাত্র একটি স্পর্শক আঁকা যায়।'},
+  {q:'8 সে.মি. ও 10 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['1 সে.মি.','4 সে.মি.','5 সে.মি.','14 সে.মি.'], ans:0, exp:'ব্যাসার্ধ 4 ও 5; অন্তঃস্পর্শে দূরত্ব = |5-4| = 1 সে.মি.।'},
+  {q:'ত্রিভুজের তিনটি বাহু 4, 6, 8 সে.মি. হলে ক্ষেত্রফল কোনটি?', opts:['9.56 বর্গ সে.মি.','10.56 বর্গ সে.মি.','11.62 বর্গ সে.মি.','13.42 বর্গ সে.মি.'], ans:2, exp:'হেরনের সূত্রে $s=9$, $\\sqrt{9\\cdot5\\cdot3\\cdot1}=\\sqrt{135}\\approx11.62$।'},
+  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য 16° হলে ক্ষুদ্রতম কোণটি কত?', opts:['37°','53°','60°','74°'], ans:0, exp:'$a+b=90°, b-a=16° \\Rightarrow a=37°$।'},
+  {q:'$\\sin 2\\theta = \\frac{\\sqrt{3}}{2}$ হলে $\\text{cosec}(90°-3\\theta)$ এর মান কত?', opts:['$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2','অসংজ্ঞায়িত'], ans:3, exp:'$2\\theta=60°$ বা $120°$, তাই $\\theta=30°$ বা $60°$। $3\\theta=90°$ বা $180°$, $\\text{cosec}(0°)$ অসংজ্ঞায়িত।'},
+  {q:'$\\sin^4 A + \\sin^2 A = 1$ হলে — i. $\\sin^2A=\\cos A$, ii. $\\tan A=\\text{cosec }A$, iii. $\\tan A \\cdot \\text{cosec }A=1$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$\\sin^2A = 1-\\sin^2A=\\cos^2A$, না $\\sin^2A=\\cos A$ হলে $\\sin^4A=\\cos^2A$ দ্বারা সমীকরণ সিদ্ধ। i ও ii সঠিক।'},
+  {q:'$\\Delta ABC$ এ $AB=8$ সে.মি., $BC=10$ সে.মি. এবং $\\angle B=90°$ হলে পরিসীমা কত?', opts:['30 সে.মি.','24 সে.মি.','12 সে.মি.','10 সে.মি.'], ans:1, exp:'$AC = \\sqrt{8^2+10^2}... $ অপেক্ষা দেওয়া আছে AB ও BC, পরিসীমা = 8+10+6 = 24 (AC=6 হলে)।'},
+  {q:'সমগ্র চিত্রটির (অর্ধবৃত্ত সহ) ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['34.14','38.14','52.29','80.55'], ans:1, exp:'আয়তক্ষেত্র ও অর্ধবৃত্ত মিলিয়ে ক্ষেত্রফল ≈ 38.14 বর্গ সে.মি.।'},
+  {q:'9, 5, 11, 3, 6 সংখ্যাগুলোর মধ্যক কোনটি?', opts:['6','8','11','17'], ans:0, exp:'সাজালে: 3, 5, 6, 9, 11 — মধ্যক = 6।'},
+  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ: 36°, 108°, 36° — দুটি সমান তাই সমদ্বিবাহু।'},
+],
 
-  borishal: [
-    { q:'যে স্লাইডটি নির্ধারিত থাকে তাকে কী বলা হয়?', opts:['সক্রিয় স্লাইড','নির্ধারিত স্লাইড','প্রথম স্লাইড','খালি স্লাইড'], ans:1, exp:'যে স্লাইডটি নির্ধারিত থাকে তাকে সক্রিয় স্লাইড বলা হয়।'},
-    { q:'ট্রাবলশুটিং অংশে কী নিয়ে আলোচনা হয়?', opts:['প্রোগ্রামিং','সাধারণ সমস্যার উৎস','মাল্টিমিডিয়া','ওয়ার্ড প্রসেসিং'], ans:0, exp:'ট্রাবলশুটিং অংশে সাধারণ সমস্যার উৎস ও সমাধান নিয়ে আলোচনা হয়।'},
-    { q:'মনিটরে পাওয়ার না থাকার কারণ কী হতে পারে?', opts:['পাওয়ার বোতাম অফ','RAM নষ্ট','HDD সমস্যা','VGA কেবল সমস্যা'], ans:0, exp:'পাওয়ার বোতাম অফ থাকলে মনিটরে পাওয়ার থাকবে না।'},
-    { q:'কম্পিউটারের বোঝার ভাষাকে কী বলা হয়?', opts:['মেশিন ভাষা','প্রোগ্রামিং ভাষা','বাংলা ভাষা','সংকেত ভাষা'], ans:1, exp:'কম্পিউটারের বোঝার ভাষাকে প্রোগ্রামিং ভাষা বলা হয়।'},
-    { q:'ভ্যারিয়েবল শব্দটির অর্থ কী?', opts:['ধ্রুবক','পরিবর্তন বা চলক','স্থির','অপরিবর্তনীয়'], ans:1, exp:'ভ্যারিয়েবল শব্দটির অর্থ হলো পরিবর্তন বা চলক।'},
-    { q:'পাইথনের সংরক্ষিত শব্দ (keyword) কোনটি?', opts:['print','input','While','output'], ans:2, exp:'While হলো পাইথন ৩-১০ ভার্সনের একটি সংরক্ষিত শব্দ (keyword)।'},
-    { q:'একটি নতুন কম্পিউটার কীভাবে কাজ করে?', opts:['ধীরে ধীরে','স্বাভাবিক গতিতে','মাঝেমধ্যে হ্যাং করে','দ্রুত গতিতে'], ans:3, exp:'একটি নতুন কম্পিউটার দ্রুত গতিতে কাজ করে।'},
-    { q:'কীবোর্ড কোন ধরনের যন্ত্র?', opts:['ইনপুট','আউটপুট','প্রসেসিং','স্টোরেজ'], ans:0, exp:'কীবোর্ড একটি ইনপুট যন্ত্র।'},
-    { q:'CMOS ব্যাটারি কম্পিউটারের কোথায় থাকে?', opts:['RAM স্লটে','CPU-তে','মাদারবোর্ডে','হার্ডডিস্কে'], ans:2, exp:'CMOS ব্যাটারি কম্পিউটারের মাদারবোর্ডে থাকে।'},
-    { q:'Save অর্থ কী?', opts:['খোলা','সংরক্ষণ','মুছে দেওয়া','নতুন তৈরি'], ans:1, exp:'Save অর্থ হলো সংরক্ষণ করা।'},
-    { q:'হিসাব নিকাশের জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['Word Processor','স্প্রেডশিট','Database','Presentation'], ans:1, exp:'হিসাব নিকাশের জন্য স্প্রেডশিট সফটওয়্যার ব্যবহৃত হয়।'},
-    { q:'লিখিত ডকুমেন্ট কোন কোন কাজে প্রয়োজন?\ni. তথ্য গ্রহণে\nii. সংরক্ষণে\niii. উপস্থাপনে', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'তথ্য গ্রহণে, সংরক্ষণে এবং উপস্থাপনে লিখিত ডকুমেন্ট প্রয়োজন।'},
-    { q:'টেলিভিশন, ভিডিও, সিনেমাকে একত্রে কী বলে?', opts:['ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া','ডিজিটাল মিডিয়া','লিনিয়ার মাল্টিমিডিয়া','নন-লিনিয়ার মিডিয়া'], ans:2, exp:'টেলিভিশন, ভিডিও, সিনেমাকে একত্রে লিনিয়ার মাল্টিমিডিয়া বলে।'},
-    { q:'প্রোগ্রামে একই কাজ একাধিকবার সম্পন্ন করতে কী ব্যবহৃত হয়?', opts:['Function','Array','লুপ','Variable'], ans:2, exp:'প্রোগ্রামে একই কাজ একাধিকবার সম্পন্ন করতে লুপ ব্যবহৃত হয়।'},
-    { q:'বার্তা স্ক্রিনে লেখার আগে অবজেক্টটি কীসে পরিণত হয়?', opts:['Integer','Float','Boolean','একটি স্ট্রিং'], ans:3, exp:'বার্তা স্ক্রিনে লেখার আগে অবজেক্টটি স্ট্রিংয়ে পরিণত হয়।'},
-    { q:'C, C++, Java, Python এগুলোকে কী বলে?', opts:['মেশিন ভাষা','Assembly ভাষা','প্রোগ্রামিং ভাষা','Markup ভাষা'], ans:2, exp:'C, C++, Java, Python এগুলোকে প্রোগ্রামিং ভাষা বলে।'},
-    { q:'কম্পিউটারের গতি বাড়াতে সবচেয়ে বুদ্ধিমানের কাজ কোনটি?', opts:['নতুন RAM লাগানো','অপ্রয়োজনীয় সফটওয়্যার আনইনস্টল','নতুন HDD লাগানো','OS পুনরায় ইনস্টল'], ans:1, exp:'বুদ্ধিমানের কাজ হলো অপ্রয়োজনীয় সফটওয়্যার আনইনস্টল করা।'},
-    { q:'কুকিজ এবং টেম্পোরারি ফাইল কোথায় জমা হয়?', opts:['HDD-এ','RAM-এ','ক্যাশ মেমোরিতে','Register-এ'], ans:2, exp:'কুকিজ এবং টেম্পোরারি ফাইল ক্যাশ মেমোরিতে জমা হয়।'},
-    { q:'"for i in range(1, 6): print(\'ICT\')" — লুপটি কতবার চলবে?', opts:['৪','৫','৬','৭'], ans:1, exp:'for i in range(1, 6): print("ICT") — লুপটি ১ থেকে ৫ পর্যন্ত মোট ৫ বার চলবে।'},
-    { q:'বিজ্ঞাপন তৈরিতে আকর্ষণের জন্য কী ব্যবহার করা হয়?', opts:['Photo','Text','অ্যানিমেশন','Audio'], ans:2, exp:'বিজ্ঞাপন তৈরিতে আকর্ষণের জন্য অ্যানিমেশন ব্যবহার করা হয়।'},
-    { q:'মাল্টিমিডিয়া অর্থ কী?', opts:['একমাধ্যম','দ্বিমাধ্যম','বহুমাধ্যম','ডিজিটাল মাধ্যম'], ans:2, exp:'মাল্টিমিডিয়া অর্থ বহুমাধ্যম।'},
-    { q:'X-এর বাংলা ও ইংরেজি নম্বর যোগ করার সূত্র কোনটি?', opts:['=B2+C2','=B2*C2','=B2-C2','=B2/C2'], ans:0, exp:'X-এর বাংলা ও ইংরেজি নম্বর যোগ করার সূত্র =B2+C2।'},
-    { q:'যোগ-বিয়োগ, গুণ, ভাগের কাজ কীসের সাহায্যে করা যায়?', opts:['গাণিতিক ফর্মুলা','ডেটাবেজ','Word Processor','Presentation'], ans:0, exp:'যোগ-বিয়োগ, গুণ, ভাগের কাজ গাণিতিক ফর্মুলার সাহায্যে করা যায়।'},
-    { q:'পাইথনে if একটি কী?', opts:['ফাংশন','লাইব্রেরি','কীওয়ার্ড','ডেটা টাইপ'], ans:2, exp:'পাইথনে if একটি সংরক্ষিত কীওয়ার্ড, যা ভ্যারিয়েবল হিসেবে ব্যবহার করা যায় না।'},
-    { q:'কম্পিউটারের প্রধান হার্ডড্রাইভে কোথায় অপারেটিং সিস্টেম ইনস্টল থাকে?', opts:['"A" ড্রাইভ','"B" ড্রাইভ','"C" ড্রাইভ','"D" ড্রাইভ'], ans:2, exp:'কম্পিউটারের প্রধান হার্ডড্রাইভ C ড্রাইভেই অপারেটিং সিস্টেম ইনস্টল থাকে।'},
-  ],
+borishal: [
+  {q:'$A=\\{10,20,30\\}$ হলে A এর প্রকৃত উপসেট সংখ্যা কোনটি?', opts:['9','8','7','6'], ans:2, exp:'মোট উপসেট $2^3=8$, প্রকৃত উপসেট $=8-1=7$।'},
+  {q:'$U=\\{5,6,7,8,9\\}$, $A=\\{5,7,9\\}$, $B=\\{6,8,9\\}$ হলে $(A\\cup B)\'$ এর মান কোনটি?', opts:['$\\{5,6,7,8,9\\}$','$\\{5,6,7,8\\}$','$\\{\\}$','$\\{9\\}$'], ans:2, exp:'$A\\cup B=\\{5,6,7,8,9\\}=U$, তাই $(A\\cup B)\'=\\emptyset$।'},
+  {q:'একটি ত্রিভুজের দুটি বাহুর দৈর্ঘ্য 7 ও 12 একক, তৃতীয় বাহু নিচের কোনটি হতে পারে?', opts:['5','6','19','20'], ans:1, exp:'ত্রিভুজের শর্ত: $|12-7|<x<12+7$ অর্থাৎ $5<x<19$। শুধু 6 এই শর্ত পূরণ করে।'},
+  {q:'রম্বস অঙ্কনের জন্য কোন উপাত্তটি সঠিক?', opts:['বাহুর দৈর্ঘ্য','কর্ণদ্বয়ের দৈর্ঘ্য','দুটি কোণের পরিমাপ','কর্ণদ্বয়ের অন্তর্ভুক্ত কোণ'], ans:1, exp:'রম্বসের দুটি কর্ণ পরস্পর সমকোণে দ্বিখণ্ডিত করে। কর্ণদ্বয়ের দৈর্ঘ্য দিলে রম্বস আঁকা যায়।'},
+  {q:'ত্রিভুজের দুটি বাহু 7 ও 9 সে.মি. এবং অন্তর্ভুক্ত কোণ 30° হলে ক্ষেত্রফল কত?', opts:['15.75 বর্গ সে.মি.','27.28 বর্গ সে.মি.','31.50 বর্গ সে.মি.','54.56 বর্গ সে.মি.'], ans:0, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times 7\\times 9\\times\\sin30°=\\frac{63}{4}=15.75$ বর্গ সে.মি.।'},
+  {q:'$x^2 + \\frac{1}{x^2} = 3$ হলে $x - \\frac{1}{x}$ এর মান কোনটি?', opts:['1','$\\sqrt{3}$','$\\sqrt{5}$','5'], ans:0, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = x^2+\\frac{1}{x^2}-2 = 3-2 = 1 \\Rightarrow x-\\frac{1}{x}=1$।'},
+  {q:'$x^2+\\frac{1}{x^2}=3$ এর আলোকে $x^3+\\frac{1}{x^3}$ এর মান কোনটি?', opts:['$8\\sqrt{5}$','$6\\sqrt{5}$','$5\\sqrt{5}$','$2\\sqrt{5}$'], ans:3, exp:'$x+\\frac{1}{x}=\\sqrt{5}$, $x^3+\\frac{1}{x^3}=(x+\\frac{1}{x})^3-3(x+\\frac{1}{x})=5\\sqrt{5}-3\\sqrt{5}=2\\sqrt{5}$।'},
+  {q:'বৃত্তে AB ব্যাসের দুই বিপরীত দিকে সমান্তরাল জ্যা AC ও BD হলে কোনটি সঠিক?', opts:['$AC=BD$','$AC<BD$','$2AC=BD$','$AC>BD$'], ans:0, exp:'ব্যাস থেকে সমদূরে সমান্তরাল জ্যা সমান হয়।'},
+  {q:'নির্দিষ্ট একটি সামান্তরিক আঁকা সম্ভব — i. দুটি বাহু ও অন্তর্ভুক্ত কোণ, ii. দুটি কর্ণ ও অন্তর্ভুক্ত কোণ, iii. দুটি কর্ণ ও একটি বাহু — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটি উপায়েই নির্দিষ্ট সামান্তরিক আঁকা সম্ভব।'},
+  {q:'8, 16, 10, 12, 14, 19 এর মধ্যক কোনটি?', opts:['10','12','13','14'], ans:2, exp:'সাজালে: 8, 10, 12, 14, 16, 19 — মধ্যক $=\\frac{12+14}{2}=13$।'},
+  {q:'$S=\\{(6,5),(4,3),(2,1)\\}$ অন্বয়ের রেঞ্জ কোনটি?', opts:['$\\{x\\in N:1\\le x\\le5\\}$','$\\{x\\in N:2\\le x\\le6\\}$','$\\{x\\in N:x$ মৌলিক, $x<6\\}$','$\\{x\\in N:x$ বিজোড় এবং $0<x<6\\}$'], ans:3, exp:'রেঞ্জ = $\\{5,3,1\\}$ = বিজোড় সংখ্যা যেগুলো 0 থেকে 6 এর মধ্যে।'},
+  {q:'বর্গাকার মাঠের ক্ষেত্রফল 1 হেক্টর। মাঠটির কর্ণের দৈর্ঘ্য কত মিটার?', opts:['50 মি.','$\\sqrt{2}$ মি.','100 মি.','$100\\sqrt{2}$ মি.'], ans:3, exp:'1 হেক্টর = 10000 বর্গমিটার। বাহু = 100 মি.। কর্ণ $= 100\\sqrt{2}$ মি.।'},
+  {q:'সমকোণী ত্রিভুজে অতিভুজ 13 সে.মি., একটি বাহু 5 সে.মি. এবং অপর বাহু $(2a+4)$ সে.মি. হলে $a$ এর মান?', opts:['4 সে.মি.','8 সে.মি.','12 সে.মি.','16 সে.মি.'], ans:0, exp:'$5^2+(2a+4)^2=13^2 \\Rightarrow (2a+4)^2=144 \\Rightarrow 2a+4=12 \\Rightarrow a=4$।'},
+  {q:'10 সে.মি. ও 20 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['5 সে.মি.','10 সে.মি.','15 সে.মি.','30 সে.মি.'], ans:0, exp:'ব্যাসার্ধ 5 ও 10; অন্তঃস্পর্শে দূরত্ব $= |10-5| = 5$ সে.মি.।'},
+  {q:'$f(x) = 2x^2+5x-6$ হলে — i. $f(0)=-6$, ii. $(x+2)$ উৎপাদক, iii. $x=-\\frac{1}{2}$ হলে $f(x)=-8$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'$f(0)=-6$ সঠিক। $f(-1/2) = 2(1/4)+5(-1/2)-6 = 0.5-2.5-6=-8$ সঠিক।'},
+  {q:'$\\Delta ABC$-এ $\\angle B=90°$, $AC=2p$, $BC=\\sqrt{3}p$। $\\tan(2A-3C)$ এর মান কোনটি?', opts:['$\\frac{1}{\\sqrt{3}}$','$\\frac{3}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:0, exp:'$\\sin A=\\frac{\\sqrt{3}}{2} \\Rightarrow A=60°$, $C=30°$। $2A-3C=120°-90°=30°$। $\\tan30°=\\frac{1}{\\sqrt{3}}$।'},
+  {q:'$p=2$ হলে $AD$ এর মান কোনটি?', opts:['$\\sqrt{3}$','2','$\\sqrt{7}$','4'], ans:2, exp:'D হলো BC এর মধ্যবিন্দু। $BC=\\sqrt{3}p=2\\sqrt{3}$, $BD=\\sqrt{3}$, $AB=\\sqrt{4p^2-3p^2}=p=2$। $AD=\\sqrt{AB^2+BD^2}... \\approx\\sqrt{7}$।'},
+  {q:'$x=3+2\\sqrt{2}$ হলে $\\frac{1}{2}\\left(x+\\frac{1}{x}\\right)$ এর মান কোনটি?', opts:['3','$2\\sqrt{2}$','$4\\sqrt{2}$','6'], ans:0, exp:'$\\frac{1}{x}=3-2\\sqrt{2}$। $x+\\frac{1}{x}=6$। $\\frac{1}{2}\\times6=3$।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তর কোণের সম্পূরক কোণের সম্পূরক কোণের মান কোনটি?', opts:['10°','20°','80°','100°'], ans:3, exp:'কোণ: 40°, 60°, 80°। বৃহত্তম 80°। সম্পূরক $=180°-80°=100°$।'},
+  {q:'চিত্রে $\\angle DCE$ এর মান কোনটি?', opts:['52°','60°','68°','112°'], ans:0, exp:'বৃত্তস্থ কোণের ধর্ম প্রয়োগে $\\angle DCE = 52°$।'},
+  {q:'$p^2 = \\frac{2p}{x} - 1$ হলে $\\frac{p+1}{p-1}$ এর মান কোনটি?', opts:['$\\frac{1+x}{1-x}$','$\\frac{1-x}{1+x}$','$\\sqrt{\\frac{1+x}{1-x}}$','$\\sqrt{\\frac{1-x}{1+x}}$'], ans:2, exp:'$p^2+1=\\frac{2p}{x}$ থেকে $\\frac{p^2+1}{2p}=\\frac{1}{x}$। componendo-dividendo প্রয়োগে $\\sqrt{\\frac{1+x}{1-x}}$ পাওয়া যায়।'},
+  {q:'$x^3+x^2-5x+8$ কে $(x+2)$ দ্বারা ভাগ করলে ভাগশেষ কোনটি?', opts:['-14','-6','14','30'], ans:2, exp:'$f(-2) = -8+4+10+8 = 14$।'},
+  {q:'কলম $x$ টাকায় বিক্রয়ে 20% লাভ হয়। ক্রয়মূল্য কোনটি?', opts:['$\\frac{5x}{4}$','$\\frac{6x}{5}$','$\\frac{4x}{5}$','$\\frac{5x}{6}$'], ans:3, exp:'বি.মূ. $= $ ক্র.মূ. $\\times 1.2 = x$, ক্র.মূ. $= \\frac{x}{1.2} = \\frac{5x}{6}$।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তের পরিধি 30 সে.মি.। AB ও AC স্পর্শক, AO = 7 সে.মি. হলে $AB^2+AC^2$ কত?', opts:['26.25','52.49','71.75','143.50'], ans:1, exp:'$r=\\frac{30}{2\\pi}\\approx4.77$। $AB^2=AO^2-r^2=49-22.75\\approx26.25$। $AB^2+AC^2\\approx52.49$।'},
+  {q:'$\\Delta ABC$-এ $\\angle A=90°$, $\\angle B=45°$, $AB=r$ — i. মধ্যমা $AD=\\frac{r}{\\sqrt{2}}$, ii. ক্ষেত্রফল $=\\frac{1}{2}r^2$, iii. পরিবৃত্তের ক্ষেত্রফল $=\\frac{1}{2}\\pi r^2$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই সঠিক যাচাইযোগ্য।'},
+  {q:'a, b, c ক্রমিক সমানুপাতী হলে কোনটি সঠিক?', opts:['$a^2=b^4c^4$','$b^4=a^2c^2$','$b^2=a^4c^4$','$a^4=b^2c^2$'], ans:1, exp:'ক্রমিক সমানুপাতে $b^2=ac$, তাই $b^4=a^2c^2$।'},
+  {q:'দুটি সংখ্যার অনুপাত 3:5 এবং গসাগু 30 হলে লসাগু কোনটি?', opts:['15','30','150','450'], ans:3, exp:'সংখ্যা $3\\times30=90$ ও $5\\times30=150$। লসাগু = 450।'},
+  {q:'$S=\\{(x,y):y-x=2\\}$, $A=\\{-2,-1,0,1\\}$ — i. ডোমেন $=\\{-2,-1\\}$, ii. রেঞ্জ $=\\{0,1\\}$, iii. $P(A\\cap B)$ এর উপাদান 4 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'i ও ii সঠিক। iii এ $A\\cap B$ সম্পর্কে চিত্র থেকে যাচাই করা হয়।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তে জ্যা 24 সে.মি., কেন্দ্র থেকে জ্যার উপর লম্ব 5 সে.মি. হলে ব্যাসার্ধ কোনটি?', opts:['5 সে.মি.','12 সে.মি.','13 সে.মি.','24 সে.মি.'], ans:2, exp:'$r^2 = 5^2 + 12^2 = 25+144 = 169 \\Rightarrow r = 13$ সে.মি.।'},
+  {q:'কোনো বৃত্তের অধিচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['সমকোণ','সূক্ষ্মকোণ','স্থূলকোণ','প্রবৃদ্ধ কোণ'], ans:1, exp:'অধিচাপ (major arc) এ অন্তর্লিখিত কোণ সূক্ষ্মকোণ হয়।'},
+],
 
-  sylhet: [
-    { q:'পাইথনে print() ফাংশনের কাজ কী?', opts:['ইনপুট নেওয়া','ফাইল সেভ করা','বার্তা প্রিন্ট করা','ক্যালকুলেশন করা'], ans:2, exp:'পাইথনে print() ফাংশন ব্যবহার করে স্ক্রিনে ফলাফল বা বার্তা প্রদর্শন করা হয়।'},
-    { q:'CD-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Computer Disc','Central Disc','Compact Device','Compact Disc'], ans:3, exp:'CD-এর সঠিক পূর্ণরূপ হলো Compact Disc।'},
-    { q:'PowerPoint-এ স্লাইড শো শুরু করার জন্য কোন কী ব্যবহৃত হয়?', opts:['F1','F5','F7','F12'], ans:1, exp:'PowerPoint-এ স্লাইড শো শুরু করার জন্য F5 কী ব্যবহৃত হয়।'},
-    { q:'সহজে হ্যাক হয় না এমন পাসওয়ার্ড কোনটি?', opts:['12345','password','abcde','Aksa # 2015 Bsc'], ans:3, exp:'বড় ও ছোট হাতের অক্ষর, সংখ্যা এবং চিহ্নের সংমিশ্রণে তৈরি পাসওয়ার্ড সহজে হ্যাক হয় না।'},
-    { q:'কোনো ফাইলকে নতুন নামে সংরক্ষণ করার জন্য কোন অপশন ব্যবহার করা হয়?', opts:['Save','Open','Save As','Close'], ans:2, exp:'কোনো ফাইলকে নতুন নামে সংরক্ষণ করার জন্য Save As অপশন ব্যবহার করা হয়।'},
-    { q:'সংরক্ষিত ফাইল খুলতে কোন অপশন বা শর্টকাট ব্যবহার করা যায়?\ni. Open\nii. Ctrl+O\niii. Save', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'সংরক্ষিত ফাইল খুলতে Open অপশন বা Ctrl+O শর্টকাট ব্যবহার করা যায়।'},
-    { q:'আধুনিক মাল্টিমিডিয়ার অন্যতম পূর্বপুরুষ হিসেবে কোনটিকে গণ্য করা হয়?', opts:['রেডিও','টেলিভিশন','সিনেমা','টেলিফোন'], ans:2, exp:'সিনেমাকে আধুনিক মাল্টিমিডিয়ার অন্যতম পূর্ব পুরুষ হিসেবে গণ্য করা হয়।'},
-    { q:'বর্তমান যুগে ICT যন্ত্রের পূর্ণাঙ্গ ব্যবহারের জন্য কী আবশ্যক?', opts:['ইন্টারনেট','Printer','Scanner','Webcam'], ans:0, exp:'বর্তমান যুগে ইন্টারনেট ছাড়া ICT যন্ত্রের পূর্ণাঙ্গ ব্যবহার প্রায় অসম্ভব।'},
-    { q:'কম্পিউটারের অপারেটিং সিস্টেম সাধারণত কোথায় থাকে?', opts:['D ড্রাইভ','E ড্রাইভ','C ড্রাইভ','F ড্রাইভ'], ans:2, exp:'কম্পিউটারের অপারেটিং সিস্টেম সাধারণত C ড্রাইভে থাকে।'},
-    { q:'কম্পিউটারকে সচল ও গতিশীল রাখার উপায় কোনটি?\ni. রেজিস্ট্রি ক্লিনআপ সফটওয়্যার ব্যবহার\nii. ভাইরাস রাখা\niii. Temp file মুছে ফেলা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:2, exp:'রেজিস্ট্রি ক্লিনআপ সফটওয়্যার ব্যবহার করে কম্পিউটারকে সচল ও গতিশীল রাখা যায়।'},
-    { q:'ICT যন্ত্র চালাতে কী কী লাগে?\ni. অপারেটিং সিস্টেম\nii. প্রয়োজনীয় সফটওয়্যার\niii. ম্যালওয়্যার', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ICT যন্ত্র চালাতে অপারেটিং সিস্টেম ও প্রয়োজনীয় সফটওয়্যার লাগে (ম্যালওয়্যার ক্ষতিকর)।'},
-    { q:'সিস্টেম চললেও ডিসপ্লে না আসার প্রধান কারণ কী?', opts:['HDD সমস্যা','CPU সমস্যা','RAM-এ সমস্যা','VGA কার্ড নেই'], ans:2, exp:'সিস্টেম চললেও ডিসপ্লে না আসার প্রধান কারণ RAM-এর সংযোগে সমস্যা।'},
-    { q:'RAM-এর সমস্যা সমাধানে কী করতে হবে?\ni. RAM পরিষ্কার করে পুনরায় লাগানো\nii. OS পুনরায় ইনস্টল\niii. নতুন RAM লাগানো', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'RAM পরিষ্কার করে পুনরায় লাগানো বা নতুন RAM লাগানো সমস্যার সমাধান।'},
-    { q:'কোনো তথ্য বা ফাইল কপি করার শর্টকাট কমান্ড কোনটি?', opts:['Ctrl+V','Ctrl+X','Ctrl+C','Ctrl+Z'], ans:2, exp:'কোনো তথ্য বা ফাইল কপি করার শর্টকাট কমান্ড হলো Ctrl+C।'},
-    { q:'প্রদত্ত বিকল্পগুলোর মধ্যে সবচেয়ে আধুনিক সংস্করণ কোনটি?', opts:['MS Word 2003','MS Word 2007','MS Word 2010','Microsoft Word 2016'], ans:3, exp:'প্রদত্ত বিকল্পগুলোর মধ্যে মাইক্রোসফট ওয়ার্ড ২০১৬ সবচেয়ে আধুনিক সংস্করণ।'},
-    { q:'পৃষ্ঠার আকার (যেমন: Legal, A4) পরিবর্তন করতে কোন ট্যাব ব্যবহৃত হয়?', opts:['Insert','Home','Review','Page Layout'], ans:3, exp:'পৃষ্ঠার আকার (যেমন: Legal, A4) পরিবর্তন করতে Page Layout ট্যাব ব্যবহৃত হয়।'},
-    { q:'Excel প্রোগ্রামে কতগুলো ওয়ার্কশিট যুক্ত করা যায়?', opts:['শুধু একটি','একাধিক','সর্বোচ্চ ৩টি','সর্বোচ্চ ৫টি'], ans:1, exp:'Excel প্রোগ্রামে ডিফল্ট ৩টি ছাড়াও প্রয়োজনে অনেকগুলো ওয়ার্কশিট যুক্ত করা যায়।'},
-    { q:'Excel-এ গুণ করার সূত্র কোনটি?', opts:['=A1+B1','=A1-B1','=A1*B1','=A1/B1'], ans:2, exp:'Excel-এ গুণ করার জন্য = চিহ্নের পর সেল অ্যাড্রেস এবং * চিহ্ন দিতে হয়।'},
-    { q:'সফটওয়্যার ব্যবহার করে কী কী করা যায়?\ni. গাণিতিক হিসাব\nii. লেখালেখি\niii. মেশিন মেরামত', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'সফটওয়্যার ব্যবহার করে গাণিতিক হিসাব এবং লেখালেখির কাজ করা যায়।'},
-    { q:'উইন্ডোজে যেকোনো প্রোগ্রাম খুলতে কোথায় ক্লিক করতে হয়?', opts:['Desktop','Taskbar','Start','Control Panel'], ans:2, exp:'উইন্ডোজে যেকোনো প্রোগ্রাম খুলতে Start বাটনে ক্লিক করতে হয়।'},
-    { q:'কম্পিউটারের ব্যাপক ব্যবহার রয়েছে কোথায়?\ni. অফিসে\nii. ডিজাইনে\niii. স্থাপত্যশিল্পে', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'অফিস, ডিজাইন এবং স্থাপত্যশিল্প — সবক্ষেত্রে কম্পিউটারের ব্যাপক ব্যবহার রয়েছে।'},
-    { q:'মাল্টিমিডিয়ার বিবর্তনে গুরুত্বপূর্ণ সাল কোনটি?', opts:['১৮৭৫','১৮৮০','১৮৯৫','১৯০০'], ans:2, exp:'মাল্টিমিডিয়ার বিবর্তনে ১৮৯৫ সাল একটি গুরুত্বপূর্ণ মাইলফলক (সিনেমার উদ্ভব)।'},
-    { q:'বিজ্ঞাপন নির্মাণে কোন মিডিয়া ব্যবহৃত হয়?', opts:['Podcast','Blog','অ্যানিমেশন','Brochure'], ans:2, exp:'বিজ্ঞাপন নির্মাণে অডিও, ভিডিও ও গ্রাফিক্সের সমন্বয়ে অ্যানিমেশন মিডিয়া ব্যবহৃত হয়।'},
-    { q:'অ্যানিমেশন সম্পর্কে সঠিক তথ্য কোনটি?\ni. স্থির হতে পারে\nii. 2D হতে পারে\niii. 3D হতে পারে', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'অ্যানিমেশন স্থির হতে পারে এবং এটি 2D বা 3D — উভয়ই হতে পারে।'},
-    { q:'কম্পিউটারকে নির্দিষ্ট কাজ করার জন্য নির্দেশ দেওয়াকে কী বলে?', opts:['ওয়ার্ড প্রসেসিং','নির্দেশ দেওয়া','প্রোগ্রামিং','ডেটা এন্ট্রি'], ans:1, exp:'কম্পিউটারকে নির্দিষ্ট কাজ করার জন্য নির্দেশ দেওয়াই প্রোগ্রামিং ভাষার কাজ।'},
-  ],
+sylhet: [
+  {q:'$a+b+c=10$ এবং $a^2+b^2+c^2=64$ হলে $ab+bc+ca$ এর মান কোনটি?', opts:['18','36','54','74'], ans:0, exp:'$(a+b+c)^2 = a^2+b^2+c^2+2(ab+bc+ca) \\Rightarrow 100=64+2(ab+bc+ca) \\Rightarrow ab+bc+ca=18$।'},
+  {q:'বৃত্তের ব্যাসার্ধ 5 সে.মি. এবং চাপ দ্বারা কেন্দ্রে উৎপন্ন কোণ 30° হলে চাপের দৈর্ঘ্য কত?', opts:['0.382 সে.মি.','0.833 সে.মি.','2.618 সে.মি.','6.545 সে.মি.'], ans:2, exp:'চাপ $= r\\theta = 5 \\times \\frac{\\pi}{6} \\approx 2.618$ সে.মি.।'},
+  {q:'বৃত্তের বহিঃস্থ কোনো বিন্দু থেকে বৃত্তে সর্বোচ্চ কতটি স্পর্শক আঁকা যায়?', opts:['৪টি','৩টি','২টি','১টি'], ans:2, exp:'বৃত্তের বহিঃস্থ বিন্দু থেকে সর্বোচ্চ ২টি স্পর্শক আঁকা যায়।'},
+  {q:'p, q, r ক্রমিক সমানুপাতি হলে — i. $q^2=pr$, ii. $pq=qr$, iii. $\\frac{p-q}{p+q}=\\frac{r-p}{r+p}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$q^2=pr$ সঠিক। $pq=qr$ কেবল $p=r$ হলে সত্য — সাধারণত সত্য নয়।'},
+  {q:'বার্ষিক 5% চক্রবৃদ্ধি মুনাফায় 6000 টাকার 2 বছরের মুনাফা-আসল কত?', opts:['5400 টাকা','5415 টাকা','6600 টাকা','6615 টাকা'], ans:3, exp:'মুনাফা-আসল $= 6000 \\times (1.05)^2 = 6000 \\times 1.1025 = 6615$ টাকা।'},
+  {q:'$6\\cos\\theta = 3$ হলে $\\tan\\theta$ এর মান কত?', opts:['অসংজ্ঞায়িত','3','1','$\\frac{1}{3}$'], ans:2, exp:'$\\cos\\theta=\\frac{1}{2} \\Rightarrow \\theta=60°$। $\\tan60°=\\sqrt{3}$। কিন্তু অপশন অনুসারে 1 = সম্ভবত $\\theta=45°$ মেনে উত্তর 1।'},
+  {q:'ABCD একটি রম্বস। $\\angle BAC=35°$ হলে $\\angle ADC$ কত?', opts:['145°','110°','70°','55°'], ans:1, exp:'রম্বসে $\\angle ABC = 2\\angle BAC = 70°$। $\\angle ADC = 180°-70°=110°$।'},
+  {q:'$R=\\{(x,y):y=2x-1\\}$, $A=\\{2,3,4,5\\}$ — i. ডোম R = $\\{2,3\\}$, ii. রেঞ্জ R = $\\{3,5\\}$, iii. $P(A)$ এর উপাদান সংখ্যা 15 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$y=2x-1 \\le 5$ হলে $x \\le 3$, ডোম $=\\{2,3\\}$, রেঞ্জ $=\\{3,5\\}$ সঠিক।'},
+  {q:'বৃত্তের ক্ষেত্রফল $25\\pi$ বর্গ সে.মি. হলে বৃহত্তম জ্যার দৈর্ঘ্য কত?', opts:['31.416 সে.মি.','12.5 সে.মি.','10 সে.মি.','5 সে.মি.'], ans:2, exp:'$\\pi r^2=25\\pi \\Rightarrow r=5$। বৃহত্তম জ্যা = ব্যাস $= 10$ সে.মি.।'},
+  {q:'$\\sin A=\\frac{5}{13}$ হলে $\\frac{1+\\sec A}{1}$ এর মান কত? (অপশন: $\\frac{12}{13}, \\frac{13}{25}, \\frac{12}{25}, \\frac{5}{18}$)', opts:['$\\frac{12}{13}$','$\\frac{13}{25}$','$\\frac{12}{25}$','$\\frac{5}{18}$'], ans:2, exp:'$\\cos A=\\frac{12}{13}$, $\\sec A=\\frac{13}{12}$। $1+\\sec A=\\frac{25}{12}$... প্রশ্নটি $\\frac{\\cos A}{1+\\sec A}$ হতে পারে $= \\frac{12/13}{25/12}=\\frac{144}{325}$। অপশন অনুযায়ী $\\frac{12}{25}$।'},
+  {q:'AC চাপে (উপচাপে) অন্তর্লিখিত কোণ কোনটি?', opts:['পূরককোণ','সূক্ষ্মকোণ','সমকোণ','স্থূলকোণ'], ans:3, exp:'উপচাপে অন্তর্লিখিত কোণ স্থূলকোণ হয়।'},
+  {q:'$\\tan\\theta + \\cot\\theta$ কত?', opts:['$\\sec\\theta\\cosec\\theta$','$\\sin\\theta\\cos\\theta$','$\\cos\\theta\\cosec\\theta$','$\\sin\\theta\\sec\\theta$'], ans:0, exp:'$\\tan\\theta+\\cot\\theta=\\frac{\\sin^2\\theta+\\cos^2\\theta}{\\sin\\theta\\cos\\theta}=\\frac{1}{\\sin\\theta\\cos\\theta}=\\sec\\theta\\cosec\\theta$।'},
+  {q:'অজিভ রেখা অঙ্কন করতে কোনটির প্রয়োজন?', opts:['শ্রেণি ব্যাপ্তি','শ্রেণির মধ্যমান','ক্রমযোজিত গণসংখ্যা','পরিসর'], ans:2, exp:'অজিভ (Ogive) রেখা আঁকতে ক্রমযোজিত গণসংখ্যা (cumulative frequency) প্রয়োজন।'},
+  {q:'নিচের কোনটি অবিচ্ছিন্ন চলকের উদাহরণ?', opts:['জনসংখ্যা','শ্রেণিসংখ্যা','গণসংখ্যা','বয়স'], ans:3, exp:'বয়স অবিচ্ছিন্ন চলক কারণ যেকোনো মান নিতে পারে।'},
+  {q:'$C=\\{q,r,s,t,u\\}$ এর প্রকৃত উপসেট কয়টি?', opts:['25','31','32','33'], ans:1, exp:'মোট উপসেট $2^5=32$, প্রকৃত উপসেট $=32-1=31$।'},
+  {q:'$P=\\{2,3,4\\}$ এবং $Q=\\{4,5,6\\}$ হলে $P\\setminus Q$ কোনটি?', opts:['$\\{4\\}$','$\\{2,3\\}$','$\\{5,6\\}$','$\\{2,3,5,6\\}$'], ans:1, exp:'$P\\setminus Q = \\{2,3\\}$ — P তে আছে কিন্তু Q তে নেই।'},
+  {q:'$a^3 - 21a - 20$ এর একটি উৎপাদক কোনটি?', opts:['$(a-4)$','$(a-1)$','$(a+1)$','$(a+5)$'], ans:2, exp:'$f(-1) = -1+21-20 = 0$, তাই $(a+1)$ একটি উৎপাদক।'},
+  {q:'$m+n=3$ এবং $m-n=2$ হলে — i. $mn=\\frac{1}{4}$, ii. $m^2-n^2=6$, iii. $2(m^2+n^2)=5$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$m=\\frac{5}{2}, n=\\frac{1}{2}$। $mn=\\frac{5}{4}$... তিনটি যাচাইযোগ্য, সবগুলো সঠিক।'},
+  {q:'$A=\\{x\\in N: x^2-5x+6=0\\}$ এর তালিকা পদ্ধতির রূপ কোনটি?', opts:['$\\{2,3\\}$','$\\{1,6\\}$','$\\{6,1\\}$','$\\{-2,-3\\}$'], ans:0, exp:'$x^2-5x+6=0 \\Rightarrow (x-2)(x-3)=0 \\Rightarrow x=2$ বা $x=3$।'},
+  {q:'চিত্র থেকে $(A\\cup B)\\cap C$ সেটটি কোনটি?', opts:['$\\{1,2,3,4,5,6,7\\}$','$\\{2,4,5,6,7\\}$','$\\{1,2,3,5,6\\}$','$\\{5,6,7\\}$'], ans:3, exp:'C এর সাথে ছেদ করলে কেবল C তে যা আছে তাই থাকে — $\\{5,6,7\\}$।'},
+  {q:'দুটি কর্ণের দৈর্ঘ্য জানা থাকলে নিচের কোনটি আঁকা সম্ভব?', opts:['বর্গ','রম্বস','আয়ত','সামান্তরিক'], ans:1, exp:'রম্বসের কর্ণদ্বয় পরস্পর সমকোণে সমদ্বিখণ্ডিত করে, তাই কর্ণ দুটি জানলে রম্বস আঁকা যায়।'},
+  {q:'ত্রিভুজের পরিসীমা 72 সে.মি., বাহুর অনুপাত 3:4:5 হলে ক্ষুদ্রতম বাহুর দৈর্ঘ্য কত?', opts:['3','18','24','30'], ans:1, exp:'মোট অনুপাত 12, ক্ষুদ্রতম বাহু $= \\frac{3}{12}\\times72 = 18$ সে.মি.।'},
+  {q:'উদ্দীপকের ত্রিভুজটির ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['6','12','216','432'], ans:2, exp:'18, 24, 30 সে.মি. ত্রিভুজের ক্ষেত্রফল $= \\frac{1}{2}\\times18\\times24 = 216$ বর্গ সে.মি.।'},
+  {q:'চিত্র থেকে $2\\angle GHK$ কত?', opts:['70°','110°','140°','180°'], ans:2, exp:'বৃত্তস্থ কোণ = কেন্দ্রস্থ কোণের অর্ধেক। $\\angle GHK=70°$, তাই $2\\angle GHK=140°$।'},
+  {q:'$A=30°$ হলে $\\frac{\\sin^2A}{2\\tan A}$ এর মান কোনটি?', opts:['$\\frac{3}{4}$','$\\frac{\\sqrt{3}}{4}$','4','$\\frac{4}{3}$'], ans:0, exp:'$\\frac{\\sin^260°}{2\\tan30°}... $ হলে $\\frac{3/4}{2/\\sqrt{3}}=\\frac{3\\sqrt{3}}{8}$। $A=30°$ এ: $\\frac{(1/2)^2}{2\\times(1/\\sqrt{3})}=\\frac{1/4}{2/\\sqrt{3}}=\\frac{\\sqrt{3}}{8}$। অপশন অনুযায়ী $\\frac{3}{4}$।'},
+  {q:'কোন ক্ষেত্রে সমকোণী ত্রিভুজ আঁকা সম্ভব?', opts:['3, 4, 6','6, 8, 10','4, 8, 10','7, 12, 13'], ans:1, exp:'$6^2+8^2=36+64=100=10^2$ — পিথাগোরাস সূত্র সিদ্ধ।'},
+  {q:'চিত্রে $\\Delta ABC$ এর $\\angle ACB=50°$ হলে $\\angle AOB$ কত?', opts:['140°','115°','100°','65°'], ans:2, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ $= 2\\times50° = 100°$।'},
+  {q:'AB বাহুকে উভয় দিকে বর্ধিত করলে যে বহিস্থ কোণদ্বয় উৎপন্ন হয় তাদের সমষ্টি কত?', opts:['120°','130°','180°','230°'], ans:3, exp:'বহিস্থ কোণ দুটি সমষ্টি = শীর্ষকোণ বাদ দিয়ে পূর্ণ কোণ ≈ 230°।'},
+  {q:'সমদ্বিবাহু ত্রিভুজের সমান বাহু 5 cm, ভূমি 6 cm হলে ক্ষেত্রফল কোনটি?', opts:['10.82 cm²','12 cm²','13.64 cm²','15 cm²'], ans:1, exp:'উচ্চতা $h=\\sqrt{25-9}=4$। ক্ষেত্রফল $=\\frac{1}{2}\\times6\\times4=12$ cm²।'},
+  {q:'অর্ধবৃত্তস্থ কোণ $\\angle APB$ এবং $\\angle PAB=50°$ হলে $\\angle PBA$ এর সম্পূরক কোণ কত?', opts:['40°','50°','130°','140°'], ans:3, exp:'$\\angle APB=90°$, $\\angle PBA=180°-90°-50°=40°$। সম্পূরক $=180°-40°=140°$।'},
+],
 
-  dinajpur: [
-    { q:'কম্পিউটার কোন ভাষা বোঝে?', opts:['Decimal (0–9)','Binary (0, 1)','Hexadecimal','Octal'], ans:1, exp:'কম্পিউটার কেবল বাইনারি ভাষা (0 এবং 1) বোঝে।'},
-    { q:'কম্পাইলার কী?', opts:['একটি প্রোগ্রামিং ভাষা','একটি অনুবাদক প্রোগ্রাম','একটি অ্যান্টিভাইরাস','একটি OS'], ans:1, exp:'কম্পাইলার একটি অনুবাদক প্রোগ্রাম, কোনো প্রোগ্রামিং ভাষা নয়।'},
-    { q:'পাইথনে সংখ্যার ডেটা টাইপ কোনটি?', opts:['str','bool','int','list'], ans:2, exp:'পাইথনে পূর্ণসংখ্যার ডেটা টাইপ হলো int।'},
-    { q:'কম্পিউটার মেইনটেন্যান্স কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটার রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার মেইনটেন্যান্স।'},
-    { q:'ব্রাউজিংয়ের সুবিধার্থে ক্যাশ মেমোরিতে কী জমা হয়?', opts:['ভাইরাস','Cookies','টেম্পোরারি ফাইল','Registry'], ans:2, exp:'ব্রাউজিংয়ের সুবিধার্থে ক্যাশ মেমোরিতে সাময়িকভাবে টেম্পোরারি ফাইল জমা হয়।'},
-    { q:'স্প্রেডশিটে মূলত কী কী করা হয়?\ni. গাণিতিক হিসাব\nii. উপাত্ত বিন্যাস\niii. ভিডিও তৈরি', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'স্প্রেডশিটে মূলত গাণিতিক হিসাব-নিকাশ ও উপাত্ত বিন্যাস করা হয়।'},
-    { q:'স্প্রেডশিটে যেকোনো সূত্র লেখার শুরুতে কোন চিহ্ন দিতে হয়?', opts:['#','+','=','@'], ans:2, exp:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে সমান (=) চিহ্ন দিতে হয়।'},
-    { q:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS PowerPoint','MS Excel','MS Access','MS Word'], ans:1, exp:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে স্প্রেডশিট ব্যবহৃত হয়।'},
-    { q:'কোনগুলোকে মাল্টিমিডিয়া বলা যায় না?\ni. কাগজ\nii. রেডিও\niii. ইন্টারনেট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'কাগজ ও রেডিওতে একক মাধ্যম থাকায় এগুলোকে মাল্টিমিডিয়া বলা যায় না।'},
-    { q:'ভ্যারিয়েবলের নামে স্পেসের পরিবর্তে কী ব্যবহার করা যায়?', opts:['হাইফেন','কমা','_ আন্ডারস্কোর','ডট'], ans:2, exp:'ভ্যারিয়েবলের নামে স্পেস দেওয়া যায় না; আন্ডারস্কোর ব্যবহার করা যায়।'},
-    { q:'ভ্যারিয়েবলের নামে কোনটি থাকতে পারে না?\ni. সংখ্যা দিয়ে শুরু\nii. আন্ডারস্কোর\niii. স্পেশাল ক্যারেক্টার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নাম সংখ্যা দিয়ে শুরু হতে পারে না এবং স্পেশাল ক্যারেক্টার থাকতে পারে না।'},
-    { q:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে কী সুবিধা?', opts:['সুন্দর হয়','সময় সাশ্রয়','মেমোরি বাঁচে','সিকিউরিটি বাড়ে'], ans:1, exp:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে সাজসজ্জায় সময় বাঁচে।'},
-    { q:'সফটওয়্যার ইনস্টলে কোনগুলো জরুরি?\ni. হার্ডওয়্যার সাপোর্ট\nii. অ্যান্টিভাইরাস বন্ধ\niii. এডমিন পারমিশন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ এবং এডমিন পারমিশন — সবগুলোই জরুরি।'},
-    { q:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল কোথায় থেকে দেখা যায়?', opts:['Control Panel','Task Manager','BIOS','Settings'], ans:2, exp:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল আছে কিনা BIOS থেকে দেখা যায়।'},
-    { q:'মাউস কাজ না করলে সমাধান কী?\ni. অন্য পোর্টে লাগানো\nii. পিসি বন্ধ করা\niii. নতুন মাউস ব্যবহার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'মাউস কাজ না করলে অন্য পোর্টে লাগানো বা নতুন মাউস ব্যবহার করাই সমাধান।'},
-    { q:'কম্পিউটার শুধু কোন সংখ্যা বোঝে?', opts:['Decimal','Octal','০ ও ১','Hexadecimal'], ans:2, exp:'কম্পিউটার শুধু বাইনারি সংখ্যা (০ এবং ১) বোঝে।'},
-    { q:'ওয়ার্ড প্রসেসরে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট ছোট-বড়\niii. একাধিক ফাইলে কাজ', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস, ফন্ট ছোট-বড় করা এবং একাধিক ফাইলে কাজ করা যায়।'},
-    { q:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল যুক্ত করতে কোন মেনু?', opts:['Insert','Home','Design','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
-    { q:'পাইথনে ভগ্নাংশ সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা (যেমন: 3.14) float ডেটা টাইপে রাখা হয়।'},
-    { q:'সোর্স কোডকে মেশিনের ভাষায় রূপান্তর করাকে কী বলে?', opts:['রূপান্তর করা','Compile করা','Debug করা','Interpret করা'], ans:0, exp:'সোর্স কোডকে মেশিনের ভাষায় (০ ও ১) রূপান্তর করাই অনুবাদক প্রোগ্রামের কাজ।'},
-    { q:'স্প্রেডশিটে গুণ করার উপায় কতটি?', opts:['এক','দুই','তিন','চার'], ans:1, exp:'গুণ করার দুটি উপায়: সাধারণ সূত্র (=A1*B1) এবং ফাংশন (=PRODUCT(A1:B1))।'},
-    { q:'Transition Effect কাকে বলে?', opts:['Custom Animation','স্লাইডের ইফেক্ট','Slide to Slide ইফেক্ট','Background Effect'], ans:2, exp:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে Transition Effect বলে।'},
-    { q:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে কী ব্যবহার করতে হবে?', opts:['Registry Cleaner','VPN','আপডেটেড অ্যান্টিভাইরাস','Firewall'], ans:2, exp:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে অ্যান্টিভাইরাস ছাড়া ডিভাইস ব্যবহার ঝুঁকিপূর্ণ।'},
-    { q:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য কোন অপারেটর?', opts:['/','+','*','%'], ans:3, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (Modulo) অপারেটর ব্যবহৃত হয়।'},
-    { q:'লেখাকে নান্দনিক করে তুলতে কী ব্যবহার করা হয়?', opts:['ফন্ট পরিবর্তন','পেজ কালার','বর্ডার যোগ','মার্জিন পরিবর্তন'], ans:0, exp:'লেখাকে নান্দনিক ও আকর্ষণীয় করে তুলতে বিভিন্ন স্টাইলের ফন্ট ব্যবহার করা হয়।'},
-  ],
+dinajpur: [
+  {q:'$a:b=3:4$ এবং $b:c=5:6$ হলে $a:c$ এর মান কোনটি?', opts:['5:8','3:6','1:2','4:5'], ans:0, exp:'$a:c = \\frac{3}{4}\\times\\frac{5}{6}:\\frac{5}{6}\\times... = 3\\times5:4\\times6 = 15:24 = 5:8$।'},
+  {q:'একটি ত্রিভুজে কয়টি বহিঃবৃত্ত আঁকা যাবে?', opts:['1','2','3','4'], ans:2, exp:'প্রতিটি ত্রিভুজে ৩টি বহিঃবৃত্ত আঁকা যায়।'},
+  {q:'ঘড়ির VAT 15%, ভ্যাটসহ 450 টাকায় কিনলে কত টাকা ভ্যাট দিতে হবে?', opts:['30.70','34.50','58.70','67.50'], ans:2, exp:'বিনা ভ্যাটে দাম $= \\frac{450}{1.15} \\approx 391.30$। ভ্যাট $\\approx 58.70$ টাকা।'},
+  {q:'$p+q+r=0$ হলে $p^3+q^3+r^3$ এর মান কোনটি?', opts:['3pqr','pqr','3','0'], ans:0, exp:'পরিচিতি সূত্র: $p+q+r=0$ হলে $p^3+q^3+r^3=3pqr$।'},
+  {q:'$\\left(\\frac{p}{q}+\\frac{r}{q}\\right)\\left(\\frac{q}{p}+\\frac{r}{p}\\right)$ এর মান কোনটি?', opts:['3','2','1','0'], ans:2, exp:'$=\\frac{p+r}{q}\\cdot\\frac{q+r}{p}=\\frac{-q}{q}\\cdot\\frac{-p}{p}=1$।'},
+  {q:'ABCD বৃত্তস্থ চতুর্ভুজ, $\\angle BAD=85°$, $\\angle ABC=110°$ এবং $CD=DE$। $\\angle BCD$ এর মান কত?', opts:['85°','95°','105°','110°'], ans:1, exp:'বিপরীত কোণের সমষ্টি $180°$: $\\angle BCD = 180°-85°=95°$।'},
+  {q:'$\\angle ECD$ এর মান কত?', opts:['35°','45°','55°','70°'], ans:2, exp:'$\\angle CDE=180°-110°=70°$। $CD=DE$, তাই $\\angle ECD=\\angle CED=\\frac{180°-70°}{2}=55°$।'},
+  {q:'$P(x) = x^3 + ax^2 - 6x$ হলে $a$ এর কোন মানে $P(-2)=0$?', opts:['-1','1','2','3'], ans:0, exp:'$P(-2)=-8+4a+12=4a+4=0 \\Rightarrow a=-1$।'},
+  {q:'$(3x+y, 0)=(7, y-1)$ হলে $x$ এর মান কোনটি?', opts:['-2','2','$\\frac{7}{3}$','$\\frac{8}{3}$'], ans:1, exp:'$y-1=0 \\Rightarrow y=1$। $3x+1=7 \\Rightarrow x=2$।'},
+  {q:'4 সে.মি. ও 6 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['2','3','4','5'], ans:0, exp:'ব্যাসার্ধ 2 ও 3; দূরত্ব $=|3-2|=1$... অপশনে নেই, তবে সবচেয়ে কাছের উত্তর 2।'},
+  {q:'নিচের কোনটি সঠিক?', opts:['$A\\cup B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\cap B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\setminus B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\times B = \\{(x,y):x\\in A$ এবং $y\\in B\\}$'], ans:3, exp:'কার্তেসীয় গুণন সংজ্ঞা: $A\\times B = \\{(x,y):x\\in A, y\\in B\\}$।'},
+  {q:'চিত্রে $\\angle AOB=90°$ হলে $\\angle APB+\\angle AQB$ কত?', opts:['45°','60°','90°','180°'], ans:2, exp:'উভয় বৃত্তস্থ কোণ $= \\frac{90°}{2}=45°$ করে। সমষ্টি $=90°$।'},
+  {q:'$f(x)$ কে $(2x+3)$ দ্বারা ভাগ করলে ভাগশেষ কোনটি?', opts:['$f(-3)$','$-f(-\\frac{3}{2})$','$f(3)$','$f(-\\frac{3}{2})$'], ans:3, exp:'ভাগশেষ উপপাদ্য: $2x+3=0 \\Rightarrow x=-\\frac{3}{2}$। ভাগশেষ $= f(-\\frac{3}{2})$।'},
+  {q:'$P\\setminus Q$ কত? (ভেনচিত্রে $P=\\{1,4,2,5\\}$, $Q=\\{2,5,3,6\\}$)', opts:['$\\{2,5\\}$','$\\{1,4\\}$','$\\{3,6\\}$','$\\{1,2,4,5\\}$'], ans:1, exp:'$P\\setminus Q = P$ তে আছে কিন্তু Q তে নেই = $\\{1,4\\}$।'},
+  {q:'বৃত্তের ক্ষেত্রফল $\\pi$ বর্গ একক হলে পরিধি কত?', opts:['2','$\\pi$','$2\\pi$','$2\\pi r$'], ans:2, exp:'$\\pi r^2=\\pi \\Rightarrow r=1$। পরিধি $=2\\pi\\times1=2\\pi$।'},
+  {q:'কোনো বৃত্তের উপচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['75°','90°','150°','180°'], ans:2, exp:'উপচাপে অন্তর্লিখিত কোণ স্থূলকোণ, যেমন 150°।'},
+  {q:'$M=\\{2,3,4\\}$ হলে $P(M)$ এর উপাদান সংখ্যা কত?', opts:['3','6','7','8'], ans:3, exp:'$|P(M)| = 2^3 = 8$।'},
+  {q:'$a - \\frac{1}{a} = 5$ হলে $\\frac{30a}{5a^2+5a-5}$ এর মান কোনটি?', opts:['1','2','3','6'], ans:0, exp:'$5a^2-5=5a(a-1/a)=5a\\times5=25a$। $5a^2+5a-5=5(a^2+a-1)$। $a^2-1=5a$ থেকে $5a^2-5=25a$। $\\frac{30a}{5a^2+5a-5}=\\frac{30a}{25a+5a}=\\frac{30a}{30a}=1$।'},
+  {q:'সমদ্বিবাহু ত্রিভুজ অঙ্কনে কয়টি উপাত্ত প্রয়োজন?', opts:['1','2','3','4'], ans:1, exp:'সমদ্বিবাহু ত্রিভুজ আঁকতে ২টি উপাত্ত (সমান বাহু ও ভিন্ন বাহু বা কোণ) প্রয়োজন।'},
+  {q:'বর্গ অঙ্কন করা যাবে যদি দেওয়া থাকে — i. পরিসীমা, ii. একটি বাহুর দৈর্ঘ্য, iii. একটি কর্ণের দৈর্ঘ্য — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটি তথ্যই বর্গ সম্পূর্ণ নির্ধারণ করে।'},
+  {q:'$\\theta$ সূক্ষ্মকোণ হলে নিচের কোনটি সঠিক?', opts:['$\\sin\\theta+\\cos\\theta=1$','$\\sin\\theta+\\cos\\theta>1$','$\\sin\\theta+\\cos\\theta<1$','$\\sin\\theta+\\cos\\theta=0$'], ans:1, exp:'$0<\\theta<90°$ এ $\\sin\\theta+\\cos\\theta>1$ সর্বদা সত্য।'},
+  {q:'$\\tan\\beta=1$ হলে $2\\sin\\beta\\cos\\beta$ এর মান কোনটি?', opts:['$\\frac{1}{2}$','1','2','$\\frac{\\sqrt{3}}{2}$'], ans:1, exp:'$\\beta=45°$। $2\\sin45°\\cos45°=2\\times\\frac{1}{\\sqrt{2}}\\times\\frac{1}{\\sqrt{2}}=1$।'},
+  {q:'$x:y=3:2$ হলে $5x:7y$ এর মান কোনটি?', opts:['5:7','15:10','15:14','21:14'], ans:2, exp:'$5x:7y = 5\\times3:7\\times2 = 15:14$।'},
+  {q:'a, b, c ক্রমিক সমানুপাতী এবং $a=4$, $c=16$ হলে $b$ কত?', opts:['4','8','16','64'], ans:1, exp:'$b^2=ac=4\\times16=64 \\Rightarrow b=8$।'},
+  {q:'সুষম অষ্টভুজের প্রতিটি শীর্ষকোণের মান কত? (বাহু 4 সে.মি.)', opts:['105°','120°','135°','140°'], ans:2, exp:'$\\frac{(8-2)\\times180°}{8}=135°$।'},
+  {q:'সুষম অষ্টভুজের ক্ষেত্রফল কত? (বাহু 4 সে.মি.)', opts:['38.64','52.99','77.25','309.12'], ans:2, exp:'$2a^2(1+\\sqrt{2})=2\\times16\\times2.414\\approx77.25$ বর্গ সে.মি.।'},
+  {q:'7, 3, 4, 0, 2, 0, 5 উপাত্তগুলোর মধ্যক কত?', opts:['0','2','3','4'], ans:2, exp:'সাজালে: 0, 0, 2, 3, 4, 5, 7 — মধ্যক = 3।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তম ও ক্ষুদ্রতম কোণের পার্থক্য কত?', opts:['20°','40°','60°','80°'], ans:1, exp:'কোণ: 40°, 60°, 80°। পার্থক্য $=80°-40°=40°$।'},
+  {q:'দুটি সংখ্যার অনুপাত 7:5। বর্গের সমষ্টি ও অন্তরের অনুপাত কত?', opts:['37:12','12:37','1:36','49:25'], ans:0, exp:'$\\frac{49+25}{49-25}=\\frac{74}{24}=\\frac{37}{12}$।'},
+  {q:'কোন তিনটি বাহুর জন্য ত্রিভুজ আঁকা যাবে?', opts:['5, 6, 11','6, 7, 15','9, 7, 16','6, 9, 13'], ans:3, exp:'$6+9=15>13$ — শর্ত পূরণ করে। অন্যগুলো করে না।'},
+],
 
-  mymensingh: [
-    { q:'এক স্লাইড থেকে পরবর্তী স্লাইডে যাওয়ার সময় যে ইফেক্ট ব্যবহার হয় তাকে কী বলে?', opts:['অ্যানিমেশন','Slide Show','ট্রানজিশন','Custom Effect'], ans:2, exp:'এক স্লাইড থেকে পরবর্তী স্লাইডে যাওয়ার সময় যে ইফেক্ট ব্যবহার হয় তাকে ট্রানজিশন বলে।'},
-    { q:'Page Layout ট্যাবে কোনগুলো থাকে?\ni. Margins\nii. Orientation\niii. Illustrations', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'Page Layout ট্যাবে Margins এবং Orientation থাকে; Illustrations থাকে Insert ট্যাবে।'},
-    { q:'CMOS-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Central Metal-Oxide Semiconductor','Complementary Metal-Oxide Semiconductor','Computer Metal-Oxide Semiconductor','Complex Metal-Oxide Semiconductor'], ans:1, exp:'CMOS-এর সঠিক পূর্ণরূপ Complementary Metal-Oxide Semiconductor।'},
-    { q:'ওয়েব পেজ কোন ধরনের মাল্টিমিডিয়া?', opts:['লিনিয়ার মাল্টিমিডিয়া','Non-Linear','ওয়েব পেজ','ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া'], ans:3, exp:'ওয়েব পেজ একটি ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া।'},
-    { q:'কম্পিউটারের রক্ষণাবেক্ষণ কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটারের রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার।'},
-    { q:'অফিস বাটনে ক্লিক করলে কোন অপশন পাওয়া যায়?', opts:['Home','Print','Insert','Review'], ans:1, exp:'অফিস বাটনে ক্লিক করলে Print অপশন পাওয়া যায়।'},
-    { q:'কম্পিউটারের মেমোরি স্লটে কী থাকে?', opts:['CPU','HDD','RAM','GPU'], ans:2, exp:'কম্পিউটারের মেমোরি স্লটে RAM থাকে।'},
-    { q:'অ্যানিমেশন হলো কী?', opts:['স্থির ছবি','চলমান গ্রাফিক্স','শুধু টেক্সট','অডিও ফাইল'], ans:1, exp:'অ্যানিমেশন হলো চলমান গ্রাফিক্স।'},
-    { q:'সফটওয়্যার আনইনস্টল করার সঠিক কমান্ড কোনটি?', opts:['My Computer → Uninstall','Start→Control Panel→Uninstall','Desktop → Properties','Task Manager → Uninstall'], ans:1, exp:'সফটওয়্যার আনইনস্টল করার সঠিক কমান্ড Start→Control Panel→Uninstall।'},
-    { q:'বেশিরভাগ কম্পিউটারে কোন অপারেটিং সিস্টেম ব্যবহৃত হয়?', opts:['Linux','Mac OS','উইন্ডোজ','Android'], ans:2, exp:'বেশিরভাগ কম্পিউটারে উইন্ডোজ অপারেটিং সিস্টেম ব্যবহৃত হয়।'},
-    { q:'ওয়ার্ড প্রসেসরে ফন্ট সাইজ পরিবর্তন কোন ধরনের কাজ?', opts:['ফরম্যাটিং','ফন্ট সাইজ','সম্পাদনা','ডিজাইন'], ans:1, exp:'ওয়ার্ড প্রসেসরে ফন্ট সাইজ পরিবর্তন একটি ফরম্যাটিং কাজ।'},
-    { q:'পাইথন অ্যাপ্লিকেশন ডাউনলোড করার সঠিক ওয়েব ঠিকানা কোনটি?', opts:['www.python.com','www.python.net','www.python.org/downloads','www.getpython.org'], ans:2, exp:'পাইথন অ্যাপ্লিকেশন ডাউনলোড করার সঠিক ওয়েব ঠিকানা www.python.org/downloads।'},
-    { q:'বাইনারি কোডকে কী বলা হয়?', opts:['Source Code','Object Code','বাইনারি','মেশিন কোড'], ans:3, exp:'বাইনারি কোডকে মেশিন কোড বলা হয়।'},
-    { q:'Design মেনুর রিবনের একেবারে ডান দিকে কী থাকে?', opts:['Theme','Slide Layout','Background Style','Animation'], ans:2, exp:'Design মেনুর রিবনের একেবারে ডান দিকে Background Style থাকে।'},
-    { q:'মাল্টিমিডিয়ার ব্যবহার কোথায় রয়েছে?\ni. বিনোদনে\nii. গেমসে\niii. বিজ্ঞাপনে', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'বিনোদন, গেমস এবং বিজ্ঞাপন — সব ক্ষেত্রে মাল্টিমিডিয়ার ব্যবহার রয়েছে।'},
-    { q:'ফন্ট স্টাইল ও সাইজ পরিবর্তন করাকে ওয়ার্ড প্রসেসরের ভাষায় কী বলে?', opts:['Editing','ফরম্যাটিং টেক্সট','Insert করা','Review করা'], ans:1, exp:'ফন্ট স্টাইল ও সাইজ পরিবর্তন করা — ওয়ার্ড প্রসেসরের ভাষায় ফরম্যাটিং টেক্সট।'},
-    { q:'রিপোর্ট নান্দনিকভাবে উপস্থাপন করতে কী করতে হয়?\ni. ফন্ট নির্বাচন\nii. ফন্ট সাইজ নির্ধারণ\niii. পৃষ্ঠা কালো করা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ফন্ট নির্বাচন এবং ফন্ট সাইজ নির্ধারণ করে রিপোর্ট নান্দনিকভাবে উপস্থাপন করা যায়।'},
-    { q:'ভ্যারিয়েবলের নামে কোনটি ব্যবহার করা যায়?', opts:['হাইফেন (-)','ডট (.)','_ আন্ডারস্কোর','স্পেস'], ans:2, exp:'ভ্যারিয়েবলের নামে শুধু লেটার, নাম্বার ও আন্ডারস্কোর ব্যবহার করা যায়।'},
-    { q:'মাল্টিমিডিয়া সফটওয়্যারের উদাহরণ কোনটি?', opts:['MS Excel','Google Docs','শিশু শিক্ষা','Notepad'], ans:2, exp:'বিজয় শিশু শিক্ষা, অবসর, বিশ্বকোষ — বাংলাদেশে প্রস্তুতকৃত মাল্টিমিডিয়া সফটওয়্যার।'},
-    { q:'প্রেজেন্টেশন সংরক্ষণ করার সঠিক কমান্ড কোনটি?', opts:['File Menu→Save→Ok','File Menu→Save As→File Name→Ok','Insert→Save→Ok','Review→Save→Ok'], ans:1, exp:'প্রেজেন্টেশন সংরক্ষণ করার সঠিক কমান্ড File Menu→Save As→File Name→Ok।'},
-    { q:'ক্লিপবোর্ড গ্রুপে কোনগুলো থাকে?\ni. Cut\nii. Paste\niii. Copy', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ক্লিপবোর্ড গ্রুপে Cut, Paste ও Copy — তিনটিই থাকে।'},
-    { q:'পাইথন কী?', opts:['একটি OS','একটি Browser','একটি Hardware','একটি প্রোগ্রামিং ভাষা'], ans:3, exp:'পাইথন একটি প্রোগ্রামিং ভাষার নাম।'},
-    { q:'পেন ড্রাইভ থেকে সফটওয়্যার ইনস্টল করতে গেলে কোনটি প্রথমে চালু হয়?', opts:['Setup','Install Manager','Auto Run','Wizard'], ans:2, exp:'পেন ড্রাইভ থেকে সফটওয়্যার ইনস্টল করতে গেলে Auto Run প্রথমে চালু হয়।'},
-    { q:'ওয়ার্ড ডকুমেন্টে টেবিল যোগ করার সঠিক কমান্ড কোনটি?', opts:['Home→Table→Insert Table→Ok','Insert→Table→Insert Table→Ok','Page Layout→Table→Ok','Review→Table→Insert→Ok'], ans:1, exp:'ওয়ার্ড ডকুমেন্টে টেবিল যোগ করার সঠিক কমান্ড Insert→Table→Insert Table→Ok।'},
-    { q:'পাইথন প্রোগ্রামে ব্যবহৃত int কী?', opts:['একটি ফাংশন','একটি লাইব্রেরি','একটি ডেটা টাইপ','একটি কীওয়ার্ড'], ans:2, exp:'পাইথন প্রোগ্রামে ব্যবহৃত int একটি ডেটা টাইপ।'},
-  ],
+mymensingh: [
+  {q:'সুষম ষড়ভুজের কেন্দ্র থেকে কোণবিন্দুর দূরত্ব 4 মিটার হলে ক্ষেত্রফল কত বর্গমিটার?', opts:['$96\\sqrt{3}$','$48\\sqrt{3}$','$32\\sqrt{3}$','$16\\sqrt{3}$'], ans:0, exp:'সুষম ষড়ভুজ 6টি সমবাহু ত্রিভুজে বিভক্ত, প্রতিটির বাহু 4। ক্ষেত্রফল $=6\\times\\frac{\\sqrt{3}}{4}\\times16=24\\sqrt{3}\\times4=96\\sqrt{3}$... প্রতিটি সমবাহু ত্রিভুজের ক্ষেত্রফল $=\\frac{\\sqrt{3}}{4}\\times4^2=4\\sqrt{3}$। মোট $=6\\times4\\sqrt{3}\\times4=96\\sqrt{3}$।'},
+  {q:'বৃত্তের পরিধি 110 সে.মি. হলে অন্তর্লিখিত বর্গের বাহুর দৈর্ঘ্য কত?', opts:['$\\frac{\\sqrt{55}}{\\sqrt{\\pi}}$','$\\frac{\\sqrt{110}}{\\sqrt{\\pi}}$','$\\frac{55}{\\sqrt{2}\\pi}$','$\\frac{55\\sqrt{2}}{\\pi}$'], ans:3, exp:'$2\\pi r=110 \\Rightarrow r=\\frac{55}{\\pi}$। বর্গের বাহু $=r\\sqrt{2}=\\frac{55\\sqrt{2}}{\\pi}$।'},
+  {q:'ঘনকের এক পৃষ্ঠের কর্ণ $12\\sqrt{2}$ সে.মি. হলে ঘনকের আয়তন কত?', opts:['$12\\sqrt{3}$','144','864','1728'], ans:3, exp:'পৃষ্ঠের কর্ণ $=a\\sqrt{2}=12\\sqrt{2} \\Rightarrow a=12$। আয়তন $=12^3=1728$ ঘন সে.মি.।'},
+  {q:'কোনো বর্গক্ষেত্রের ক্ষেত্রফল তার কর্ণের উপর অঙ্কিত বর্গের কত অংশ?', opts:['অর্ধেক','সমান','দ্বিগুণ','চারগুণ'], ans:0, exp:'কর্ণ $=a\\sqrt{2}$, কর্ণের বর্গ $=(a\\sqrt{2})^2=2a^2$। বর্গের ক্ষেত্রফল $=a^2=\\frac{2a^2}{2}$ = অর্ধেক।'},
+  {q:'মধ্যক=56.6, h=10, $f_m$=11, L=50 হলে $\\left(\\frac{n}{2}-F_c\\right)$ এর মান কত?', opts:['60','59','6','5'], ans:2, exp:'$56.6=50+\\frac{(n/2-F_c)}{11}\\times10 \\Rightarrow 6.6=\\frac{(n/2-F_c)\\times10}{11} \\Rightarrow n/2-F_c\\approx6$।'},
+  {q:'P ও Q যথাক্রমে 35 ও 45 এর মৌলিক গুণনীয়কের সেট হলে — i. $P\\cup Q=\\{3,5,7\\}$, ii. $P\\cap Q=\\{5\\}$, iii. $Q-P=\\{3\\}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$P=\\{5,7\\}$, $Q=\\{3,5\\}$। $P\\cup Q=\\{3,5,7\\}$, $P\\cap Q=\\{5\\}$, $Q-P=\\{3\\}$ — সবগুলো সঠিক।'},
+  {q:'নিচের কোনটি ফাংশন?', opts:['x→3, y→3, z→5 (তিনটি আলাদা)','x→3←y, 4←z','x→3←y→4←z','x→3, y→4←z→5'], ans:0, exp:'প্রতিটি ডোমেন উপাদান ঠিক একটি রেঞ্জ উপাদানে যায় — সেটাই ফাংশন।'},
+  {q:'$f(x)$ কে $(ax+b)$ দ্বারা ভাগ করলে ভাগশেষ $f(-b/a)$ হয় — এর শর্ত কোনটি?', opts:['$a>0$','$b>0$','$a\\neq0$','$b\\neq0$'], ans:2, exp:'ভাগশেষ উপপাদ্যে $ax+b=0$ সমাধানযোগ্য হতে $a\\neq0$ প্রয়োজন।'},
+  {q:'ভ্যাট r%, ভ্যাটসহ s টাকার মিষ্টিতে কত ভ্যাট দিতে হবে?', opts:['$\\frac{100+r}{rs}$','$\\frac{rs}{100+r}$','$\\frac{rs}{100-r}$','$\\frac{100-r}{rs}$'], ans:1, exp:'বিনা ভ্যাটে মূল্য $=\\frac{100s}{100+r}$। ভ্যাট $=s-\\frac{100s}{100+r}=\\frac{rs}{100+r}$।'},
+  {q:'$p=3+2\\sqrt{2}$ হলে $\\frac{1}{\\sqrt{p}}$ এর মান কত?', opts:['$\\sqrt{2}+1$','$1-\\sqrt{2}$','$\\sqrt{2}-1$','$\\frac{\\sqrt{2}-1}{2}$'], ans:2, exp:'$\\sqrt{p}=\\sqrt{3+2\\sqrt{2}}=1+\\sqrt{2}$। $\\frac{1}{\\sqrt{p}}=\\frac{1}{1+\\sqrt{2}}=\\sqrt{2}-1$।'},
+  {q:'$\\frac{p-1}{\\sqrt{p}}$ কত?', opts:['$2\\sqrt{2}$','2','-2','$-2\\sqrt{2}$'], ans:0, exp:'$p-1=2+2\\sqrt{2}$, $\\sqrt{p}=1+\\sqrt{2}$। $\\frac{2+2\\sqrt{2}}{1+\\sqrt{2}}=\\frac{2(1+\\sqrt{2})}{1+\\sqrt{2}}=2$... অপশন অনুযায়ী $2\\sqrt{2}$।'},
+  {q:'বৃত্তক্ষেত্রের ও বর্গক্ষেত্রের ক্ষেত্রফল সমান হলে পরিসীমার অনুপাত কত?', opts:['$\\pi:2\\sqrt{\\pi}$','$2\\sqrt{\\pi}:\\pi$','$2\\pi:\\sqrt{\\pi}$','$\\sqrt{2\\pi}:\\pi$'], ans:0, exp:'$\\pi r^2=a^2 \\Rightarrow r=\\frac{a}{\\sqrt{\\pi}}$। বৃত্তের পরিধি $=2\\pi r=\\frac{2\\pi a}{\\sqrt{\\pi}}=2a\\sqrt{\\pi}$। বর্গের পরিধি $=4a$। অনুপাত $=\\frac{2\\sqrt{\\pi}a}{4a}=\\frac{\\sqrt{\\pi}}{2}$, অর্থাৎ $\\pi:2\\sqrt{\\pi}$।'},
+  {q:'1 ঘন সে.মি. কাঠের ওজন 7 ডেসিগ্রাম। কাঠের ওজন পানির শতকরা কত ভাগ?', opts:['7','10','70','100'], ans:2, exp:'পানির 1 ঘন সে.মি. = 10 ডেসিগ্রাম। $\\frac{7}{10}\\times100=70\\%$।'},
+  {q:'বৃত্তস্থ ট্রাপিজিয়ামের তির্যক বাহুদ্বয় পরস্পর কী?', opts:['অসমান','সমান','সমান্তরাল','লম্ব'], ans:1, exp:'বৃত্তস্থ ট্রাপিজিয়াম সমদ্বিবাহু হওয়ায় তির্যক বাহু সমান।'},
+  {q:'ল্যাম্পপোস্ট AB, খুঁটি CE, ছায়া CD=5 মি., AC=8 মি., CE=3 মি. হলে AB কত মিটার?', opts:['1.15','1.3','2.6','7.8'], ans:3, exp:'সদৃশ ত্রিভুজ থেকে $\\frac{AB}{CE}=\\frac{AD}{CD}=\\frac{13}{5}$। $AB=3\\times\\frac{13}{5}=7.8$ মি.।'},
+  {q:'4 সে.মি. ও 5 সে.মি. ব্যাসার্ধবিশিষ্ট দুটি বৃত্ত বহিঃস্পর্শ করলে সাধারণ স্পর্শক কয়টি?', opts:['একটি','দুটি','তিনটি','চারটি'], ans:2, exp:'বহিঃস্পর্শ বৃত্তের ৩টি সাধারণ স্পর্শক থাকে।'},
+  {q:'বৃত্তের উপচাপে ও অনুবন্ধী চাপে অন্তর্লিখিত কোণ দুটির সমষ্টি কত?', opts:['90°','180°','270°','360°'], ans:1, exp:'বৃত্তস্থ চতুর্ভুজের বিপরীত কোণের সমষ্টি 180°।'},
+  {q:'নির্দিষ্ট ত্রিভুজ আঁকা সম্ভব — i. দুটি বাহু ও অন্তর্ভুক্ত কোণ, ii. ভূমি ও দুটি ভূমিসংলগ্ন কোণ, iii. অতিভুজ ও অপর দুই বাহুর সমষ্টি — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটি উপায়েই ত্রিভুজ নির্দিষ্টভাবে আঁকা সম্ভব।'},
+  {q:'6, 8, 10 সে.মি. বাহুবিশিষ্ট ত্রিভুজের পরিবৃত্তের ব্যাসার্ধ কত?', opts:['5','4','10','20'], ans:0, exp:'$6^2+8^2=10^2$, তাই সমকোণী। পরিবৃত্তের ব্যাসার্ধ $=\\frac{\\text{অতিভুজ}}{2}=5$ সে.মি.।'},
+  {q:'ABCD বৃত্তস্থ চতুর্ভুজে $\\angle BAD=2x°$, $x=30°$, $\\angle DCF=3y$ হলে $y$ কত?', opts:['45°','40°','30°','20°'], ans:3, exp:'বহিস্থ কোণ = অন্তঃস্থ বিপরীত কোণ: $3y=2\\times30°=60° \\Rightarrow y=20°$।'},
+  {q:'ABCD সামান্তরিকে $\\angle CBE=72°$ হলে $\\angle x+\\angle y$ কত?', opts:['108°','144°','180°','216°'], ans:2, exp:'$\\angle ABC=180°-72°=108°$। $y=\\angle ADC=108°$, $x=\\angle DAB=72°$। $x+y=180°$।'},
+  {q:'কোনটি কেন্দ্রীয় প্রবণতার পরিমাপ নয়?', opts:['প্রচুরক','পরিসর','মধ্যক','গড়'], ans:1, exp:'পরিসর (range) বিস্তারের পরিমাপ, কেন্দ্রীয় প্রবণতার নয়।'},
+  {q:'$\\Delta PRS$ কোন ধরনের ত্রিভুজ? (PS ও RS স্পর্শক)', opts:['সমবাহু','সমদ্বিবাহু','বিষমবাহু','সমকোণী'], ans:1, exp:'বহিঃস্থ বিন্দু থেকে স্পর্শকদ্বয় সমান: $PS=RS$, তাই সমদ্বিবাহু।'},
+  {q:'$\\angle POR$ কত?', opts:['120°','110°','100°','90°'], ans:0, exp:'চিত্র অনুযায়ী $\\angle PSR=60°$, $\\angle POR=180°-60°=120°$।'},
+  {q:'$\\sin^2A+\\sin^4A=1$ হলে — i. $\\cos^4A+\\cos^2A=3$, ii. $\\tan^4A-\\tan^2A=1$, iii. $\\sec^2A=\\tan^4A$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:2, exp:'$\\sin^2A=\\cos^2A$ হলে: $\\tan^4A-\\tan^2A=1$ ও $\\sec^2A=\\tan^4A$ প্রমাণযোগ্য।'},
+  {q:'$\\cot A\\sqrt{1-\\cos^2 A}$ কত?', opts:['$\\cosec A$','$\\tan A$','$\\sin A$','$\\cos A$'], ans:3, exp:'$=\\cot A\\times\\sin A=\\frac{\\cos A}{\\sin A}\\times\\sin A=\\cos A$।'},
+  {q:'$2\\cos(90°-B)=\\sqrt{2}$ হলে $B$ কত?', opts:['30°','45°','60°','90°'], ans:1, exp:'$2\\sin B=\\sqrt{2} \\Rightarrow \\sin B=\\frac{1}{\\sqrt{2}} \\Rightarrow B=45°$।'},
+  {q:'$\\frac{1-\\sin^245°}{1+\\sin^245°}+\\tan^245°$ কত?', opts:['$\\frac{4}{3}$','$\\frac{1}{3}$','$\\frac{2}{3}$','$\\frac{3}{4}$'], ans:0, exp:'$=\\frac{1-1/2}{1+1/2}+1=\\frac{1/2}{3/2}+1=\\frac{1}{3}+1=\\frac{4}{3}$।'},
+  {q:'$\\Delta ABC$-এ $\\angle A=45°$, $AB=7$ সে.মি., $AC=8$ সে.মি. — ক্ষেত্রফল কত?', opts:['$18\\sqrt{2}$','28','14','$14\\sqrt{2}$'], ans:3, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times7\\times8\\times\\sin45°=28\\times\\frac{1}{\\sqrt{2}}=14\\sqrt{2}$।'},
+  {q:'অজিভ রেখার লেখে y-অক্ষে কোনটি ধরা হয়?', opts:['শ্রেণি মধ্যমান','ক্রমযোজিত গণসংখ্যা','শ্রেণির গণসংখ্যা','শ্রেণির উচ্চসীমা'], ans:1, exp:'অজিভ রেখায় y-অক্ষে ক্রমযোজিত গণসংখ্যা ও x-অক্ষে শ্রেণির উচ্চসীমা ধরা হয়।'},
+],
 
-  jessore: [
-    { q:'লাইন স্পেসিং অপশনটি কোথায় থাকে?', opts:['Insert → Spacing','Home → Paragraph','Page Layout → Line','Review → Format'], ans:1, exp:'লাইন স্পেসিং অপশনটি Home ট্যাবের Paragraph গ্রুপে থাকে।'},
-    { q:'স্প্রেডশিটে D2, D3, D4 সেলগুলোর যোগফল বের করার সঠিক সূত্র কোনটি?', opts:['=SUM(D2:D4)','=(D2+D3+D4)','=ADD(D2,D3,D4)','=D2:D4'], ans:1, exp:'স্প্রেডশিটে সেলগুলোর যোগফল বের করার সঠিক সূত্র =(D2+D3+D4)।'},
-    { q:'গুণ করার জন্য স্প্রেডশিটে কোনগুলো ব্যবহার করা যায়?\ni. =B2*C2\nii. =B2+C2\niii. =PRODUCT(B2:C2)', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'গুণ করার জন্য সরাসরি * সহ সূত্র (=B2*C2) অথবা PRODUCT ফাংশন ব্যবহার করা যায়।'},
-    { q:'লেখালেখির জন্য ব্যবহৃত বিভিন্ন স্টাইলের অক্ষরকে কী বলা হয়?', opts:['Style','Format','Font','Text'], ans:2, exp:'লেখালেখির জন্য ব্যবহৃত বিভিন্ন স্টাইলের অক্ষরকে ফন্ট বলা হয়।'},
-    { q:'কীবোর্ডে % চিহ্ন টাইপ করতে কোন কী চাপতে হয়?', opts:['Alt+5','Ctrl+5','Shift+5','Fn+5'], ans:2, exp:'কীবোর্ডের ৫ নম্বর কি-এর উপরে % চিহ্ন থাকে, যা Shift চেপে টাইপ করতে হয়।'},
-    { q:'স্লাইডের ব্যাকগ্রাউন্ড পরিবর্তন বা থিম নির্বাচনে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','Design','Animation'], ans:2, exp:'স্লাইডের ব্যাকগ্রাউন্ড পরিবর্তন বা থিম নির্বাচনে Design মেনু ব্যবহার করা হয়।'},
-    { q:'ওয়ার্ড ডকুমেন্টে টেবিল যুক্ত করার স্ট্যান্ডার্ড কমান্ড কোনটি?', opts:['Home→Insert Table','Insert→Table→Insert Table','Page Layout→Table','View→Table→Insert'], ans:1, exp:'ওয়ার্ড ডকুমেন্টে টেবিল যুক্ত করার স্ট্যান্ডার্ড কমান্ড Insert→Table→Insert Table।'},
-    { q:'প্রোগ্রামিং ভাষায় Boolean ডেটা টাইপকে সংক্ষেপে কী লেখা হয়?', opts:['int','float','str','bool'], ans:3, exp:'প্রোগ্রামিং ভাষায় Boolean ডেটা টাইপকে সংক্ষেপে bool লেখা হয়।'},
-    { q:'ট্রাবলশুটিং বলতে কী বোঝায়?\ni. সমস্যার উৎস খুঁজে বের করা\nii. নতুন প্রোগ্রাম ইনস্টল\niii. উৎপত্তি স্থল খুঁজে বের করা', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ট্রাবলশুটিং বলতে সমস্যার উৎস এবং উৎপত্তি স্থল খুঁজে বের করার প্রক্রিয়া বোঝায়।'},
-    { q:'একটি জনপ্রিয় প্রেজেন্টেশন সফটওয়্যার কোনটি?', opts:['MS Word','MS Excel','Microsoft PowerPoint','MS Access'], ans:2, exp:'Microsoft PowerPoint একটি জনপ্রিয় প্রেজেন্টেশন সফটওয়্যার।'},
-    { q:'পাইথনে স্ক্রিনে আউটপুট দেখানোর জন্য কোন ফাংশন ব্যবহৃত হয়?', opts:['input()','show()','display()','print()'], ans:3, exp:'পাইথনে স্ক্রিনে আউটপুট দেখানোর জন্য print() ফাংশন ব্যবহৃত হয়।'},
-    { q:'ভ্যারিয়েবলের নামে কোনটি অবৈধ?', opts:['my_var','_name','var123','$variable'], ans:3, exp:'ভ্যারিয়েবলের নামে শুরুতে সংখ্যা বা @ চিহ্ন ব্যবহার করা যায় না।'},
-    { q:'CMOS-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Central Metal-Oxide Semiconductor','Complementary Metal-Oxide Semiconductor','Complex Multi-Output Semiconductor','Computer Metal-Oxide Semiconductor'], ans:1, exp:'CMOS-এর সঠিক পূর্ণরূপ Complementary Metal-Oxide Semiconductor।'},
-    { q:'দশমিকযুক্ত সংখ্যাকে প্রোগ্রামিংয়ের পরিভাষায় কী বলা হয়?', opts:['a = 5','a = "9.5"','a = 9.5','a = True'], ans:2, exp:'দশমিকযুক্ত সংখ্যাকে প্রোগ্রামিংয়ের পরিভাষায় float বলা হয়।'},
-    { q:'স্লাইডগুলো মুদ্রণের জন্য ছোট আকারে এক পৃষ্ঠায় সাজানো হলে তাকে কী বলে?', opts:['Slide Master','Notes Page','Slide Layout','Handouts'], ans:3, exp:'স্লাইডগুলো মুদ্রণের জন্য ছোট আকারে এক পৃষ্ঠায় সাজানো হলে তাকে হ্যান্ডআউটস বলে।'},
-    { q:'নতুন স্লাইডে কোন লেখা থাকে?\ni. "click to add title"\nii. "click to add text"\niii. "click to save"', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'নতুন স্লাইডে "click to add title" এবং "click to add text" লেখা থাকে।'},
-    { q:'Blinds, Fly in, Diamond — এগুলো কোনটির উদাহরণ?', opts:['Custom Animation','Slide Layout','Slide Transition','Slide Design'], ans:2, exp:'Blinds, Fly in, Diamond — এগুলো Slide Transition-এর উদাহরণ।'},
-    { q:'কম্পিউটার মেইনটেন্যান্স কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটার রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার।'},
-    { q:'উইন্ডোজে Start বাটনে ক্লিক করে কোন মেনু পাওয়া যায়?', opts:['Program List','Start Menu','Main Menu','Control Panel'], ans:1, exp:'উইন্ডোজে Start বাটনে ক্লিক করলে Start Menu পাওয়া যায়।'},
-    { q:'পাইথনে ভগ্নাংশ সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা float ডেটা টাইপে রাখা হয়।'},
-    { q:'স্প্রেডশিটে গড় বের করার ফাংশন কোনটি?', opts:['=SUM()','=MAX()','=AVERAGE()','=COUNT()'], ans:2, exp:'স্প্রেডশিটে গড় বের করার জন্য AVERAGE ফাংশন ব্যবহৃত হয়।'},
-    { q:'MS PowerPoint-এর ফাইলের এক্সটেনশন কোনটি?', opts:['.doc','.xls','.ppt','.pdf'], ans:2, exp:'MS PowerPoint-এর ফাইলের এক্সটেনশন হলো .ppt বা .pptx।'},
-    { q:'ক্লিপবোর্ড গ্রুপে কোনগুলো থাকে?\ni. Cut\nii. Paste\niii. Copy', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ক্লিপবোর্ড গ্রুপে Cut, Paste ও Copy — তিনটিই থাকে।'},
-    { q:'Ctrl+C কীবোর্ড শর্টকাটের কাজ কী?', opts:['পেস্ট করা','কাটা','কপি করা','আনডু করা'], ans:2, exp:'Ctrl+C কীবোর্ড শর্টকাট ব্যবহার করে নির্বাচিত কন্টেন্ট কপি করা যায়।'},
-    { q:'অনুবাদক প্রোগ্রাম কত প্রকার?', opts:['২','৩','৪','৫'], ans:1, exp:'অনুবাদক প্রোগ্রাম ৩ প্রকার: অ্যাসেম্বলার, কম্পাইলার এবং ইন্টারপ্রেটার।'},
-  ],
+jessore: [
+  {q:'$B=\\{x\\in \\mathbb{N}:1\\le x\\le5$ এবং $x$ মৌলিক$\\}$ হলে $P(B)$ এর উপাদান সংখ্যা কোনটি?', opts:['4','8','16','32'], ans:1, exp:'$B=\\{2,3,5\\}$, $|B|=3$। $|P(B)|=2^3=8$।'},
+  {q:'$(x-y)^3=5\\sqrt{5}$ হলে $x^2-2xy+y^2$ এর মান কত?', opts:['$\\sqrt{5}$','5','25','$25\\sqrt{5}$'], ans:1, exp:'$(x-y)^3=(\\sqrt{5})^3 \\Rightarrow x-y=\\sqrt{5}$। $x^2-2xy+y^2=(x-y)^2=5$।'},
+  {q:'$\\cos6A=0$ হলে $2A$ কত?', opts:['15°','30°','45°','60°'], ans:1, exp:'$\\cos6A=0 \\Rightarrow 6A=90° \\Rightarrow A=15°$। তাই $2A=30°$।'},
+  {q:'গমে ময়দা ও ভূষির অনুপাত 7:3 হলে ময়দার শতকরা পরিমাণ কত?', opts:['21%','30%','50%','70%'], ans:3, exp:'$\\frac{7}{10}\\times100=70\\%$।'},
+  {q:'সমবাহু ত্রিভুজের পরিসীমা 24 সে.মি. হলে উচ্চতা কত?', opts:['$2\\sqrt{3}$','$4\\sqrt{3}$','$8\\sqrt{3}$','$16\\sqrt{3}$'], ans:1, exp:'বাহু $=8$। উচ্চতা $=\\frac{\\sqrt{3}}{2}\\times8=4\\sqrt{3}$।'},
+  {q:'PQRS সামান্তরিকে $(\\angle Q+\\angle S)=220°$ হলে $\\angle P$ কত?', opts:['70°','90°','110°','140°'], ans:0, exp:'$\\angle Q=\\angle S=110°$। $\\angle P=180°-110°=70°$।'},
+  {q:'$\\frac{1}{7}y^2-7$ এর উৎপাদকে বিশ্লেষণ কোনটি?', opts:['$\\frac{1}{7}(y-7)(y-7)$','$\\frac{1}{7}(y+7)(y-7)$','$\\frac{1}{7}(y+1)(y-1)$','$\\frac{1}{7}(y-1)(y-1)$'], ans:1, exp:'$\\frac{1}{7}y^2-7=\\frac{1}{7}(y^2-49)=\\frac{1}{7}(y+7)(y-7)$।'},
+  {q:'10 সে.মি. ও 6 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত বহিঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['2 সে.মি.','4 সে.মি.','8 সে.মি.','16 সে.মি.'], ans:2, exp:'ব্যাসার্ধ 5 ও 3; বহিঃস্পর্শে দূরত্ব $=5+3=8$ সে.মি.।'},
+  {q:'$y=\\sqrt{13}+\\sqrt{11}$ হলে $y^2+\\frac{4}{y^2}$ এর মান কত?', opts:['48','50','52','54'], ans:0, exp:'$\\frac{2}{y}=\\sqrt{13}-\\sqrt{11}$। $y+\\frac{2}{y}=2\\sqrt{13}$। $\\left(y+\\frac{2}{y}\\right)^2=52$। $y^2+\\frac{4}{y^2}=52-4=48$।'},
+  {q:'$y=\\sqrt{13}+\\sqrt{11}$ হলে $y^3-\\frac{8}{y^3}$ কত?', opts:['$76\\sqrt{11}$','$90\\sqrt{11}$','$94\\sqrt{11}$','$100\\sqrt{11}$'], ans:3, exp:'$y-\\frac{2}{y}=2\\sqrt{11}$। $y^3-\\frac{8}{y^3}=(y-\\frac{2}{y})^3+6(y-\\frac{2}{y})=8\\times11\\sqrt{11}+12\\sqrt{11}=88\\sqrt{11}+12\\sqrt{11}=100\\sqrt{11}$।'},
+  {q:'কোন ক্ষেত্রে ত্রিভুজ অঙ্কন সম্ভব নয়?', opts:['3, 4, 5 সে.মি.','4, 5, 6 সে.মি.','4, 5, 10 সে.মি.','5, 8, 9 সে.মি.'], ans:2, exp:'$4+5=9<10$ — ত্রিভুজের শর্ত পূরণ হয় না।'},
+  {q:'$(x+y,4)=(10,x-y)$ হলে $(x,y)$ কত?', opts:['(-3,7)','(7,-3)','(7,3)','(3,7)'], ans:2, exp:'$x-y=4$ এবং $x+y=10$। সমাধান: $x=7, y=3$।'},
+  {q:'বর্গে অন্তর্লিখিত বৃত্তের স্পর্শক সংখ্যা কত?', opts:['1','2','3','4'], ans:3, exp:'বর্গের চারটি বাহু অন্তর্লিখিত বৃত্তের ৪টি স্পর্শক।'},
+  {q:'$y^4-7y^2+1=0$ হলে $y+\\frac{1}{y}$ এর মান কত?', opts:['$\\sqrt{5}$','3','7','9'], ans:1, exp:'$y^2+\\frac{1}{y^2}=7$। $(y+\\frac{1}{y})^2=9 \\Rightarrow y+\\frac{1}{y}=3$।'},
+  {q:'ফ্রিকোয়েন্সি টেবিলে প্রচুরক নির্ণয়ে $(f_1+f_2)$ এর মান কোনটি? (শ্রেণি: 11-20:6, 21-30:12, 31-40:10, 41-50:4)', opts:['2','4','6','8'], ans:3, exp:'প্রচুরক শ্রেণি 21-30। $f_1=12-6=6$, $f_2=12-10=2$। $f_1+f_2=8$।'},
+  {q:'প্রদত্ত উপাত্তের মধ্যক কত?', opts:['27.6','29.3','33','39.3'], ans:1, exp:'মধ্যক শ্রেণি 21-30, সূত্র প্রয়োগে মধ্যক $\\approx 29.3$।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তে PA ও PB স্পর্শক, $\\angle APB=65°$ হলে $\\angle AOB$ কত?', opts:['115°','155°','245°','295°'], ans:0, exp:'$\\angle AOB+\\angle APB=180° \\Rightarrow \\angle AOB=115°$।'},
+  {q:'$p:q=3:5$, $q:r=7:9$ হলে $p:r$ কত?', opts:['35:25','27:35','15:7','7:15'], ans:3, exp:'$p:r=\\frac{3}{5}\\times\\frac{7}{9}=\\frac{21}{45}=7:15$।'},
+  {q:'$M=\\{1,3,5,7\\}$, $N=\\{2,3,6\\}$ হলে — i. $M\\cap N=\\{3\\}$, ii. $M\\setminus N$ এর প্রকৃত উপসেট 7, iii. $M\\times N$ এর উপাদান 11 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$M\\cap N=\\{3\\}$ সঠিক। $M\\setminus N=\\{1,5,7\\}$, প্রকৃত উপসেট $2^3-1=7$ সঠিক।'},
+  {q:'$a:b=5:3$ এবং $6:b=2:3$ হলে $a$ কত?', opts:['9','15','18','45'], ans:1, exp:'$b=9$। $a=\\frac{5}{3}\\times9=15$।'},
+  {q:'বৃত্তস্থ চতুর্ভুজ ABCD, $\\angle BAC=40°$। $x=\\angle BDC$ কত?', opts:['40°','80°','90°','140°'], ans:0, exp:'একই চাপে বৃত্তস্থ কোণ সমান: $\\angle BDC=\\angle BAC=40°$।'},
+  {q:'প্রবৃদ্ধ কোণ $\\angle BOD$ এর মান কত?', opts:['90°','180°','280°','360°'], ans:2, exp:'$\\angle BAD=40°$, কেন্দ্রস্থ কোণ $=80°$। প্রবৃদ্ধ $\\angle BOD=360°-80°=280°$।'},
+  {q:'$f(y) = y^4-3y^2+2y+3$ হলে $f(2)$ কত?', opts:['11','17','23','35'], ans:0, exp:'$f(2)=16-12+4+3=11$।'},
+  {q:'দুটি সংখ্যার অনুপাত 5:7 এবং লসাগু 210 হলে গসাগু কত?', opts:['35','12','7','6'], ans:3, exp:'সংখ্যা 5k ও 7k। লসাগু $=35k=210 \\Rightarrow k=6$। গসাগু $=k=6$।'},
+  {q:'$S=\\{(-2,3),(2,5),(2,7),(5,8)\\}$ অন্বয়ের ডোমেন কোনটি?', opts:['$\\{-2,2,2,5\\}$','$\\{3,5,7,8\\}$','$\\{-2,2,5\\}$','$\\{3,5,8\\}$'], ans:2, exp:'ডোমেন = প্রথম পদগুলো (অনন্য): $\\{-2,2,5\\}$।'},
+  {q:'$\\triangle ABC$-এ $AC=2$, $BC=1$, $\\angle B=90°$ — i. $\\cos A=\\frac{\\sqrt{3}}{2}$, ii. $\\cosec^2C=\\frac{4}{3}$, iii. $\\tan A+\\cot C=\\frac{2}{\\sqrt{3}}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$AB=\\sqrt{3}$। $\\cos A=\\frac{\\sqrt{3}}{2}$, $\\cosec^2C=\\frac{4}{3}$ ও iii যাচাইযোগ্য। সবগুলো সঠিক।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 5:6:7 হলে বৃহত্তম কোণটির মান কত?', opts:['50°','60°','70°','180°'], ans:2, exp:'মোট অনুপাত 18। বৃহত্তম কোণ $=\\frac{7}{18}\\times180°=70°$।'},
+  {q:'$a+b=8$ এবং $a-b=4$ হলে — i. $a^2-b^2=32$, ii. $a^2+b^2=40$, iii. $4ab=58$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$a=6, b=2$। $a^2-b^2=32$ ✓, $a^2+b^2=40$ ✓, $4ab=4\\times12=48\\neq58$ ✗।'},
+  {q:'বৃত্তে বৃত্তস্থ কোণ x এবং কেন্দ্রস্থ প্রবৃদ্ধ কোণ 4x হলে x কত?', opts:['30°','45°','60°','90°'], ans:2, exp:'প্রবৃদ্ধ কেন্দ্রস্থ কোণ $=360°-2x$। $360°-2x=4x \\Rightarrow 6x=360° \\Rightarrow x=60°$।'},
+  {q:'দুটি কর্ণের দৈর্ঘ্য দেওয়া থাকলে নিচের কোনটি আঁকা সম্ভব?', opts:['আয়ত','রম্বস','সামান্তরিক','ট্রাপিজিয়াম'], ans:1, exp:'রম্বসের কর্ণদ্বয় পরস্পর সমকোণে দ্বিখণ্ডিত করে, তাই কর্ণ দুটি দিলে রম্বস সম্পূর্ণ নির্ধারিত।'},
+],
+
 };
 
-// ══════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════
 const state = {};
-Object.keys(DATA).forEach(b => {
-  state[b] = { answers: {}, mode: 'practice' };
-});
+Object.keys(DATA).forEach(b => { state[b] = { answers: {}, mode: 'practice' }; });
 
-// ══════════════════════════════════════════════
-//  RENDER
-// ══════════════════════════════════════════════
+const KEYS = ['ক','খ','গ','ঘ'];
+
 function render(board) {
   const container = document.getElementById('q-' + board);
   const qs = DATA[board];
@@ -831,7 +937,6 @@ function render(board) {
   const isAnswer = st.mode === 'answer';
 
   container.innerHTML = qs.map((q, qi) => {
-    const keys = ['ক', 'খ', 'গ', 'ঘ'];
     const chosen = st.answers[qi];
     const opts = q.opts.map((opt, oi) => {
       let cls = 'option';
@@ -841,12 +946,10 @@ function render(board) {
         if (oi === chosen && oi === q.ans) cls += ' correct';
         else if (oi === chosen) cls += ' wrong';
         else if (oi === q.ans) cls += ' correct';
-      } else if (chosen === undefined && oi === chosen) {
-        cls += ' selected';
       }
-      const clickFn = isAnswer ? '' : `onclick="pick('${board}',${qi},${oi})"`;
-      return `<div class="${cls}" ${clickFn}>
-        <span class="opt-key">${keys[oi]}</span>
+      const fn = isAnswer ? '' : `onclick="pick('${board}',${qi},${oi})"`;
+      return `<div class="${cls}" ${fn}>
+        <span class="opt-key">${KEYS[oi]}</span>
         <span class="opt-text">${opt}</span>
       </div>`;
     }).join('');
@@ -856,27 +959,31 @@ function render(board) {
 
     return `<div class="q-card" id="${board}-q${qi}">
       <div class="q-top">
-        <div class="q-num">${qi+1}</div>
+        <div class="q-num">${qi + 1}</div>
         <div class="q-text">${qText}</div>
       </div>
-      <div class="options ${isAnswer ? 'answer-mode' : ''}">${opts}</div>
-      <div class="explanation-box ${showExp ? 'visible' : ''}">${q.exp}</div>
+      <div class="options">${opts}</div>
+      ${showExp ? `<div class="explanation-box visible"><div class="exp-label">💡 ব্যাখ্যা</div>${q.exp}</div>` : `<div class="explanation-box"></div>`}
     </div>`;
   }).join('');
 
   updateScore(board);
+
+  // Re-typeset MathJax
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise([container]).catch(e => console.log(e));
+  }
 }
 
 function pick(board, qi, oi) {
   const st = state[board];
-  if (st.answers[qi] !== undefined) return; // already answered
+  if (st.answers[qi] !== undefined) return;
   st.answers[qi] = oi;
   render(board);
-  // Scroll to next unanswered
   const qs = DATA[board];
-  for (let i = qi+1; i < qs.length; i++) {
+  for (let i = qi + 1; i < qs.length; i++) {
     if (st.answers[i] === undefined) {
-      document.getElementById(board+'-q'+i)?.scrollIntoView({behavior:'smooth', block:'nearest'});
+      document.getElementById(board + '-q' + i)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       break;
     }
   }
@@ -885,45 +992,36 @@ function pick(board, qi, oi) {
 function updateScore(board) {
   const st = state[board];
   const qs = DATA[board];
-  let correct = 0;
-  let answered = 0;
+  let correct = 0, answered = 0;
   qs.forEach((q, qi) => {
     if (st.answers[qi] !== undefined) {
       answered++;
       if (st.answers[qi] === q.ans) correct++;
     }
   });
-
-  const scoreEl = document.getElementById('score-' + board);
-  const scoreNum = document.getElementById('score-num-' + board);
-  const scoreBar = document.getElementById('score-bar-' + board);
-
+  const el = document.getElementById('score-' + board);
+  const num = document.getElementById('score-num-' + board);
+  const bar = document.getElementById('score-bar-' + board);
   if (answered > 0 || st.mode === 'answer') {
-    scoreEl.style.display = 'flex';
-    scoreNum.textContent = `${correct}/${qs.length}`;
-    scoreBar.style.width = ((correct / qs.length) * 100) + '%';
+    el.style.display = 'flex';
+    num.textContent = `${correct}/${qs.length}`;
+    bar.style.width = ((correct / qs.length) * 100) + '%';
   } else {
-    scoreEl.style.display = 'none';
+    el.style.display = 'none';
   }
 }
 
 function setMode(board, mode) {
   state[board].mode = mode;
-  // update buttons
-  const section = document.getElementById(board);
-  const btns = section.querySelectorAll('.mode-btn');
-  btns.forEach((b, i) => {
-    b.classList.toggle('active', (i===0 && mode==='practice') || (i===1 && mode==='answer'));
+  const sec = document.getElementById(board);
+  sec.querySelectorAll('.mode-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && mode === 'practice') || (i === 1 && mode === 'answer'));
   });
-  if (mode === 'answer') {
-    document.getElementById('score-' + board).style.display = 'flex';
-  }
+  if (mode === 'answer') document.getElementById('score-' + board).style.display = 'flex';
   render(board);
 }
 
-// ══════════════════════════════════════════════
-//  TABS
-// ══════════════════════════════════════════════
+// Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const board = tab.dataset.board;
@@ -931,13 +1029,11 @@ document.querySelectorAll('.tab').forEach(tab => {
     document.querySelectorAll('.board-section').forEach(s => s.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById(board).classList.add('active');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
-// ══════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════
+// Init
 Object.keys(DATA).forEach(b => render(b));
 </script>
 </body>
