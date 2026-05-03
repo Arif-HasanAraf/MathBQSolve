@@ -1,29 +1,44 @@
 
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>10MS|SSC গণিত বোর্ড প্রশ্নোত্তর ২০২৬</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>SSC গণিত বোর্ড প্রশ্নোত্তর ২০২৬</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=STIX+Two+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  chtml: {
+    scale: 1.08,
+    matchFontHeight: false
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" crossorigin="anonymous"></script>
 <style>
 :root {
-  --bg: #080c12;
-  --surface: #0e1420;
-  --card: #131926;
-  --card2: #161d2e;
-  --border: #1e2840;
-  --border2: #263050;
-  --accent: #38bdf8;
-  --accent2: #818cf8;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card2: #f3f4f8;
+  --border: #e2e6ef;
+  --border2: #cfd6e4;
+  --accent: #ef1d26;
+  --accent2: #b91c1c;
   --accent3: #fb923c;
-  --gold: #fbbf24;
-  --correct: #4ade80;
-  --wrong: #f87171;
-  --text: #dde4f0;
-  --muted: #5a6a8a;
+  --gold: #f59e0b;
+  --correct: #16a34a;
+  --wrong: #dc2626;
+  --text: #1f2937;
+  --muted: #667085;
   --font-bn: 'Noto Sans Bengali', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -39,8 +54,17 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-image:
-    radial-gradient(ellipse at 15% 0%, rgba(56,189,248,0.05) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(129,140,248,0.04) 0%, transparent 55%);
+    radial-gradient(ellipse at 12% 0%, rgba(239,29,38,0.08) 0%, transparent 52%),
+    radial-gradient(ellipse at 88% 100%, rgba(15,23,42,0.04) 0%, transparent 55%);
+}
+
+
+.site-logo {
+  width: min(340px, 82vw);
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  object-fit: contain;
 }
 
 /* ── HEADER ── */
@@ -49,7 +73,7 @@ body {
   text-align: center;
   position: relative;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, #0a101c 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f8fc 100%);
   overflow: hidden;
 }
 .header::before {
@@ -57,7 +81,7 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(56,189,248,0.07) 0%, transparent 70%);
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(239,29,38,0.10) 0%, transparent 70%);
   pointer-events: none;
 }
 .header-eyebrow {
@@ -73,21 +97,21 @@ body {
   border-radius: 100px;
   margin-bottom: 22px;
   text-transform: uppercase;
-  background: rgba(56,189,248,0.05);
+  background: rgba(239,29,38,0.05);
 }
 .header-eyebrow::before { content: '◆'; font-size: 7px; }
 .header h1 {
   font-family: 'Noto Serif Bengali', serif;
   font-size: clamp(28px, 5vw, 56px);
   font-weight: 700;
-  color: #fff;
+  color: #111827;
   line-height: 1.2;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
 }
 .header h1 em {
   font-style: normal;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(135deg, #ef1d26, #991b1b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,7 +135,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 18px rgba(15,23,42,0.08);
 }
 .board-tabs::-webkit-scrollbar { display: none; }
 
@@ -134,8 +158,8 @@ body {
   font-family: var(--font-bn);
   position: relative;
 }
-.tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(56,189,248,0.04); }
+.tab:hover { color: var(--accent); background: rgba(239,29,38,0.04); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(239,29,38,0.06); }
 .tab-icon { font-size: 20px; line-height: 1; }
 
 /* ── CONTENT ── */
@@ -164,7 +188,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(239,29,38,0.07) 0%, transparent 60%);
   pointer-events: none;
 }
 .board-emoji { font-size: 42px; display: block; margin-bottom: 12px; }
@@ -172,7 +196,7 @@ body {
   font-family: 'Noto Serif Bengali', serif;
   font-size: 26px;
   font-weight: 700;
-  color: #fff;
+  color: #111827;
   margin-bottom: 6px;
 }
 .board-sub {
@@ -197,9 +221,9 @@ body {
   border-radius: 100px;
   font-size: 11px;
   font-family: var(--font-mono);
-  background: rgba(56,189,248,0.08);
+  background: rgba(239,29,38,0.08);
   color: var(--accent);
-  border: 1px solid rgba(56,189,248,0.2);
+  border: 1px solid rgba(239,29,38,0.22);
 }
 .board-pill.gold {
   background: rgba(251,191,36,0.08);
@@ -235,12 +259,12 @@ body {
   color:#dbeafe;
 }
 .mode-btn.active{
-  background:linear-gradient(180deg,#1f3b5a 0%, #1b3350 100%);
-  color:#38bdf8;
-  border:1px solid rgba(56,189,248,.35);
+  background: linear-gradient(180deg,#ef1d26 0%, #c9161f 100%);
+  color: #ffffff;
+  border: 1px solid rgba(185,28,28,.35);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.05),
-    0 0 0 1px rgba(56,189,248,.08);
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 8px 20px rgba(239,29,38,.20);
 }
 
 
@@ -258,7 +282,7 @@ body {
 .score-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--gold); }
 .score-label { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; }
 .score-bar-wrap { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-.score-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+.score-bar { height: 100%; background: linear-gradient(90deg, #ef1d26, #b91c1c); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
 /* ── QUESTION CARD ── */
 .q-card {
@@ -269,7 +293,7 @@ body {
   margin-bottom: 14px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.q-card:hover { border-color: var(--border2); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.q-card:hover { border-color: var(--border2); box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
 
 .q-top {
   display: flex;
@@ -282,7 +306,7 @@ body {
   font-size: 10px;
   font-weight: 700;
   color: var(--accent);
-  background: rgba(56,189,248,0.08);
+  background: rgba(239,29,38,0.08);
   border: 1px solid rgba(56,189,248,0.18);
   min-width: 34px;
   height: 34px;
@@ -293,7 +317,7 @@ body {
   flex-shrink: 0;
 }
 .q-text {
-  font-size: 14.5px;
+  font-size: 15.5px;
   line-height: 1.85;
   color: var(--text);
   flex: 1;
@@ -312,11 +336,11 @@ body {
   cursor: pointer;
   transition: all 0.15s ease;
   background: var(--surface);
-  font-size: 13.5px;
-  color: #8a9ab8;
+  font-size: 14px;
+  color: #475467;
   line-height: 1.6;
 }
-.option:hover { border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.04); color: var(--text); }
+.option:hover { border-color: rgba(239,29,38,0.25); background: rgba(239,29,38,0.04); color: var(--text); }
 .option.selected { border-color: rgba(129,140,248,0.5); background: rgba(129,140,248,0.08); color: #c7d2fe; }
 .option.correct { border-color: rgba(74,222,128,0.5); background: rgba(74,222,128,0.07); color: var(--correct); }
 .option.wrong { border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.06); color: var(--wrong); }
@@ -344,12 +368,12 @@ body {
   display: none;
   margin-top: 13px;
   padding: 11px 15px;
-  background: rgba(56,189,248,0.05);
-  border: 1px solid rgba(56,189,248,0.15);
+  background: rgba(239,29,38,0.05);
+  border: 1px solid rgba(239,29,38,0.15);
   border-left: 3px solid var(--accent);
   border-radius: 0 10px 10px 0;
   font-size: 12.5px;
-  color: #7aa8c8;
+  color: #475467;
   line-height: 1.75;
 }
 .explanation-box.visible { display: block; }
@@ -399,13 +423,195 @@ body {
   .tab { padding: 11px 14px; font-size: 11px; }
   .board-title { font-size: 22px; }
 }
+/* ── BOOK STYLE OVERRIDE ── */
+.q-card {
+  background: #fffdf9 !important;
+  border: 1px solid #eadfce !important;
+  border-radius: 14px !important;
+  padding: 24px 24px 22px !important;
+  margin-bottom: 16px !important;
+  box-shadow: 0 6px 18px rgba(100, 72, 40, 0.06) !important;
+}
+
+.q-card:hover {
+  border-color: #dfcdb5 !important;
+  box-shadow: 0 8px 24px rgba(100, 72, 40, 0.10) !important;
+}
+
+.q-num {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background: #ef1d26 !important;
+  border: 1px solid rgba(185,28,28,0.20) !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+}
+
+.q-text {
+  font-family: 'Noto Serif Bengali', serif !important;
+  font-size: 19px !important;
+  line-height: 2.05 !important;
+  color: #171717 !important;
+  letter-spacing: 0.1px !important;
+}
+
+.option {
+  background: #ffffff !important;
+  border: 1px solid #e7dccb !important;
+  color: #2f2f2f !important;
+  font-family: 'Noto Serif Bengali', serif !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+  padding: 12px 16px !important;
+  border-radius: 12px !important;
+}
+
+.option:hover {
+  border-color: rgba(239,29,38,0.35) !important;
+  background: #fff7f7 !important;
+  color: #111827 !important;
+}
+
+.opt-key {
+  font-family: 'Noto Serif Bengali', serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  min-width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  color: #ef1d26 !important;
+  background: #fff0f0 !important;
+  border: 1px solid rgba(239,29,38,0.35) !important;
+}
+
+.option.correct {
+  border-color: rgba(22,163,74,0.55) !important;
+  background: #f0fdf4 !important;
+  color: #15803d !important;
+}
+
+.option.wrong {
+  border-color: rgba(220,38,38,0.45) !important;
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
+.explanation-box {
+  background: #fff7ed !important;
+  border: 1px solid #fed7aa !important;
+  border-left: 4px solid #f97316 !important;
+  border-radius: 0 12px 12px 0 !important;
+  color: #7c2d12 !important;
+  font-family: 'Noto Serif Bengali', serif !important;
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+  padding: 13px 16px !important;
+}
+
+.exp-label {
+  color: #c2410c !important;
+  font-family: var(--font-mono) !important;
+}
+
+.q-text .mjx-container,
+.opt-text .mjx-container,
+.explanation-box .mjx-container {
+  font-size: 116% !important;
+  vertical-align: middle !important;
+}
+
+mjx-container[jax="CHTML"] {
+  line-height: 0 !important;
+}
+
+.board-header {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.content {
+  max-width: 940px !important;
+}
+/* ── ADMISSION BUTTON UNDER LOGO ── */
+.admission-wrap {
+  display: flex;
+  justify-content: center;
+  margin: -4px auto 24px;
+}
+
+.admission-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 230px;
+  padding: 15px 34px;
+  border-radius: 999px;
+  border: 2px solid #ff2a1f;
+  cursor: pointer;
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(135deg, #c90012 0%, #d71920 42%, #f58220 100%);
+  box-shadow:
+    0 6px 0 rgba(104, 0, 0, 0.18),
+    0 10px 22px rgba(239, 29, 38, 0.24),
+    inset 0 1px 0 rgba(255,255,255,0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admission-btn::before {
+  content: '';
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #d71920, #f58220);
+  border-left: 2px solid #ff2a1f;
+  border-top: 2px solid #ff2a1f;
+  border-radius: 8px 0 0 0;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: -1;
+}
+
+.admission-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 rgba(104, 0, 0, 0.18),
+    0 14px 28px rgba(239, 29, 38, 0.28),
+    inset 0 1px 0 rgba(255,255,255,0.30);
+}
+
+.admission-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .admission-btn {
+    min-width: 210px;
+    font-size: 18px;
+    padding: 13px 26px;
+  }
+}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="header">
-  <div class="header-eyebrow">10MS | SSC 2026 · গণিত MCQ</div>
+  <img class="site-logo" src="data:image/png;base64,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" alt="10 Minute School Logo">
+  
+<div class="admission-wrap">
+  <button class="admission-btn" onclick="openAdmissionForm()">পরবর্তী পরীক্ষার সলভ পেতে <br> ক্লিক করো</button>
+</div>
+<div class="header-eyebrow">SSC 2026 · গণিত MCQ</div>
   <h1>গণিত বোর্ড <em>প্রশ্নোত্তর</em> ২০২৬</h1>
   <p>নয়টি বোর্ডের বহুনির্বাচনি প্রশ্ন ও সমাধান — অনুশীলন ও উত্তর মোড সহ</p>
 </header>
@@ -635,24 +841,24 @@ const DATA = {
 
 dhaka: [
   {q:'কোনো ত্রিভুজে কয়টি পরিবৃত্ত আঁকা যাবে?', opts:['১টি','২টি','৩টি','৪টি'], ans:0, exp:'যেকোনো ত্রিভুজে মাত্র একটি পরিবৃত্ত (circumscribed circle) আঁকা সম্ভব।'},
-  {q:'ABCD চতুর্ভুজের দুটি বিপরীত কোণ সম্পূরক হলে — i. A, B, C, D বিন্দুচারটি সমবৃত্ত, ii. $\\angle ABC + \\angle ADC = 180°$, iii. $\\angle ABC + \\angle BCD = 180°$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'বিপরীত কোণ সম্পূরক হলে চারটি বিন্দু সমবৃত্ত এবং ∠ABC + ∠ADC = 180° সঠিক।'},
+  {q:'ABCD চতুর্ভুজের দুটি বিপরীত কোণ সম্পূরক হলে — i. A, B, C, D বিন্দুচারটি সমবৃত্ত, ii. $\\angle ABC + \\angle ADC = 180^\circ$, iii. $\\angle ABC + \\angle BCD = 180^\circ$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'বিপরীত কোণ সম্পূরক হলে চারটি বিন্দু সমবৃত্ত এবং ∠ABC + ∠ADC = 180° সঠিক।'},
   {q:'বৃত্তের যেকোনো বিন্দুতে কতগুলো স্পর্শক আঁকা যায়?', opts:['১টি','২টি','৩টি','৪টি'], ans:0, exp:'বৃত্তের যেকোনো বিন্দুতে মাত্র একটি স্পর্শক আঁকা যায়।'},
   {q:'যদি $f(p) = p^3 + ap^2 - 6p - 9$ হয় তবে $a$ এর কোন মানে $f(-3) = 0$ হবে?', opts:['0','2','-2','4'], ans:1, exp:'$f(-3) = -27 + 9a + 18 - 9 = 0 \\Rightarrow 9a = 18 \\Rightarrow a = 2$'},
   {q:'$z^2 - 4z - 12$ এর উৎপাদকে বিশ্লেষণ কোনটি?', opts:['$(z+6)(z+2)$','$(z-6)(z-2)$','$(z-6)(z+2)$','$(z+6)(z-2)$'], ans:2, exp:'$z^2 - 4z - 12 = (z-6)(z+2)$ কারণ $-6+2=-4$ এবং $-6 \\times 2 = -12$।'},
   {q:'সমবাহু ত্রিভুজের একবাহুর দৈর্ঘ্য $4\\sqrt{2}$ সে.মি. হলে এর ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['$4\\sqrt{3}$','8','$8\\sqrt{3}$','32'], ans:2, exp:'ক্ষেত্রফল $= \\frac{\\sqrt{3}}{4}a^2 = \\frac{\\sqrt{3}}{4} \\times 32 = 8\\sqrt{3}$ বর্গ সে.মি.।'},
   {q:'দুটি সংখ্যার অনুপাত 3:4। এদের লসাগু 12 হলে ক্ষুদ্রতম সংখ্যাটি কত?', opts:['3','4','12','36'], ans:0, exp:'সংখ্যা দুটি 3k ও 4k। লসাগু = 12k = 12, তাই k=1। ক্ষুদ্রতম = 3।'},
-  {q:'সামান্তরিক ABCD-এ DC বাহুকে E পর্যন্ত বর্ধিত করা হয়েছে, $\\angle ADC = (3x+8)°$ এবং $\\angle BCE = (2x+7)°$। $x$ এর মান কত?', opts:['33°','40°','42°','46°'], ans:0, exp:'একান্তর কোণ: $3x+8 = 2x+7+25 \\Rightarrow x = 33$।'},
-  {q:'$\\angle ADC = (3x+8)°$, $x=33$ হলে $\\angle BCD$ কোণের মান কত?', opts:['66°','73°','100°','110°'], ans:1, exp:'$\\angle ADC = 3(33)+8 = 107°$। $\\angle BCD = 180° - 107° = 73°$।'},
-  {q:'O কেন্দ্রবিশিষ্ট বৃত্তের A বিন্দুতে AT স্পর্শক, AC ব্যাস এবং $\\angle ACB = 50°$ হলে $\\angle BAT$ কত?', opts:['90°','65°','60°','50°'], ans:3, exp:'স্পর্শক-জ্যা কোণ = বৃত্তস্থ কোণ $\\Rightarrow \\angle BAT = \\angle ACB = 50°$।'},
+  {q:'সামান্তরিক ABCD-এ DC বাহুকে E পর্যন্ত বর্ধিত করা হয়েছে, $\\angle ADC = (3x+8)^\circ$ এবং $\\angle BCE = (2x+7)^\circ$। $x$ এর মান কত?', opts:['33^\circ','40^\circ','42^\circ','46^\circ'], ans:0, exp:'একান্তর কোণ: $3x+8 = 2x+7+25 \\Rightarrow x = 33$।'},
+  {q:'$\\angle ADC = (3x+8)^\circ$, $x=33$ হলে $\\angle BCD$ কোণের মান কত?', opts:['66^\circ','73^\circ','100^\circ','110^\circ'], ans:1, exp:'$\\angle ADC = 3(33)+8 = 107°$। $\\angle BCD = 180^\circ - 107^\circ = 73^\circ$।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তের A বিন্দুতে AT স্পর্শক, AC ব্যাস এবং $\\angle ACB = 50^\circ$ হলে $\\angle BAT$ কত?', opts:['90^\circ','65^\circ','60^\circ','50^\circ'], ans:3, exp:'স্পর্শক-জ্যা কোণ = বৃত্তস্থ কোণ $\\Rightarrow \\angle BAT = \\angle ACB = 50°$।'},
   {q:'প্রদত্ত উপাত্তের প্রচুরক কত? (41-50 শ্রেণির গণসংখ্যা সর্বোচ্চ 25)', opts:['42.5','42.67','51','101'], ans:1, exp:'প্রচুরক সূত্র প্রয়োগে 41-50 শ্রেণি থেকে প্রচুরক ≈ 42.67।'},
   {q:'$\\frac{a+b}{a-b} = \\sqrt{\\frac{2x+4}{2x-4}}$ হলে $x$ এর মান কত?', opts:['$\\frac{4ab}{a^2+b^2}$','$\\frac{a^2+b^2}{4ab}$','$\\frac{a^2+b^2}{ab}$','$\\frac{ab}{a^2+b^2}$'], ans:2, exp:'উভয় পক্ষ বর্গ করে componendo-dividendo প্রয়োগে $x = \\frac{a^2+b^2}{ab}$ পাওয়া যায়।'},
   {q:'A ও B কেন্দ্রবিশিষ্ট দুটি বৃত্ত M বিন্দুতে বহিঃস্পর্শ করেছে। i. $\\angle AMP = \\angle APM$, ii. $PM \\perp QM$, iii. $\\angle AMP = \\angle BMQ$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'বহিঃস্পর্শের ক্ষেত্রে সমবাহু ত্রিভুজ গঠন ও বিপ্রতীপ কোণ থেকে i ও iii সঠিক।'},
-  {q:'$AM = 7$ সে.মি. এবং $\\angle AMP = 30°$ হলে $\\triangle AMP$ এর ক্ষেত্রফল কত?', opts:['$\\frac{49\\sqrt{3}}{4}$','$\\frac{49}{2\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{1}{2\\sqrt{3}}$'], ans:0, exp:'AMP সমদ্বিবাহু, $\\angle AMP = \\angle APM = 30°$, $\\angle MAP = 120°$। ক্ষেত্রফল $= \\frac{1}{2} \\times 7 \\times 7 \\times \\sin 120° = \\frac{49\\sqrt{3}}{4}$।'},
+  {q:'$AM = 7$ সে.মি. এবং $\\angle AMP = 30^\circ$ হলে $\\triangle AMP$ এর ক্ষেত্রফল কত?', opts:['$\\frac{49\\sqrt{3}}{4}$','$\\frac{49}{2\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{1}{2\\sqrt{3}}$'], ans:0, exp:'AMP সমদ্বিবাহু, $\\angle AMP = \\angle APM = 30^\circ$, $\\angle MAP = 120^\circ$। ক্ষেত্রফল $= \\frac{1}{2} \\times 7 \\times 7 \\times \\sin 120^\circ = \\frac{49\\sqrt{3}}{4}$।'},
   {q:'যদি $f(x) = x^3 - \\frac{1}{x^3}$ হয়, তাহলে $f(x) + f\\left(\\frac{1}{x}\\right)$ কত?', opts:['$2x^3$','$\\frac{2}{x^3}$','0','1'], ans:2, exp:'$f(x) = x^3 - \\frac{1}{x^3}$ এবং $f(1/x) = \\frac{1}{x^3} - x^3 = -f(x)$, তাই সমষ্টি = 0।'},
-  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য $16°$ হলে ক্ষুদ্রতম কোণটি কত?', opts:['37°','53°','60°','74°'], ans:0, exp:'সূক্ষ্মকোণ দুটি a ও b; $a+b=90°$ এবং $b-a=16°$, সমাধান: $a=37°$।'},
+  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য $16^\circ$ হলে ক্ষুদ্রতম কোণটি কত?', opts:['37°','53°','60°','74°'], ans:0, exp:'সূক্ষ্মকোণ দুটি a ও b; $a+b=90^\circ$ এবং $b-a=16^\circ$, সমাধান: $a=37^\circ$।'},
   {q:'$A = \\{a, b, c\\}$ সেটের প্রকৃত উপসেট সংখ্যা কয়টি?', opts:['3','7','8','9'], ans:1, exp:'মোট উপসেট $2^3=8$, প্রকৃত উপসেট $= 8-1 = 7$।'},
   {q:'9, 5, 11, 3, 6 সংখ্যাগুলোর মধ্যক কত?', opts:['6','5','11','9'], ans:0, exp:'সাজালে: 3, 5, 6, 9, 11 — মধ্যক = 6।'},
-  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ তিনটি $36°, 108°, 36°$ — দুটি কোণ সমান তাই সমদ্বিবাহু।'},
+  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ তিনটি $36^\circ, 108^\circ, 36^\circ$ — দুটি কোণ সমান তাই সমদ্বিবাহু।'},
   {q:'নির্দিষ্ট চতুর্ভুজ অঙ্কনের জন্য কয়টি স্বতন্ত্র উপাত্ত প্রয়োজন?', opts:['1','2','4','5'], ans:3, exp:'চতুর্ভুজ অঙ্কনে ৫টি স্বতন্ত্র উপাত্ত প্রয়োজন।'},
   {q:'$A = \\{6,7,8,9,10\\}$ এবং $B = \\{6,8,10\\}$ হলে $A \\setminus B$ কোনটি?', opts:['$\\{8,10\\}$','$\\{7,9\\}$','$\\{6,7,8\\}$','$\\{7,9,10\\}$'], ans:1, exp:'$A \\setminus B$ = A তে আছে কিন্তু B তে নেই = $\\{7,9\\}$।'},
   {q:'নিচের কোনটি ক্রমিক সমানুপাতি?', opts:['3:4:5','4:6:9','5:8:10','1:2:3'], ans:1, exp:'4:6:9 ক্রমিক সমানুপাতি কারণ $6^2 = 4 \\times 9 = 36$।'},
@@ -663,31 +869,31 @@ dhaka: [
   {q:'বৃত্তস্থ ট্রাপিজিয়ামের তির্যক বাহুদ্বয় একটি অপরটির কী?', opts:['অর্ধেক','সমান','দ্বিগুণ','চারগুণ'], ans:1, exp:'বৃত্তস্থ ট্রাপিজিয়াম সমদ্বিবাহু হয়, তাই তির্যক বাহুদ্বয় সমান।'},
   {q:'$p - q = 6$ এবং $pq = 2$ হলে $(p+q)^2$ এর মান কত?', opts:['44','40','32','28'], ans:0, exp:'$(p+q)^2 = (p-q)^2 + 4pq = 36 + 8 = 44$।'},
   {q:'$p - q = 6$ এবং $pq = 2$ হলে $p^3 - q^3$ এর মান কত?', opts:['0','72','180','252'], ans:3, exp:'$(p+q)^2=44 \\Rightarrow p+q=\\sqrt{44}$। কিন্তু $p^3-q^3 = (p-q)(p^2+pq+q^2) = 6(44-2+2) = 6 \\times 42 = 252$।'},
-  {q:'কোনো ত্রিভুজের দুটি বাহুর দৈর্ঘ্য 4 সে.মি. ও 5 সে.মি. এবং অন্তর্ভুক্ত কোণ 90° হলে ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['40','20','10','0'], ans:2, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 = 10$ বর্গ সে.মি.।'},
+  {q:'কোনো ত্রিভুজের দুটি বাহুর দৈর্ঘ্য 4 সে.মি. ও 5 সে.মি. এবং অন্তর্ভুক্ত কোণ 90^\circ হলে ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['40','20','10','0'], ans:2, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 = 10$ বর্গ সে.মি.।'},
 ],
 
 ctg: [
   {q:'একটি বর্গাকার ক্ষেত্রের পরিসীমা 12 একক হলে এর ক্ষেত্রফল কত?', opts:['9 বর্গ একক','16 বর্গ একক','24 বর্গ একক','144 বর্গ একক'], ans:0, exp:'বাহু $= 12/4 = 3$, ক্ষেত্রফল $= 3^2 = 9$ বর্গ একক।'},
-  {q:'একটি ত্রিভুজের দুই বাহু 4 সেমি ও 5 সেমি এবং অন্তর্ভুক্ত কোণ 45° হলে ক্ষেত্রফল কত?', opts:['5 বর্গ সেমি','$5\\sqrt{2}$ বর্গ সেমি','$5\\sqrt{3}$ বর্গ সেমি','10 বর্গ সেমি'], ans:1, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 \\times \\sin 45° = 10 \\times \\frac{1}{\\sqrt{2}} = 5\\sqrt{2}$।'},
+  {q:'একটি ত্রিভুজের দুই বাহু 4 সেমি ও 5 সেমি এবং অন্তর্ভুক্ত কোণ 45^\circ হলে ক্ষেত্রফল কত?', opts:['5 বর্গ সেমি','$5\\sqrt{2}$ বর্গ সেমি','$5\\sqrt{3}$ বর্গ সেমি','10 বর্গ সেমি'], ans:1, exp:'ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 5 \\times \\sin 45^\circ = 10 \\times \\frac{1}{\\sqrt{2}} = 5\\sqrt{2}$।'},
   {q:'ভেনচিত্রে গাঢ় অংশ $B-A$ এবং $A=(A-B)\\cup(A\\cap B)$। সঠিক উক্তি কোনটি?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'গাঢ় অংশ $B\\setminus A$ এবং $A=(A-B)\\cup(A\\cap B)$ একটি সঠিক সেট বিধি।'},
   {q:'সমবাহু ত্রিভুজের বাহুর দৈর্ঘ্য 4 একক হলে ক্ষেত্রফল কত বর্গ একক?', opts:['$2\\sqrt{3}$','$4\\sqrt{3}$','$8\\sqrt{3}$','$16\\sqrt{3}$'], ans:1, exp:'$\\frac{\\sqrt{3}}{4} \\times 4^2 = 4\\sqrt{3}$ বর্গ একক।'},
   {q:'$f(x) = x^3 + 3x^2 - 5$ হলে $f(-2)$ কত?', opts:['15','13','-1','-25'], ans:2, exp:'$f(-2) = -8 + 12 - 5 = -1$।'},
-  {q:'$\\cos^2\\theta = \\sin^2\\theta$ হলে $\\text{cosec}^2\\theta$ কত?', opts:['$\\frac{1}{2}$','$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2'], ans:3, exp:'$\\cos^2\\theta=\\sin^2\\theta \\Rightarrow \\theta=45°$, $\\text{cosec}^2 45° = 2$।'},
-  {q:'চিত্রানুসারে $\\angle DAF$ কত? (সমবাহু ত্রিভুজ ও বর্গের সমন্বয়ে)', opts:['30°','45°','50°','60°'], ans:3, exp:'জ্যামিতিক বিশ্লেষণ করলে $\\angle DAF = 60°$ পাওয়া যায়।'},
+  {q:'$\\cos^2\\theta = \\sin^2\\theta$ হলে $\\text{cosec}^2\\theta$ কত?', opts:['$\\frac{1}{2}$','$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2'], ans:3, exp:'$\\cos^2\\theta=\\sin^2\\theta \\Rightarrow \\theta=45^\circ$, $\\text{cosec}^2 45^\circ = 2$।'},
+  {q:'চিত্রানুসারে $\\angle DAF$ কত? (সমবাহু ত্রিভুজ ও বর্গের সমন্বয়ে)', opts:['30^\circ','45^\circ','50^\circ','60^\circ'], ans:3, exp:'জ্যামিতিক বিশ্লেষণ করলে $\\angle DAF = 60°$ পাওয়া যায়।'},
   {q:'$\\Delta ADC$ এর ক্ষেত্রফল কত?', opts:['$\\frac{3\\sqrt{3}}{2}$ বর্গ সেমি','$\\frac{9\\sqrt{3}}{4}$ বর্গ সেমি','$\\frac{9\\sqrt{3}}{2}$ বর্গ সেমি','$9\\sqrt{3}$ বর্গ সেমি'], ans:2, exp:'ত্রিভুজের দুটি বাহু ও অন্তর্ভুক্ত কোণ দিয়ে ক্ষেত্রফল $= \\frac{9\\sqrt{3}}{2}$ বর্গ সেমি।'},
   {q:'$A=\\{x\\in \\mathbb{N}:1<x<4\\}$ হলে $A\\times A$ সেটের উপাদান কতটি?', opts:['16 টি','8 টি','6 টি','4 টি'], ans:3, exp:'$A=\\{2,3\\}$, $|A|=2$, $|A \\times A| = 2^2 = 4$।'},
   {q:'দুটি বর্গের ক্ষেত্রফলের অনুপাত 18:12 হলে বাহুর দৈর্ঘ্যের অনুপাত কত?', opts:['$\\sqrt{2}:\\sqrt{3}$','2:3','3:2','$\\sqrt{3}:\\sqrt{2}$'], ans:3, exp:'বাহুর অনুপাত $= \\sqrt{18}:\\sqrt{12} = 3\\sqrt{2}:2\\sqrt{2} = \\sqrt{3}:\\sqrt{2}$।'},
   {q:'$x + \\frac{1}{x} = \\frac{5}{2}$ হলে $x - \\frac{1}{x}$ কত?', opts:['$\\frac{2}{3}$','$\\frac{3}{2}$','$\\frac{\\sqrt{33}}{2}$','$\\frac{\\sqrt{41}}{2}$'], ans:1, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = \\left(x+\\frac{1}{x}\\right)^2 - 4 = \\frac{25}{4}-4 = \\frac{9}{4}$, তাই $x-\\frac{1}{x}=\\frac{3}{2}$।'},
   {q:'$(2x+y,6)=(9,x-y)$ হলে $x$ এর মান কত?', opts:['-5','-1','1','5'], ans:3, exp:'$x-y=6$ এবং $2x+y=9$, সমাধান: $x=5, y=-1$।'},
-  {q:'ABCD সামান্তরিকে $\\angle AOD=\\theta°$ হলে $\\angle AOB$ কত?', opts:['0°','$90°-\\theta°$','$90°+\\theta°$','$180°-\\theta°$'], ans:3, exp:'$\\angle AOD + \\angle AOB = 180°$ (সরলরেখা), তাই $\\angle AOB = 180°-\\theta°$।'},
+  {q:'ABCD সামান্তরিকে $\\angle AOD=\\theta^\circ$ হলে $\\angle AOB$ কত?', opts:['0^\circ','$90°-\\theta°$','$90^\circ+\\theta^\circ$','$180^\circ-\\theta^\circ$'], ans:3, exp:'$\\angle AOD + \\angle AOB = 180^\circ$ (সরলরেখা), তাই $\\angle AOB = 180^\circ-\\theta^\circ$।'},
   {q:'$AB=8$ সেমি এবং $AD=BD=6$ সেমি হলে $\\Delta ABD$ এর ক্ষেত্রফল কত?', opts:['$4\\sqrt{55}$ বর্গ সেমি','$3\\sqrt{55}$ বর্গ সেমি','$8\\sqrt{5}$ বর্গ সেমি','$6\\sqrt{5}$ বর্গ সেমি'], ans:2, exp:'হেরনের সূত্রে $s=10$, ক্ষেত্রফল $= \\sqrt{10\\cdot 2\\cdot 4\\cdot 4} = \\sqrt{320} = 8\\sqrt{5}$।'},
-  {q:'বৃত্তের একই চাপের উপর কেন্দ্রস্থ কোণের অর্ধেক $32°$ হলে বৃত্তস্থ কোণটি কত?', opts:['16°','32°','58°','64°'], ans:1, exp:'কেন্দ্রস্থ কোণ $= 2 \\times 32° = 64°$। বৃত্তস্থ কোণ $= \\frac{64°}{2} = 32°$।'},
+  {q:'বৃত্তের একই চাপের উপর কেন্দ্রস্থ কোণের অর্ধেক $32^\circ$ হলে বৃত্তস্থ কোণটি কত?', opts:['16°','32°','58°','64°'], ans:1, exp:'কেন্দ্রস্থ কোণ $= 2 \\times 32^\circ = 64^\circ$। বৃত্তস্থ কোণ $= \\frac{64^\circ}{2} = 32^\circ$।'},
   {q:'নিচের কোনটি বিচ্ছিন্ন চলক?', opts:['দৈনিক তাপমাত্রা','দৈনিক বৃষ্টিপাতের পরিমাণ','শতকরা পাশের হার','কোভিড টিকাপ্রাপ্ত জনসংখ্যা'], ans:3, exp:'গণনাযোগ্য (countable) মান বিচ্ছিন্ন চলক — কোভিড টিকাপ্রাপ্ত জনসংখ্যা গণনাযোগ্য।'},
   {q:'একটি বর্গের দৈর্ঘ্য 5 একক। উক্ত দৈর্ঘ্যকে দ্বিগুণ করলে বৃদ্ধিপ্রাপ্ত ক্ষেত্রফল কত হবে?', opts:['125 বর্গ একক','100 বর্গ একক','75 বর্গ একক','25 বর্গ একক'], ans:2, exp:'নতুন ক্ষেত্রফল $= (10)^2 = 100$, বৃদ্ধি $= 100 - 25 = 75$ বর্গ একক।'},
-  {q:'O কেন্দ্রবিশিষ্ট ACDB বৃত্তে $\\angle ACB=(70-2x)°$ এবং $\\angle ADB=(3x+20)°$ হলে $\\angle ACB$ কত?', opts:['68°','60°','50°','23°'], ans:2, exp:'একই চাপে কোণ সমান: $70-2x = 3x+20 \\Rightarrow x=10$, $\\angle ACB = 50°$।'},
+  {q:'O কেন্দ্রবিশিষ্ট ACDB বৃত্তে $\\angle ACB=(70-2x)^\circ$ এবং $\\angle ADB=(3x+20)^\circ$ হলে $\\angle ACB$ কত?', opts:['68^\circ','60^\circ','50^\circ','23^\circ'], ans:2, exp:'একই চাপে কোণ সমান: $70-2x = 3x+20 \\Rightarrow x=10$, $\\angle ACB = 50^\circ$।'},
   {q:'বার্ষিক 10% হার সরল মুনাফায় 7,000 টাকায় 5 বছরের মুনাফা কত?', opts:['3500 টাকা','700 টাকা','350 টাকা','50 টাকা'], ans:0, exp:'মুনাফা $= \\frac{7000 \\times 10 \\times 5}{100} = 3500$ টাকা।'},
   {q:'$x^2 - 6x - 27$ এর একটি উৎপাদক কোনটি?', opts:['$x-3$','$x+6$','$x-9$','$x+9$'], ans:2, exp:'$x^2-6x-27 = (x-9)(x+3)$, তাই $(x-9)$ একটি উৎপাদক।'},
-  {q:'$2\\sin2\\theta = \\sqrt{3}$ হলে $\\theta$ কত?', opts:['15°','30°','45°','60°'], ans:1, exp:'$\\sin2\\theta = \\frac{\\sqrt{3}}{2} \\Rightarrow 2\\theta = 60° \\Rightarrow \\theta = 30°$।'},
+  {q:'$2\\sin2\\theta = \\sqrt{3}$ হলে $\\theta$ কত?', opts:['15^\circ','30^\circ','45^\circ','60^\circ'], ans:1, exp:'$\\sin2\\theta = \\frac{\\sqrt{3}}{2} \\Rightarrow 2\\theta = 60° \\Rightarrow \\theta = 30°$।'},
   {q:'বৃত্তের পরিধি 40 মিটার হলে ব্যাসার্ধ কত?', opts:['20 মি.','$\\frac{20}{\\pi}$ মি.','10 মি.','$\\frac{10}{\\pi}$ মি.'], ans:1, exp:'$2\\pi r = 40 \\Rightarrow r = \\frac{20}{\\pi}$ মিটার।'},
   {q:'$x - \\frac{1}{x} = 3$ হলে $x^2 + \\frac{1}{x^2}$ কত?', opts:['13','11','7','5'], ans:1, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = x^2 + \\frac{1}{x^2} - 2 = 9 \\Rightarrow x^2 + \\frac{1}{x^2} = 11$।'},
   {q:'$F=\\{x:x$ মৌলিক সংখ্যা এবং $1<x<17\\}$ সেটটিতে উপাদান সংখ্যা কতটি?', opts:['6 টি','7 টি','8 টি','9 টি'], ans:0, exp:'মৌলিক সংখ্যা: 2, 3, 5, 7, 11, 13 — মোট 6টি।'},
@@ -696,7 +902,7 @@ ctg: [
   {q:'B কেন্দ্রবিশিষ্ট বৃত্ত, A কেন্দ্রবিশিষ্ট বৃত্তকে C বিন্দুতে স্পর্শ করে। i. A, B, C একই সরলরেখায়, ii. $CP \\perp BC$, iii. $AB=AC-BC$ — নিচের কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'বহিঃস্পর্শ বৃত্তের ধর্ম থেকে তিনটিই সঠিক।'},
   {q:'ব্যক্তির আয় ও ব্যয়ের অনুপাত 7:5 এবং ব্যয়ের 25% শিক্ষা সংক্রান্ত। সঞ্চয় আয়ের শতকরা কত ভাগ?', opts:['28.57%','41.67%','58.33%','71.43%'], ans:0, exp:'আয়=7k, ব্যয়=5k, সঞ্চয়=2k। $\\frac{2k}{7k}\\times100 \\approx 28.57\\%$।'},
   {q:'ঐ ব্যক্তির আয় 49000 টাকা হলে শিক্ষাব্যয় কত?', opts:['8750 টাকা','7500 টাকা','7000 টাকা','6750 টাকা'], ans:0, exp:'ব্যয় $= \\frac{5}{7} \\times 49000 = 35000$, শিক্ষাব্যয় $= 35000 \\times 25\\% = 8750$ টাকা।'},
-  {q:'$\\Delta ABC$ এর $\\angle A:\\angle B:\\angle C=3:3:4$ হলে পরিবৃত্তের কেন্দ্র কোথায় অবস্থিত?', opts:['ত্রিভুজের অভ্যন্তরে','ত্রিভুজের বহির্ভাগে','বৃহত্তম বাহুতে','ভূমিতে'], ans:0, exp:'সব কোণ সূক্ষ্মকোণ হলে (3:3:4 → 54°:54°:72°) পরিকেন্দ্র অভ্যন্তরে থাকে।'},
+  {q:'$\\Delta ABC$ এর $\\angle A:\\angle B:\\angle C=3:3:4$ হলে পরিবৃত্তের কেন্দ্র কোথায় অবস্থিত?', opts:['ত্রিভুজের অভ্যন্তরে','ত্রিভুজের বহির্ভাগে','বৃহত্তম বাহুতে','ভূমিতে'], ans:0, exp:'সব কোণ সূক্ষ্মকোণ হলে (3:3:4 → 54^\circ:54^\circ:72^\circ) পরিকেন্দ্র অভ্যন্তরে থাকে।'},
 ],
 
 cumilla: [
@@ -705,8 +911,8 @@ cumilla: [
   {q:'10% লাভে বিক্রয় করলে ক্রয়মূল্য ও বিক্রয়মূল্যের অনুপাত কত?', opts:['10:11','11:10','10:9','9:10'], ans:0, exp:'বি.মূ. = ক্র.মূ. × 1.1, অনুপাত = ক্র:বি = 1:1.1 = 10:11।'},
   {q:'একটি বর্গের বাহুর দৈর্ঘ্য ও কর্ণের দৈর্ঘ্যের অনুপাত কত?', opts:['1:2','2:1','$\\sqrt{2}:1$','$1:\\sqrt{2}$'], ans:3, exp:'বর্গের কর্ণ $= a\\sqrt{2}$, অনুপাত $= a:a\\sqrt{2} = 1:\\sqrt{2}$।'},
   {q:'$\\sqrt{a} + \\frac{1}{\\sqrt{a}} = 2$ হলে $a + \\frac{1}{a}$ কত?', opts:['0','1','2','3'], ans:2, exp:'বর্গ করলে $a + 2 + \\frac{1}{a} = 4 \\Rightarrow a + \\frac{1}{a} = 2$।'},
-  {q:'$\\sin\\theta = \\cos\\theta$ হলে $\\sin\\theta + \\cos\\theta$ কত?', opts:['$\\frac{1}{\\sqrt{2}}$','1','$\\sqrt{2}$','2'], ans:2, exp:'$\\theta=45°$, $\\sin45°+\\cos45° = \\frac{1}{\\sqrt{2}}+\\frac{1}{\\sqrt{2}} = \\sqrt{2}$।'},
-  {q:'$\\cos\\theta = \\frac{1}{2}$ হলে $\\cot\\theta$ এর মান কত?', opts:['$\\sqrt{3}$','$\\frac{1}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:1, exp:'$\\theta=60°$, $\\cot60° = \\frac{1}{\\sqrt{3}}$।'},
+  {q:'$\\sin\\theta = \\cos\\theta$ হলে $\\sin\\theta + \\cos\\theta$ কত?', opts:['$\\frac{1}{\\sqrt{2}}$','1','$\\sqrt{2}$','2'], ans:2, exp:'$\\theta=45^\circ$, $\\sin45^\circ+\\cos45^\circ = \\frac{1}{\\sqrt{2}}+\\frac{1}{\\sqrt{2}} = \\sqrt{2}$।'},
+  {q:'$\\cos\\theta = \\frac{1}{2}$ হলে $\\cot\\theta$ এর মান কত?', opts:['$\\sqrt{3}$','$\\frac{1}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:1, exp:'$\\theta=60^\circ$, $\\cot60^\circ = \\frac{1}{\\sqrt{3}}$।'},
   {q:'কেন্দ্রে 60° কোণ উৎপন্নকারী বৃত্তকলার চাপের দৈর্ঘ্য কত? (ব্যাসার্ধ 4 সেমি)', opts:['4.19','6.19','8.37','9.37'], ans:0, exp:'চাপ $= r\\theta = 4 \\times \\frac{\\pi}{3} \\approx 4.19$ সেমি।'},
   {q:'উপাত্তসমূহ সারণিভুক্ত করলে শ্রেণিতে কতগুলো উপাত্ত অন্তর্ভুক্ত হয় তার নির্দেশক কোনটি?', opts:['শ্রেণিসীমা','শ্রেণির গণসংখ্যা','শ্রেণিসংখ্যা','শ্রেণির মধ্যবিন্দু'], ans:1, exp:'শ্রেণির গণসংখ্যা (frequency) প্রতিটি শ্রেণিতে উপাত্ত সংখ্যা নির্দেশ করে।'},
   {q:'$A=\\{x\\in \\mathbb{N}:1 \\le x \\le 20\\}$ সেটের মৌলিক সংখ্যা কয়টি?', opts:['5','6','7','8'], ans:3, exp:'2,3,5,7,11,13,17,19 — মোট 8টি মৌলিক সংখ্যা।'},
@@ -720,13 +926,13 @@ cumilla: [
   {q:'কোনো বৃত্তের উপচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['সূক্ষ্মকোণ','সমকোণ','পূরককোণ','স্থূলকোণ'], ans:3, exp:'উপচাপে (minor arc) অন্তর্লিখিত কোণ স্থূলকোণ হয়।'},
   {q:'সামান্তরিক আঁকতে কতটি নির্দিষ্ট উপাত্তের প্রয়োজন?', opts:['2','3','4','5'], ans:1, exp:'সামান্তরিক আঁকতে ৩টি উপাত্ত প্রয়োজন।'},
   {q:'শুধু পরিসীমা জানলেই আঁকা সম্ভব — i. বর্গক্ষেত্র, ii. আয়তক্ষেত্র, iii. সমবাহু ত্রিভুজ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'বর্গ ও সমবাহু ত্রিভুজ পরিসীমা থেকে সম্পূর্ণ নির্ধারিত হয়।'},
-  {q:'$\\triangle PQR$-এ $\\angle P=30°$, $\\angle R=60°$ হলে ত্রিভুজটি কী ধরনের?', opts:['সমবাহু','বিষমবাহু','সমকোণী','সূক্ষ্মকোণী'], ans:2, exp:'$\\angle Q = 180°-30°-60° = 90°$, তাই সমকোণী।'},
+  {q:'$\\triangle PQR$-এ $\\angle P=30^\circ$, $\\angle R=60^\circ$ হলে ত্রিভুজটি কী ধরনের?', opts:['সমবাহু','বিষমবাহু','সমকোণী','সূক্ষ্মকোণী'], ans:2, exp:'$\\angle Q = 180^\circ-30^\circ-60^\circ = 90^\circ$, তাই সমকোণী।'},
   {q:'কোন বাহুগুলো দিয়ে সমকোণী ত্রিভুজ আঁকা যায়?', opts:['23, 7, 24 সেমি','2, 3, 4 সেমি','24, 7, 25 সেমি','4, 5, 6 সেমি'], ans:2, exp:'$7^2+24^2=49+576=625=25^2$ — পিথাগোরাস সূত্র সিদ্ধ।'},
   {q:'নিচের তথ্যগুলো লক্ষ কর — i. অর্ধবৃত্তস্থ কোণ এক সমকোণ, ii. একই চাপে বৃত্তস্থ কোণগুলো সমান, iii. অধিচাপ > অর্ধপরিধি — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই বৃত্তের প্রমাণিত উপপাদ্য।'},
   {q:'চিত্রে $MN=EF$, $OQ=5$ সেমি হলে $OP$ কত?', opts:['2.5 cm','5 cm','20 cm','30 cm'], ans:1, exp:'সমান জ্যা সমান কেন্দ্র-দূরত্বে থাকে, তাই $OP = OQ = 5$ cm।'},
-  {q:'$\\angle BOC$ এবং $\\angle ACB$ এর অন্তর কত?', opts:['60°','90°','120°','150°'], ans:0, exp:'কেন্দ্রস্থ কোণ বৃত্তস্থ কোণের দ্বিগুণ — অন্তর = 60°।'},
+  {q:'$\\angle BOC$ এবং $\\angle ACB$ এর অন্তর কত?', opts:['60^\circ','90^\circ','120^\circ','150^\circ'], ans:0, exp:'কেন্দ্রস্থ কোণ বৃত্তস্থ কোণের দ্বিগুণ — অন্তর = 60^\circ।'},
   {q:'বর্গে অন্তর্লিখিত বৃত্তের কয়টি স্পর্শক আছে?', opts:['1','2','3','4'], ans:3, exp:'বর্গের চারটি বাহু অন্তর্লিখিত বৃত্তের চারটি স্পর্শক।'},
-  {q:'M ও N কেন্দ্রবিশিষ্ট দুটি বৃত্ত P বিন্দুতে অন্তঃস্পর্শ করলে $\\angle POM$ কত?', opts:['30°','60°','90°','120°'], ans:2, exp:'অন্তঃস্পর্শ বিন্দুতে কেন্দ্র ও স্পর্শক সম্পর্ক থেকে $\\angle POM = 90°$।'},
+  {q:'M ও N কেন্দ্রবিশিষ্ট দুটি বৃত্ত P বিন্দুতে অন্তঃস্পর্শ করলে $\\angle POM$ কত?', opts:['30^\circ','60^\circ','90^\circ','120^\circ'], ans:2, exp:'অন্তঃস্পর্শ বিন্দুতে কেন্দ্র ও স্পর্শক সম্পর্ক থেকে $\\angle POM = 90°$।'},
   {q:'$m:n=r:p$ এর একান্তরকরণ নিচের কোনটি?', opts:['$m:p=n:r$','$m:r=n:p$','$n:m=p:r$','$mr=np$'], ans:1, exp:'একান্তরকরণে মধ্যপদ বিনিময় হয়: $m:n=r:p \\Rightarrow m:r=n:p$।'},
 ],
 
@@ -749,18 +955,18 @@ rajshahi: [
   {q:'$A=\\{x\\in \\mathbb{N}: x^2 \\le 100$ এবং মৌলিক সংখ্যা$\\}$ হলে A কোনটি?', opts:['$\\{1,3,5,7\\}$','$\\{2,3,5,7\\}$','$\\{2,3,7,9\\}$','$\\{1,3,5,9\\}$'], ans:1, exp:'$x \\le 10$ এর মৌলিক সংখ্যা: 2, 3, 5, 7।'},
   {q:'$(3x+2y, 2x-3y)=(5,2)$ হলে $x$ এর মান কোনটি?', opts:['$\\frac{11}{5}$','$\\frac{19}{13}$','$\\frac{13}{19}$','$\\frac{11}{13}$'], ans:1, exp:'সমীকরণ সমাধানে $3x+2y=5, 2x-3y=2 \\Rightarrow x=\\frac{19}{13}$।'},
   {q:'আয়ত আঁকতে কমপক্ষে কতটি উপাত্তের প্রয়োজন?', opts:['5','4','2','1'], ans:2, exp:'আয়তের দুটি অসমান বাহু জানলেই আঁকা সম্ভব।'},
-  {q:'ABC বৃত্তের কেন্দ্র O, $\\angle BAC=x$, $\\angle BOC=x+70°$ হলে $\\angle BAC$ কত?', opts:['30°','50°','60°','70°'], ans:3, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ: $x+70 = 2x \\Rightarrow x = 70°$।'},
-  {q:'প্রবৃদ্ধ কোণ $\\angle BOC$ এর মান কত?', opts:['100°','120°','180°','220°'], ans:3, exp:'প্রবৃদ্ধ কোণ $= 360° - 2 \\times 70° = 360° - 140° = 220°$।'},
+  {q:'ABC বৃত্তের কেন্দ্র O, $\\angle BAC=x$, $\\angle BOC=x+70^\circ$ হলে $\\angle BAC$ কত?', opts:['30^\circ','50^\circ','60^\circ','70^\circ'], ans:3, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ: $x+70 = 2x \\Rightarrow x = 70°$।'},
+  {q:'প্রবৃদ্ধ কোণ $\\angle BOC$ এর মান কত?', opts:['100^\circ','120^\circ','180^\circ','220^\circ'], ans:3, exp:'প্রবৃদ্ধ কোণ $= 360° - 2 \\times 70° = 360° - 140° = 220°$।'},
   {q:'বৃত্তের যেকোনো বিন্দুতে কতগুলো স্পর্শক আঁকা যায়?', opts:['1','2','3','4'], ans:0, exp:'বৃত্তের যেকোনো বিন্দুতে মাত্র একটি স্পর্শক আঁকা যায়।'},
   {q:'8 সে.মি. ও 10 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['1 সে.মি.','4 সে.মি.','5 সে.মি.','14 সে.মি.'], ans:0, exp:'ব্যাসার্ধ 4 ও 5; অন্তঃস্পর্শে দূরত্ব = |5-4| = 1 সে.মি.।'},
   {q:'ত্রিভুজের তিনটি বাহু 4, 6, 8 সে.মি. হলে ক্ষেত্রফল কোনটি?', opts:['9.56 বর্গ সে.মি.','10.56 বর্গ সে.মি.','11.62 বর্গ সে.মি.','13.42 বর্গ সে.মি.'], ans:2, exp:'হেরনের সূত্রে $s=9$, $\\sqrt{9\\cdot5\\cdot3\\cdot1}=\\sqrt{135}\\approx11.62$।'},
-  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য 16° হলে ক্ষুদ্রতম কোণটি কত?', opts:['37°','53°','60°','74°'], ans:0, exp:'$a+b=90°, b-a=16° \\Rightarrow a=37°$।'},
-  {q:'$\\sin 2\\theta = \\frac{\\sqrt{3}}{2}$ হলে $\\text{cosec}(90°-3\\theta)$ এর মান কত?', opts:['$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2','অসংজ্ঞায়িত'], ans:3, exp:'$2\\theta=60°$ বা $120°$, তাই $\\theta=30°$ বা $60°$। $3\\theta=90°$ বা $180°$, $\\text{cosec}(0°)$ অসংজ্ঞায়িত।'},
+  {q:'সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয়ের পার্থক্য 16^\circ হলে ক্ষুদ্রতম কোণটি কত?', opts:['37^\circ','53^\circ','60^\circ','74^\circ'], ans:0, exp:'$a+b=90°, b-a=16° \\Rightarrow a=37°$।'},
+  {q:'$\\sin 2\\theta = \\frac{\\sqrt{3}}{2}$ হলে $\\text{cosec}(90^\circ-3\\theta)$ এর মান কত?', opts:['$\\frac{2}{\\sqrt{3}}$','$\\sqrt{2}$','2','অসংজ্ঞায়িত'], ans:3, exp:'$2\\theta=60^\circ$ বা $120^\circ$, তাই $\\theta=30^\circ$ বা $60^\circ$। $3\\theta=90^\circ$ বা $180^\circ$, $\\text{cosec}(0^\circ)$ অসংজ্ঞায়িত।'},
   {q:'$\\sin^4 A + \\sin^2 A = 1$ হলে — i. $\\sin^2A=\\cos A$, ii. $\\tan A=\\text{cosec }A$, iii. $\\tan A \\cdot \\text{cosec }A=1$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$\\sin^2A = 1-\\sin^2A=\\cos^2A$, না $\\sin^2A=\\cos A$ হলে $\\sin^4A=\\cos^2A$ দ্বারা সমীকরণ সিদ্ধ। i ও ii সঠিক।'},
-  {q:'$\\Delta ABC$ এ $AB=8$ সে.মি., $BC=10$ সে.মি. এবং $\\angle B=90°$ হলে পরিসীমা কত?', opts:['30 সে.মি.','24 সে.মি.','12 সে.মি.','10 সে.মি.'], ans:1, exp:'$AC = \\sqrt{8^2+10^2}... $ অপেক্ষা দেওয়া আছে AB ও BC, পরিসীমা = 8+10+6 = 24 (AC=6 হলে)।'},
+  {q:'$\\Delta ABC$ এ $AB=8$ সে.মি., $BC=10$ সে.মি. এবং $\\angle B=90^\circ$ হলে পরিসীমা কত?', opts:['30 সে.মি.','24 সে.মি.','12 সে.মি.','10 সে.মি.'], ans:1, exp:'$AC = \\sqrt{8^2+10^2}... $ অপেক্ষা দেওয়া আছে AB ও BC, পরিসীমা = 8+10+6 = 24 (AC=6 হলে)।'},
   {q:'সমগ্র চিত্রটির (অর্ধবৃত্ত সহ) ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['34.14','38.14','52.29','80.55'], ans:1, exp:'আয়তক্ষেত্র ও অর্ধবৃত্ত মিলিয়ে ক্ষেত্রফল ≈ 38.14 বর্গ সে.মি.।'},
   {q:'9, 5, 11, 3, 6 সংখ্যাগুলোর মধ্যক কোনটি?', opts:['6','8','11','17'], ans:0, exp:'সাজালে: 3, 5, 6, 9, 11 — মধ্যক = 6।'},
-  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ: 36°, 108°, 36° — দুটি সমান তাই সমদ্বিবাহু।'},
+  {q:'কোনো ত্রিভুজের কোণগুলোর অনুপাত 1:3:1 হলে ত্রিভুজটি কী?', opts:['সূক্ষ্মকোণী','সমকোণী','সমবাহু','সমদ্বিবাহু'], ans:3, exp:'কোণ: 36^\circ, 108^\circ, 36^\circ — দুটি সমান তাই সমদ্বিবাহু।'},
 ],
 
 borishal: [
@@ -768,7 +974,7 @@ borishal: [
   {q:'$U=\\{5,6,7,8,9\\}$, $A=\\{5,7,9\\}$, $B=\\{6,8,9\\}$ হলে $(A\\cup B)\'$ এর মান কোনটি?', opts:['$\\{5,6,7,8,9\\}$','$\\{5,6,7,8\\}$','$\\{\\}$','$\\{9\\}$'], ans:2, exp:'$A\\cup B=\\{5,6,7,8,9\\}=U$, তাই $(A\\cup B)\'=\\emptyset$।'},
   {q:'একটি ত্রিভুজের দুটি বাহুর দৈর্ঘ্য 7 ও 12 একক, তৃতীয় বাহু নিচের কোনটি হতে পারে?', opts:['5','6','19','20'], ans:1, exp:'ত্রিভুজের শর্ত: $|12-7|<x<12+7$ অর্থাৎ $5<x<19$। শুধু 6 এই শর্ত পূরণ করে।'},
   {q:'রম্বস অঙ্কনের জন্য কোন উপাত্তটি সঠিক?', opts:['বাহুর দৈর্ঘ্য','কর্ণদ্বয়ের দৈর্ঘ্য','দুটি কোণের পরিমাপ','কর্ণদ্বয়ের অন্তর্ভুক্ত কোণ'], ans:1, exp:'রম্বসের দুটি কর্ণ পরস্পর সমকোণে দ্বিখণ্ডিত করে। কর্ণদ্বয়ের দৈর্ঘ্য দিলে রম্বস আঁকা যায়।'},
-  {q:'ত্রিভুজের দুটি বাহু 7 ও 9 সে.মি. এবং অন্তর্ভুক্ত কোণ 30° হলে ক্ষেত্রফল কত?', opts:['15.75 বর্গ সে.মি.','27.28 বর্গ সে.মি.','31.50 বর্গ সে.মি.','54.56 বর্গ সে.মি.'], ans:0, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times 7\\times 9\\times\\sin30°=\\frac{63}{4}=15.75$ বর্গ সে.মি.।'},
+  {q:'ত্রিভুজের দুটি বাহু 7 ও 9 সে.মি. এবং অন্তর্ভুক্ত কোণ 30^\circ হলে ক্ষেত্রফল কত?', opts:['15.75 বর্গ সে.মি.','27.28 বর্গ সে.মি.','31.50 বর্গ সে.মি.','54.56 বর্গ সে.মি.'], ans:0, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times 7\\times 9\\times\\sin30°=\\frac{63}{4}=15.75$ বর্গ সে.মি.।'},
   {q:'$x^2 + \\frac{1}{x^2} = 3$ হলে $x - \\frac{1}{x}$ এর মান কোনটি?', opts:['1','$\\sqrt{3}$','$\\sqrt{5}$','5'], ans:0, exp:'$\\left(x-\\frac{1}{x}\\right)^2 = x^2+\\frac{1}{x^2}-2 = 3-2 = 1 \\Rightarrow x-\\frac{1}{x}=1$।'},
   {q:'$x^2+\\frac{1}{x^2}=3$ এর আলোকে $x^3+\\frac{1}{x^3}$ এর মান কোনটি?', opts:['$8\\sqrt{5}$','$6\\sqrt{5}$','$5\\sqrt{5}$','$2\\sqrt{5}$'], ans:3, exp:'$x+\\frac{1}{x}=\\sqrt{5}$, $x^3+\\frac{1}{x^3}=(x+\\frac{1}{x})^3-3(x+\\frac{1}{x})=5\\sqrt{5}-3\\sqrt{5}=2\\sqrt{5}$।'},
   {q:'বৃত্তে AB ব্যাসের দুই বিপরীত দিকে সমান্তরাল জ্যা AC ও BD হলে কোনটি সঠিক?', opts:['$AC=BD$','$AC<BD$','$2AC=BD$','$AC>BD$'], ans:0, exp:'ব্যাস থেকে সমদূরে সমান্তরাল জ্যা সমান হয়।'},
@@ -779,16 +985,16 @@ borishal: [
   {q:'সমকোণী ত্রিভুজে অতিভুজ 13 সে.মি., একটি বাহু 5 সে.মি. এবং অপর বাহু $(2a+4)$ সে.মি. হলে $a$ এর মান?', opts:['4 সে.মি.','8 সে.মি.','12 সে.মি.','16 সে.মি.'], ans:0, exp:'$5^2+(2a+4)^2=13^2 \\Rightarrow (2a+4)^2=144 \\Rightarrow 2a+4=12 \\Rightarrow a=4$।'},
   {q:'10 সে.মি. ও 20 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['5 সে.মি.','10 সে.মি.','15 সে.মি.','30 সে.মি.'], ans:0, exp:'ব্যাসার্ধ 5 ও 10; অন্তঃস্পর্শে দূরত্ব $= |10-5| = 5$ সে.মি.।'},
   {q:'$f(x) = 2x^2+5x-6$ হলে — i. $f(0)=-6$, ii. $(x+2)$ উৎপাদক, iii. $x=-\\frac{1}{2}$ হলে $f(x)=-8$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'$f(0)=-6$ সঠিক। $f(-1/2) = 2(1/4)+5(-1/2)-6 = 0.5-2.5-6=-8$ সঠিক।'},
-  {q:'$\\Delta ABC$-এ $\\angle B=90°$, $AC=2p$, $BC=\\sqrt{3}p$। $\\tan(2A-3C)$ এর মান কোনটি?', opts:['$\\frac{1}{\\sqrt{3}}$','$\\frac{3}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:0, exp:'$\\sin A=\\frac{\\sqrt{3}}{2} \\Rightarrow A=60°$, $C=30°$। $2A-3C=120°-90°=30°$। $\\tan30°=\\frac{1}{\\sqrt{3}}$।'},
+  {q:'$\\Delta ABC$-এ $\\angle B=90^\circ$, $AC=2p$, $BC=\\sqrt{3}p$। $\\tan(2A-3C)$ এর মান কোনটি?', opts:['$\\frac{1}{\\sqrt{3}}$','$\\frac{3}{\\sqrt{3}}$','$\\frac{\\sqrt{3}}{2}$','$\\frac{2}{\\sqrt{3}}$'], ans:0, exp:'$\\sin A=\\frac{\\sqrt{3}}{2} \\Rightarrow A=60^\circ$, $C=30^\circ$। $2A-3C=120^\circ-90^\circ=30^\circ$। $\\tan30^\circ=\\frac{1}{\\sqrt{3}}$।'},
   {q:'$p=2$ হলে $AD$ এর মান কোনটি?', opts:['$\\sqrt{3}$','2','$\\sqrt{7}$','4'], ans:2, exp:'D হলো BC এর মধ্যবিন্দু। $BC=\\sqrt{3}p=2\\sqrt{3}$, $BD=\\sqrt{3}$, $AB=\\sqrt{4p^2-3p^2}=p=2$। $AD=\\sqrt{AB^2+BD^2}... \\approx\\sqrt{7}$।'},
   {q:'$x=3+2\\sqrt{2}$ হলে $\\frac{1}{2}\\left(x+\\frac{1}{x}\\right)$ এর মান কোনটি?', opts:['3','$2\\sqrt{2}$','$4\\sqrt{2}$','6'], ans:0, exp:'$\\frac{1}{x}=3-2\\sqrt{2}$। $x+\\frac{1}{x}=6$। $\\frac{1}{2}\\times6=3$।'},
-  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তর কোণের সম্পূরক কোণের সম্পূরক কোণের মান কোনটি?', opts:['10°','20°','80°','100°'], ans:3, exp:'কোণ: 40°, 60°, 80°। বৃহত্তম 80°। সম্পূরক $=180°-80°=100°$।'},
-  {q:'চিত্রে $\\angle DCE$ এর মান কোনটি?', opts:['52°','60°','68°','112°'], ans:0, exp:'বৃত্তস্থ কোণের ধর্ম প্রয়োগে $\\angle DCE = 52°$।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তর কোণের সম্পূরক কোণের সম্পূরক কোণের মান কোনটি?', opts:['10^\circ','20^\circ','80^\circ','100^\circ'], ans:3, exp:'কোণ: 40^\circ, 60^\circ, 80^\circ। বৃহত্তম 80^\circ। সম্পূরক $=180°-80°=100°$।'},
+  {q:'চিত্রে $\\angle DCE$ এর মান কোনটি?', opts:['52^\circ','60^\circ','68^\circ','112^\circ'], ans:0, exp:'বৃত্তস্থ কোণের ধর্ম প্রয়োগে $\\angle DCE = 52°$।'},
   {q:'$p^2 = \\frac{2p}{x} - 1$ হলে $\\frac{p+1}{p-1}$ এর মান কোনটি?', opts:['$\\frac{1+x}{1-x}$','$\\frac{1-x}{1+x}$','$\\sqrt{\\frac{1+x}{1-x}}$','$\\sqrt{\\frac{1-x}{1+x}}$'], ans:2, exp:'$p^2+1=\\frac{2p}{x}$ থেকে $\\frac{p^2+1}{2p}=\\frac{1}{x}$। componendo-dividendo প্রয়োগে $\\sqrt{\\frac{1+x}{1-x}}$ পাওয়া যায়।'},
   {q:'$x^3+x^2-5x+8$ কে $(x+2)$ দ্বারা ভাগ করলে ভাগশেষ কোনটি?', opts:['-14','-6','14','30'], ans:2, exp:'$f(-2) = -8+4+10+8 = 14$।'},
   {q:'কলম $x$ টাকায় বিক্রয়ে 20% লাভ হয়। ক্রয়মূল্য কোনটি?', opts:['$\\frac{5x}{4}$','$\\frac{6x}{5}$','$\\frac{4x}{5}$','$\\frac{5x}{6}$'], ans:3, exp:'বি.মূ. $= $ ক্র.মূ. $\\times 1.2 = x$, ক্র.মূ. $= \\frac{x}{1.2} = \\frac{5x}{6}$।'},
   {q:'O কেন্দ্রবিশিষ্ট বৃত্তের পরিধি 30 সে.মি.। AB ও AC স্পর্শক, AO = 7 সে.মি. হলে $AB^2+AC^2$ কত?', opts:['26.25','52.49','71.75','143.50'], ans:1, exp:'$r=\\frac{30}{2\\pi}\\approx4.77$। $AB^2=AO^2-r^2=49-22.75\\approx26.25$। $AB^2+AC^2\\approx52.49$।'},
-  {q:'$\\Delta ABC$-এ $\\angle A=90°$, $\\angle B=45°$, $AB=r$ — i. মধ্যমা $AD=\\frac{r}{\\sqrt{2}}$, ii. ক্ষেত্রফল $=\\frac{1}{2}r^2$, iii. পরিবৃত্তের ক্ষেত্রফল $=\\frac{1}{2}\\pi r^2$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই সঠিক যাচাইযোগ্য।'},
+  {q:'$\\Delta ABC$-এ $\\angle A=90^\circ$, $\\angle B=45^\circ$, $AB=r$ — i. মধ্যমা $AD=\\frac{r}{\\sqrt{2}}$, ii. ক্ষেত্রফল $=\\frac{1}{2}r^2$, iii. পরিবৃত্তের ক্ষেত্রফল $=\\frac{1}{2}\\pi r^2$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটিই সঠিক যাচাইযোগ্য।'},
   {q:'a, b, c ক্রমিক সমানুপাতী হলে কোনটি সঠিক?', opts:['$a^2=b^4c^4$','$b^4=a^2c^2$','$b^2=a^4c^4$','$a^4=b^2c^2$'], ans:1, exp:'ক্রমিক সমানুপাতে $b^2=ac$, তাই $b^4=a^2c^2$।'},
   {q:'দুটি সংখ্যার অনুপাত 3:5 এবং গসাগু 30 হলে লসাগু কোনটি?', opts:['15','30','150','450'], ans:3, exp:'সংখ্যা $3\\times30=90$ ও $5\\times30=150$। লসাগু = 450।'},
   {q:'$S=\\{(x,y):y-x=2\\}$, $A=\\{-2,-1,0,1\\}$ — i. ডোমেন $=\\{-2,-1\\}$, ii. রেঞ্জ $=\\{0,1\\}$, iii. $P(A\\cap B)$ এর উপাদান 4 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'i ও ii সঠিক। iii এ $A\\cap B$ সম্পর্কে চিত্র থেকে যাচাই করা হয়।'},
@@ -798,12 +1004,12 @@ borishal: [
 
 sylhet: [
   {q:'$a+b+c=10$ এবং $a^2+b^2+c^2=64$ হলে $ab+bc+ca$ এর মান কোনটি?', opts:['18','36','54','74'], ans:0, exp:'$(a+b+c)^2 = a^2+b^2+c^2+2(ab+bc+ca) \\Rightarrow 100=64+2(ab+bc+ca) \\Rightarrow ab+bc+ca=18$।'},
-  {q:'বৃত্তের ব্যাসার্ধ 5 সে.মি. এবং চাপ দ্বারা কেন্দ্রে উৎপন্ন কোণ 30° হলে চাপের দৈর্ঘ্য কত?', opts:['0.382 সে.মি.','0.833 সে.মি.','2.618 সে.মি.','6.545 সে.মি.'], ans:2, exp:'চাপ $= r\\theta = 5 \\times \\frac{\\pi}{6} \\approx 2.618$ সে.মি.।'},
+  {q:'বৃত্তের ব্যাসার্ধ 5 সে.মি. এবং চাপ দ্বারা কেন্দ্রে উৎপন্ন কোণ 30^\circ হলে চাপের দৈর্ঘ্য কত?', opts:['0.382 সে.মি.','0.833 সে.মি.','2.618 সে.মি.','6.545 সে.মি.'], ans:2, exp:'চাপ $= r\\theta = 5 \\times \\frac{\\pi}{6} \\approx 2.618$ সে.মি.।'},
   {q:'বৃত্তের বহিঃস্থ কোনো বিন্দু থেকে বৃত্তে সর্বোচ্চ কতটি স্পর্শক আঁকা যায়?', opts:['৪টি','৩টি','২টি','১টি'], ans:2, exp:'বৃত্তের বহিঃস্থ বিন্দু থেকে সর্বোচ্চ ২টি স্পর্শক আঁকা যায়।'},
   {q:'p, q, r ক্রমিক সমানুপাতি হলে — i. $q^2=pr$, ii. $pq=qr$, iii. $\\frac{p-q}{p+q}=\\frac{r-p}{r+p}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$q^2=pr$ সঠিক। $pq=qr$ কেবল $p=r$ হলে সত্য — সাধারণত সত্য নয়।'},
   {q:'বার্ষিক 5% চক্রবৃদ্ধি মুনাফায় 6000 টাকার 2 বছরের মুনাফা-আসল কত?', opts:['5400 টাকা','5415 টাকা','6600 টাকা','6615 টাকা'], ans:3, exp:'মুনাফা-আসল $= 6000 \\times (1.05)^2 = 6000 \\times 1.1025 = 6615$ টাকা।'},
-  {q:'$6\\cos\\theta = 3$ হলে $\\tan\\theta$ এর মান কত?', opts:['অসংজ্ঞায়িত','3','1','$\\frac{1}{3}$'], ans:2, exp:'$\\cos\\theta=\\frac{1}{2} \\Rightarrow \\theta=60°$। $\\tan60°=\\sqrt{3}$। কিন্তু অপশন অনুসারে 1 = সম্ভবত $\\theta=45°$ মেনে উত্তর 1।'},
-  {q:'ABCD একটি রম্বস। $\\angle BAC=35°$ হলে $\\angle ADC$ কত?', opts:['145°','110°','70°','55°'], ans:1, exp:'রম্বসে $\\angle ABC = 2\\angle BAC = 70°$। $\\angle ADC = 180°-70°=110°$।'},
+  {q:'$6\\cos\\theta = 3$ হলে $\\tan\\theta$ এর মান কত?', opts:['অসংজ্ঞায়িত','3','1','$\\frac{1}{3}$'], ans:2, exp:'$\\cos\\theta=\\frac{1}{2} \\Rightarrow \\theta=60^\circ$। $\\tan60^\circ=\\sqrt{3}$। কিন্তু অপশন অনুসারে 1 = সম্ভবত $\\theta=45^\circ$ মেনে উত্তর 1।'},
+  {q:'ABCD একটি রম্বস। $\\angle BAC=35^\circ$ হলে $\\angle ADC$ কত?', opts:['145^\circ','110^\circ','70^\circ','55^\circ'], ans:1, exp:'রম্বসে $\\angle ABC = 2\\angle BAC = 70°$। $\\angle ADC = 180^\circ-70^\circ=110^\circ$।'},
   {q:'$R=\\{(x,y):y=2x-1\\}$, $A=\\{2,3,4,5\\}$ — i. ডোম R = $\\{2,3\\}$, ii. রেঞ্জ R = $\\{3,5\\}$, iii. $P(A)$ এর উপাদান সংখ্যা 15 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$y=2x-1 \\le 5$ হলে $x \\le 3$, ডোম $=\\{2,3\\}$, রেঞ্জ $=\\{3,5\\}$ সঠিক।'},
   {q:'বৃত্তের ক্ষেত্রফল $25\\pi$ বর্গ সে.মি. হলে বৃহত্তম জ্যার দৈর্ঘ্য কত?', opts:['31.416 সে.মি.','12.5 সে.মি.','10 সে.মি.','5 সে.মি.'], ans:2, exp:'$\\pi r^2=25\\pi \\Rightarrow r=5$। বৃহত্তম জ্যা = ব্যাস $= 10$ সে.মি.।'},
   {q:'$\\sin A=\\frac{5}{13}$ হলে $\\frac{1+\\sec A}{1}$ এর মান কত? (অপশন: $\\frac{12}{13}, \\frac{13}{25}, \\frac{12}{25}, \\frac{5}{18}$)', opts:['$\\frac{12}{13}$','$\\frac{13}{25}$','$\\frac{12}{25}$','$\\frac{5}{18}$'], ans:2, exp:'$\\cos A=\\frac{12}{13}$, $\\sec A=\\frac{13}{12}$। $1+\\sec A=\\frac{25}{12}$... প্রশ্নটি $\\frac{\\cos A}{1+\\sec A}$ হতে পারে $= \\frac{12/13}{25/12}=\\frac{144}{325}$। অপশন অনুযায়ী $\\frac{12}{25}$।'},
@@ -820,13 +1026,13 @@ sylhet: [
   {q:'দুটি কর্ণের দৈর্ঘ্য জানা থাকলে নিচের কোনটি আঁকা সম্ভব?', opts:['বর্গ','রম্বস','আয়ত','সামান্তরিক'], ans:1, exp:'রম্বসের কর্ণদ্বয় পরস্পর সমকোণে সমদ্বিখণ্ডিত করে, তাই কর্ণ দুটি জানলে রম্বস আঁকা যায়।'},
   {q:'ত্রিভুজের পরিসীমা 72 সে.মি., বাহুর অনুপাত 3:4:5 হলে ক্ষুদ্রতম বাহুর দৈর্ঘ্য কত?', opts:['3','18','24','30'], ans:1, exp:'মোট অনুপাত 12, ক্ষুদ্রতম বাহু $= \\frac{3}{12}\\times72 = 18$ সে.মি.।'},
   {q:'উদ্দীপকের ত্রিভুজটির ক্ষেত্রফল কত বর্গ সে.মি.?', opts:['6','12','216','432'], ans:2, exp:'18, 24, 30 সে.মি. ত্রিভুজের ক্ষেত্রফল $= \\frac{1}{2}\\times18\\times24 = 216$ বর্গ সে.মি.।'},
-  {q:'চিত্র থেকে $2\\angle GHK$ কত?', opts:['70°','110°','140°','180°'], ans:2, exp:'বৃত্তস্থ কোণ = কেন্দ্রস্থ কোণের অর্ধেক। $\\angle GHK=70°$, তাই $2\\angle GHK=140°$।'},
-  {q:'$A=30°$ হলে $\\frac{\\sin^2A}{2\\tan A}$ এর মান কোনটি?', opts:['$\\frac{3}{4}$','$\\frac{\\sqrt{3}}{4}$','4','$\\frac{4}{3}$'], ans:0, exp:'$\\frac{\\sin^260°}{2\\tan30°}... $ হলে $\\frac{3/4}{2/\\sqrt{3}}=\\frac{3\\sqrt{3}}{8}$। $A=30°$ এ: $\\frac{(1/2)^2}{2\\times(1/\\sqrt{3})}=\\frac{1/4}{2/\\sqrt{3}}=\\frac{\\sqrt{3}}{8}$। অপশন অনুযায়ী $\\frac{3}{4}$।'},
+  {q:'চিত্র থেকে $2\\angle GHK$ কত?', opts:['70^\circ','110^\circ','140^\circ','180^\circ'], ans:2, exp:'বৃত্তস্থ কোণ = কেন্দ্রস্থ কোণের অর্ধেক। $\\angle GHK=70°$, তাই $2\\angle GHK=140^\circ$।'},
+  {q:'$A=30^\circ$ হলে $\\frac{\\sin^2A}{2\\tan A}$ এর মান কোনটি?', opts:['$\\frac{3}{4}$','$\\frac{\\sqrt{3}}{4}$','4','$\\frac{4}{3}$'], ans:0, exp:'$\\frac{\\sin^260^\circ}{2\\tan30^\circ}... $ হলে $\\frac{3/4}{2/\\sqrt{3}}=\\frac{3\\sqrt{3}}{8}$। $A=30^\circ$ এ: $\\frac{(1/2)^2}{2\\times(1/\\sqrt{3})}=\\frac{1/4}{2/\\sqrt{3}}=\\frac{\\sqrt{3}}{8}$। অপশন অনুযায়ী $\\frac{3}{4}$।'},
   {q:'কোন ক্ষেত্রে সমকোণী ত্রিভুজ আঁকা সম্ভব?', opts:['3, 4, 6','6, 8, 10','4, 8, 10','7, 12, 13'], ans:1, exp:'$6^2+8^2=36+64=100=10^2$ — পিথাগোরাস সূত্র সিদ্ধ।'},
-  {q:'চিত্রে $\\Delta ABC$ এর $\\angle ACB=50°$ হলে $\\angle AOB$ কত?', opts:['140°','115°','100°','65°'], ans:2, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ $= 2\\times50° = 100°$।'},
-  {q:'AB বাহুকে উভয় দিকে বর্ধিত করলে যে বহিস্থ কোণদ্বয় উৎপন্ন হয় তাদের সমষ্টি কত?', opts:['120°','130°','180°','230°'], ans:3, exp:'বহিস্থ কোণ দুটি সমষ্টি = শীর্ষকোণ বাদ দিয়ে পূর্ণ কোণ ≈ 230°।'},
+  {q:'চিত্রে $\\Delta ABC$ এর $\\angle ACB=50^\circ$ হলে $\\angle AOB$ কত?', opts:['140^\circ','115^\circ','100^\circ','65^\circ'], ans:2, exp:'কেন্দ্রস্থ কোণ = 2 × বৃত্তস্থ কোণ $= 2\\times50° = 100°$।'},
+  {q:'AB বাহুকে উভয় দিকে বর্ধিত করলে যে বহিস্থ কোণদ্বয় উৎপন্ন হয় তাদের সমষ্টি কত?', opts:['120^\circ','130^\circ','180^\circ','230^\circ'], ans:3, exp:'বহিস্থ কোণ দুটি সমষ্টি = শীর্ষকোণ বাদ দিয়ে পূর্ণ কোণ ≈ 230^\circ।'},
   {q:'সমদ্বিবাহু ত্রিভুজের সমান বাহু 5 cm, ভূমি 6 cm হলে ক্ষেত্রফল কোনটি?', opts:['10.82 cm²','12 cm²','13.64 cm²','15 cm²'], ans:1, exp:'উচ্চতা $h=\\sqrt{25-9}=4$। ক্ষেত্রফল $=\\frac{1}{2}\\times6\\times4=12$ cm²।'},
-  {q:'অর্ধবৃত্তস্থ কোণ $\\angle APB$ এবং $\\angle PAB=50°$ হলে $\\angle PBA$ এর সম্পূরক কোণ কত?', opts:['40°','50°','130°','140°'], ans:3, exp:'$\\angle APB=90°$, $\\angle PBA=180°-90°-50°=40°$। সম্পূরক $=180°-40°=140°$।'},
+  {q:'অর্ধবৃত্তস্থ কোণ $\\angle APB$ এবং $\\angle PAB=50^\circ$ হলে $\\angle PBA$ এর সম্পূরক কোণ কত?', opts:['40^\circ','50^\circ','130^\circ','140^\circ'], ans:3, exp:'$\\angle APB=90°$, $\\angle PBA=180^\circ-90^\circ-50^\circ=40^\circ$। সম্পূরক $=180^\circ-40^\circ=140^\circ$।'},
 ],
 
 dinajpur: [
@@ -835,29 +1041,29 @@ dinajpur: [
   {q:'ঘড়ির VAT 15%, ভ্যাটসহ 450 টাকায় কিনলে কত টাকা ভ্যাট দিতে হবে?', opts:['30.70','34.50','58.70','67.50'], ans:2, exp:'বিনা ভ্যাটে দাম $= \\frac{450}{1.15} \\approx 391.30$। ভ্যাট $\\approx 58.70$ টাকা।'},
   {q:'$p+q+r=0$ হলে $p^3+q^3+r^3$ এর মান কোনটি?', opts:['3pqr','pqr','3','0'], ans:0, exp:'পরিচিতি সূত্র: $p+q+r=0$ হলে $p^3+q^3+r^3=3pqr$।'},
   {q:'$\\left(\\frac{p}{q}+\\frac{r}{q}\\right)\\left(\\frac{q}{p}+\\frac{r}{p}\\right)$ এর মান কোনটি?', opts:['3','2','1','0'], ans:2, exp:'$=\\frac{p+r}{q}\\cdot\\frac{q+r}{p}=\\frac{-q}{q}\\cdot\\frac{-p}{p}=1$।'},
-  {q:'ABCD বৃত্তস্থ চতুর্ভুজ, $\\angle BAD=85°$, $\\angle ABC=110°$ এবং $CD=DE$। $\\angle BCD$ এর মান কত?', opts:['85°','95°','105°','110°'], ans:1, exp:'বিপরীত কোণের সমষ্টি $180°$: $\\angle BCD = 180°-85°=95°$।'},
-  {q:'$\\angle ECD$ এর মান কত?', opts:['35°','45°','55°','70°'], ans:2, exp:'$\\angle CDE=180°-110°=70°$। $CD=DE$, তাই $\\angle ECD=\\angle CED=\\frac{180°-70°}{2}=55°$।'},
+  {q:'ABCD বৃত্তস্থ চতুর্ভুজ, $\\angle BAD=85^\circ$, $\\angle ABC=110^\circ$ এবং $CD=DE$। $\\angle BCD$ এর মান কত?', opts:['85^\circ','95^\circ','105^\circ','110^\circ'], ans:1, exp:'বিপরীত কোণের সমষ্টি $180°$: $\\angle BCD = 180^\circ-85^\circ=95^\circ$।'},
+  {q:'$\\angle ECD$ এর মান কত?', opts:['35^\circ','45^\circ','55^\circ','70^\circ'], ans:2, exp:'$\\angle CDE=180°-110°=70°$। $CD=DE$, তাই $\\angle ECD=\\angle CED=\\frac{180^\circ-70^\circ}{2}=55^\circ$।'},
   {q:'$P(x) = x^3 + ax^2 - 6x$ হলে $a$ এর কোন মানে $P(-2)=0$?', opts:['-1','1','2','3'], ans:0, exp:'$P(-2)=-8+4a+12=4a+4=0 \\Rightarrow a=-1$।'},
   {q:'$(3x+y, 0)=(7, y-1)$ হলে $x$ এর মান কোনটি?', opts:['-2','2','$\\frac{7}{3}$','$\\frac{8}{3}$'], ans:1, exp:'$y-1=0 \\Rightarrow y=1$। $3x+1=7 \\Rightarrow x=2$।'},
   {q:'4 সে.মি. ও 6 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত অন্তঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['2','3','4','5'], ans:0, exp:'ব্যাসার্ধ 2 ও 3; দূরত্ব $=|3-2|=1$... অপশনে নেই, তবে সবচেয়ে কাছের উত্তর 2।'},
   {q:'নিচের কোনটি সঠিক?', opts:['$A\\cup B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\cap B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\setminus B = \\{x:x\\in A$ এবং $x\\in B\\}$','$A\\times B = \\{(x,y):x\\in A$ এবং $y\\in B\\}$'], ans:3, exp:'কার্তেসীয় গুণন সংজ্ঞা: $A\\times B = \\{(x,y):x\\in A, y\\in B\\}$।'},
-  {q:'চিত্রে $\\angle AOB=90°$ হলে $\\angle APB+\\angle AQB$ কত?', opts:['45°','60°','90°','180°'], ans:2, exp:'উভয় বৃত্তস্থ কোণ $= \\frac{90°}{2}=45°$ করে। সমষ্টি $=90°$।'},
+  {q:'চিত্রে $\\angle AOB=90^\circ$ হলে $\\angle APB+\\angle AQB$ কত?', opts:['45^\circ','60^\circ','90^\circ','180^\circ'], ans:2, exp:'উভয় বৃত্তস্থ কোণ $= \\frac{90°}{2}=45°$ করে। সমষ্টি $=90^\circ$।'},
   {q:'$f(x)$ কে $(2x+3)$ দ্বারা ভাগ করলে ভাগশেষ কোনটি?', opts:['$f(-3)$','$-f(-\\frac{3}{2})$','$f(3)$','$f(-\\frac{3}{2})$'], ans:3, exp:'ভাগশেষ উপপাদ্য: $2x+3=0 \\Rightarrow x=-\\frac{3}{2}$। ভাগশেষ $= f(-\\frac{3}{2})$।'},
   {q:'$P\\setminus Q$ কত? (ভেনচিত্রে $P=\\{1,4,2,5\\}$, $Q=\\{2,5,3,6\\}$)', opts:['$\\{2,5\\}$','$\\{1,4\\}$','$\\{3,6\\}$','$\\{1,2,4,5\\}$'], ans:1, exp:'$P\\setminus Q = P$ তে আছে কিন্তু Q তে নেই = $\\{1,4\\}$।'},
   {q:'বৃত্তের ক্ষেত্রফল $\\pi$ বর্গ একক হলে পরিধি কত?', opts:['2','$\\pi$','$2\\pi$','$2\\pi r$'], ans:2, exp:'$\\pi r^2=\\pi \\Rightarrow r=1$। পরিধি $=2\\pi\\times1=2\\pi$।'},
-  {q:'কোনো বৃত্তের উপচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['75°','90°','150°','180°'], ans:2, exp:'উপচাপে অন্তর্লিখিত কোণ স্থূলকোণ, যেমন 150°।'},
+  {q:'কোনো বৃত্তের উপচাপে অন্তর্লিখিত কোণ কোনটি?', opts:['75^\circ','90^\circ','150^\circ','180^\circ'], ans:2, exp:'উপচাপে অন্তর্লিখিত কোণ স্থূলকোণ, যেমন 150^\circ।'},
   {q:'$M=\\{2,3,4\\}$ হলে $P(M)$ এর উপাদান সংখ্যা কত?', opts:['3','6','7','8'], ans:3, exp:'$|P(M)| = 2^3 = 8$।'},
   {q:'$a - \\frac{1}{a} = 5$ হলে $\\frac{30a}{5a^2+5a-5}$ এর মান কোনটি?', opts:['1','2','3','6'], ans:0, exp:'$5a^2-5=5a(a-1/a)=5a\\times5=25a$। $5a^2+5a-5=5(a^2+a-1)$। $a^2-1=5a$ থেকে $5a^2-5=25a$। $\\frac{30a}{5a^2+5a-5}=\\frac{30a}{25a+5a}=\\frac{30a}{30a}=1$।'},
   {q:'সমদ্বিবাহু ত্রিভুজ অঙ্কনে কয়টি উপাত্ত প্রয়োজন?', opts:['1','2','3','4'], ans:1, exp:'সমদ্বিবাহু ত্রিভুজ আঁকতে ২টি উপাত্ত (সমান বাহু ও ভিন্ন বাহু বা কোণ) প্রয়োজন।'},
   {q:'বর্গ অঙ্কন করা যাবে যদি দেওয়া থাকে — i. পরিসীমা, ii. একটি বাহুর দৈর্ঘ্য, iii. একটি কর্ণের দৈর্ঘ্য — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটি তথ্যই বর্গ সম্পূর্ণ নির্ধারণ করে।'},
-  {q:'$\\theta$ সূক্ষ্মকোণ হলে নিচের কোনটি সঠিক?', opts:['$\\sin\\theta+\\cos\\theta=1$','$\\sin\\theta+\\cos\\theta>1$','$\\sin\\theta+\\cos\\theta<1$','$\\sin\\theta+\\cos\\theta=0$'], ans:1, exp:'$0<\\theta<90°$ এ $\\sin\\theta+\\cos\\theta>1$ সর্বদা সত্য।'},
-  {q:'$\\tan\\beta=1$ হলে $2\\sin\\beta\\cos\\beta$ এর মান কোনটি?', opts:['$\\frac{1}{2}$','1','2','$\\frac{\\sqrt{3}}{2}$'], ans:1, exp:'$\\beta=45°$। $2\\sin45°\\cos45°=2\\times\\frac{1}{\\sqrt{2}}\\times\\frac{1}{\\sqrt{2}}=1$।'},
+  {q:'$\\theta$ সূক্ষ্মকোণ হলে নিচের কোনটি সঠিক?', opts:['$\\sin\\theta+\\cos\\theta=1$','$\\sin\\theta+\\cos\\theta>1$','$\\sin\\theta+\\cos\\theta<1$','$\\sin\\theta+\\cos\\theta=0$'], ans:1, exp:'$0<\\theta<90^\circ$ এ $\\sin\\theta+\\cos\\theta>1$ সর্বদা সত্য।'},
+  {q:'$\\tan\\beta=1$ হলে $2\\sin\\beta\\cos\\beta$ এর মান কোনটি?', opts:['$\\frac{1}{2}$','1','2','$\\frac{\\sqrt{3}}{2}$'], ans:1, exp:'$\\beta=45^\circ$। $2\\sin45^\circ\\cos45^\circ=2\\times\\frac{1}{\\sqrt{2}}\\times\\frac{1}{\\sqrt{2}}=1$।'},
   {q:'$x:y=3:2$ হলে $5x:7y$ এর মান কোনটি?', opts:['5:7','15:10','15:14','21:14'], ans:2, exp:'$5x:7y = 5\\times3:7\\times2 = 15:14$।'},
   {q:'a, b, c ক্রমিক সমানুপাতী এবং $a=4$, $c=16$ হলে $b$ কত?', opts:['4','8','16','64'], ans:1, exp:'$b^2=ac=4\\times16=64 \\Rightarrow b=8$।'},
-  {q:'সুষম অষ্টভুজের প্রতিটি শীর্ষকোণের মান কত? (বাহু 4 সে.মি.)', opts:['105°','120°','135°','140°'], ans:2, exp:'$\\frac{(8-2)\\times180°}{8}=135°$।'},
+  {q:'সুষম অষ্টভুজের প্রতিটি শীর্ষকোণের মান কত? (বাহু 4 সে.মি.)', opts:['105^\circ','120^\circ','135^\circ','140^\circ'], ans:2, exp:'$\\frac{(8-2)\\times180°}{8}=135°$।'},
   {q:'সুষম অষ্টভুজের ক্ষেত্রফল কত? (বাহু 4 সে.মি.)', opts:['38.64','52.99','77.25','309.12'], ans:2, exp:'$2a^2(1+\\sqrt{2})=2\\times16\\times2.414\\approx77.25$ বর্গ সে.মি.।'},
   {q:'7, 3, 4, 0, 2, 0, 5 উপাত্তগুলোর মধ্যক কত?', opts:['0','2','3','4'], ans:2, exp:'সাজালে: 0, 0, 2, 3, 4, 5, 7 — মধ্যক = 3।'},
-  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তম ও ক্ষুদ্রতম কোণের পার্থক্য কত?', opts:['20°','40°','60°','80°'], ans:1, exp:'কোণ: 40°, 60°, 80°। পার্থক্য $=80°-40°=40°$।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 2:3:4 হলে বৃহত্তম ও ক্ষুদ্রতম কোণের পার্থক্য কত?', opts:['20^\circ','40^\circ','60^\circ','80^\circ'], ans:1, exp:'কোণ: 40^\circ, 60^\circ, 80^\circ। পার্থক্য $=80°-40°=40°$।'},
   {q:'দুটি সংখ্যার অনুপাত 7:5। বর্গের সমষ্টি ও অন্তরের অনুপাত কত?', opts:['37:12','12:37','1:36','49:25'], ans:0, exp:'$\\frac{49+25}{49-25}=\\frac{74}{24}=\\frac{37}{12}$।'},
   {q:'কোন তিনটি বাহুর জন্য ত্রিভুজ আঁকা যাবে?', opts:['5, 6, 11','6, 7, 15','9, 7, 16','6, 9, 13'], ans:3, exp:'$6+9=15>13$ — শর্ত পূরণ করে। অন্যগুলো করে না।'},
 ],
@@ -879,29 +1085,29 @@ mymensingh: [
   {q:'বৃত্তস্থ ট্রাপিজিয়ামের তির্যক বাহুদ্বয় পরস্পর কী?', opts:['অসমান','সমান','সমান্তরাল','লম্ব'], ans:1, exp:'বৃত্তস্থ ট্রাপিজিয়াম সমদ্বিবাহু হওয়ায় তির্যক বাহু সমান।'},
   {q:'ল্যাম্পপোস্ট AB, খুঁটি CE, ছায়া CD=5 মি., AC=8 মি., CE=3 মি. হলে AB কত মিটার?', opts:['1.15','1.3','2.6','7.8'], ans:3, exp:'সদৃশ ত্রিভুজ থেকে $\\frac{AB}{CE}=\\frac{AD}{CD}=\\frac{13}{5}$। $AB=3\\times\\frac{13}{5}=7.8$ মি.।'},
   {q:'4 সে.মি. ও 5 সে.মি. ব্যাসার্ধবিশিষ্ট দুটি বৃত্ত বহিঃস্পর্শ করলে সাধারণ স্পর্শক কয়টি?', opts:['একটি','দুটি','তিনটি','চারটি'], ans:2, exp:'বহিঃস্পর্শ বৃত্তের ৩টি সাধারণ স্পর্শক থাকে।'},
-  {q:'বৃত্তের উপচাপে ও অনুবন্ধী চাপে অন্তর্লিখিত কোণ দুটির সমষ্টি কত?', opts:['90°','180°','270°','360°'], ans:1, exp:'বৃত্তস্থ চতুর্ভুজের বিপরীত কোণের সমষ্টি 180°।'},
+  {q:'বৃত্তের উপচাপে ও অনুবন্ধী চাপে অন্তর্লিখিত কোণ দুটির সমষ্টি কত?', opts:['90^\circ','180^\circ','270^\circ','360^\circ'], ans:1, exp:'বৃত্তস্থ চতুর্ভুজের বিপরীত কোণের সমষ্টি 180^\circ।'},
   {q:'নির্দিষ্ট ত্রিভুজ আঁকা সম্ভব — i. দুটি বাহু ও অন্তর্ভুক্ত কোণ, ii. ভূমি ও দুটি ভূমিসংলগ্ন কোণ, iii. অতিভুজ ও অপর দুই বাহুর সমষ্টি — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'তিনটি উপায়েই ত্রিভুজ নির্দিষ্টভাবে আঁকা সম্ভব।'},
   {q:'6, 8, 10 সে.মি. বাহুবিশিষ্ট ত্রিভুজের পরিবৃত্তের ব্যাসার্ধ কত?', opts:['5','4','10','20'], ans:0, exp:'$6^2+8^2=10^2$, তাই সমকোণী। পরিবৃত্তের ব্যাসার্ধ $=\\frac{\\text{অতিভুজ}}{2}=5$ সে.মি.।'},
-  {q:'ABCD বৃত্তস্থ চতুর্ভুজে $\\angle BAD=2x°$, $x=30°$, $\\angle DCF=3y$ হলে $y$ কত?', opts:['45°','40°','30°','20°'], ans:3, exp:'বহিস্থ কোণ = অন্তঃস্থ বিপরীত কোণ: $3y=2\\times30°=60° \\Rightarrow y=20°$।'},
-  {q:'ABCD সামান্তরিকে $\\angle CBE=72°$ হলে $\\angle x+\\angle y$ কত?', opts:['108°','144°','180°','216°'], ans:2, exp:'$\\angle ABC=180°-72°=108°$। $y=\\angle ADC=108°$, $x=\\angle DAB=72°$। $x+y=180°$।'},
+  {q:'ABCD বৃত্তস্থ চতুর্ভুজে $\\angle BAD=2x^\circ$, $x=30^\circ$, $\\angle DCF=3y$ হলে $y$ কত?', opts:['45^\circ','40^\circ','30^\circ','20^\circ'], ans:3, exp:'বহিস্থ কোণ = অন্তঃস্থ বিপরীত কোণ: $3y=2\\times30°=60° \\Rightarrow y=20°$।'},
+  {q:'ABCD সামান্তরিকে $\\angle CBE=72^\circ$ হলে $\\angle x+\\angle y$ কত?', opts:['108^\circ','144^\circ','180^\circ','216^\circ'], ans:2, exp:'$\\angle ABC=180°-72°=108°$। $y=\\angle ADC=108^\circ$, $x=\\angle DAB=72^\circ$। $x+y=180^\circ$।'},
   {q:'কোনটি কেন্দ্রীয় প্রবণতার পরিমাপ নয়?', opts:['প্রচুরক','পরিসর','মধ্যক','গড়'], ans:1, exp:'পরিসর (range) বিস্তারের পরিমাপ, কেন্দ্রীয় প্রবণতার নয়।'},
   {q:'$\\Delta PRS$ কোন ধরনের ত্রিভুজ? (PS ও RS স্পর্শক)', opts:['সমবাহু','সমদ্বিবাহু','বিষমবাহু','সমকোণী'], ans:1, exp:'বহিঃস্থ বিন্দু থেকে স্পর্শকদ্বয় সমান: $PS=RS$, তাই সমদ্বিবাহু।'},
-  {q:'$\\angle POR$ কত?', opts:['120°','110°','100°','90°'], ans:0, exp:'চিত্র অনুযায়ী $\\angle PSR=60°$, $\\angle POR=180°-60°=120°$।'},
+  {q:'$\\angle POR$ কত?', opts:['120^\circ','110^\circ','100^\circ','90^\circ'], ans:0, exp:'চিত্র অনুযায়ী $\\angle PSR=60°$, $\\angle POR=180^\circ-60^\circ=120^\circ$।'},
   {q:'$\\sin^2A+\\sin^4A=1$ হলে — i. $\\cos^4A+\\cos^2A=3$, ii. $\\tan^4A-\\tan^2A=1$, iii. $\\sec^2A=\\tan^4A$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:2, exp:'$\\sin^2A=\\cos^2A$ হলে: $\\tan^4A-\\tan^2A=1$ ও $\\sec^2A=\\tan^4A$ প্রমাণযোগ্য।'},
   {q:'$\\cot A\\sqrt{1-\\cos^2 A}$ কত?', opts:['$\\cosec A$','$\\tan A$','$\\sin A$','$\\cos A$'], ans:3, exp:'$=\\cot A\\times\\sin A=\\frac{\\cos A}{\\sin A}\\times\\sin A=\\cos A$।'},
-  {q:'$2\\cos(90°-B)=\\sqrt{2}$ হলে $B$ কত?', opts:['30°','45°','60°','90°'], ans:1, exp:'$2\\sin B=\\sqrt{2} \\Rightarrow \\sin B=\\frac{1}{\\sqrt{2}} \\Rightarrow B=45°$।'},
-  {q:'$\\frac{1-\\sin^245°}{1+\\sin^245°}+\\tan^245°$ কত?', opts:['$\\frac{4}{3}$','$\\frac{1}{3}$','$\\frac{2}{3}$','$\\frac{3}{4}$'], ans:0, exp:'$=\\frac{1-1/2}{1+1/2}+1=\\frac{1/2}{3/2}+1=\\frac{1}{3}+1=\\frac{4}{3}$।'},
-  {q:'$\\Delta ABC$-এ $\\angle A=45°$, $AB=7$ সে.মি., $AC=8$ সে.মি. — ক্ষেত্রফল কত?', opts:['$18\\sqrt{2}$','28','14','$14\\sqrt{2}$'], ans:3, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times7\\times8\\times\\sin45°=28\\times\\frac{1}{\\sqrt{2}}=14\\sqrt{2}$।'},
+  {q:'$2\\cos(90^\circ-B)=\\sqrt{2}$ হলে $B$ কত?', opts:['30^\circ','45^\circ','60^\circ','90^\circ'], ans:1, exp:'$2\\sin B=\\sqrt{2} \\Rightarrow \\sin B=\\frac{1}{\\sqrt{2}} \\Rightarrow B=45°$।'},
+  {q:'$\\frac{1-\\sin^245^\circ}{1+\\sin^245^\circ}+\\tan^245^\circ$ কত?', opts:['$\\frac{4}{3}$','$\\frac{1}{3}$','$\\frac{2}{3}$','$\\frac{3}{4}$'], ans:0, exp:'$=\\frac{1-1/2}{1+1/2}+1=\\frac{1/2}{3/2}+1=\\frac{1}{3}+1=\\frac{4}{3}$।'},
+  {q:'$\\Delta ABC$-এ $\\angle A=45^\circ$, $AB=7$ সে.মি., $AC=8$ সে.মি. — ক্ষেত্রফল কত?', opts:['$18\\sqrt{2}$','28','14','$14\\sqrt{2}$'], ans:3, exp:'ক্ষেত্রফল $=\\frac{1}{2}\\times7\\times8\\times\\sin45^\circ=28\\times\\frac{1}{\\sqrt{2}}=14\\sqrt{2}$।'},
   {q:'অজিভ রেখার লেখে y-অক্ষে কোনটি ধরা হয়?', opts:['শ্রেণি মধ্যমান','ক্রমযোজিত গণসংখ্যা','শ্রেণির গণসংখ্যা','শ্রেণির উচ্চসীমা'], ans:1, exp:'অজিভ রেখায় y-অক্ষে ক্রমযোজিত গণসংখ্যা ও x-অক্ষে শ্রেণির উচ্চসীমা ধরা হয়।'},
 ],
 
 jessore: [
   {q:'$B=\\{x\\in \\mathbb{N}:1\\le x\\le5$ এবং $x$ মৌলিক$\\}$ হলে $P(B)$ এর উপাদান সংখ্যা কোনটি?', opts:['4','8','16','32'], ans:1, exp:'$B=\\{2,3,5\\}$, $|B|=3$। $|P(B)|=2^3=8$।'},
   {q:'$(x-y)^3=5\\sqrt{5}$ হলে $x^2-2xy+y^2$ এর মান কত?', opts:['$\\sqrt{5}$','5','25','$25\\sqrt{5}$'], ans:1, exp:'$(x-y)^3=(\\sqrt{5})^3 \\Rightarrow x-y=\\sqrt{5}$। $x^2-2xy+y^2=(x-y)^2=5$।'},
-  {q:'$\\cos6A=0$ হলে $2A$ কত?', opts:['15°','30°','45°','60°'], ans:1, exp:'$\\cos6A=0 \\Rightarrow 6A=90° \\Rightarrow A=15°$। তাই $2A=30°$।'},
+  {q:'$\\cos6A=0$ হলে $2A$ কত?', opts:['15^\circ','30^\circ','45^\circ','60^\circ'], ans:1, exp:'$\\cos6A=0 \\Rightarrow 6A=90° \\Rightarrow A=15°$। তাই $2A=30^\circ$।'},
   {q:'গমে ময়দা ও ভূষির অনুপাত 7:3 হলে ময়দার শতকরা পরিমাণ কত?', opts:['21%','30%','50%','70%'], ans:3, exp:'$\\frac{7}{10}\\times100=70\\%$।'},
   {q:'সমবাহু ত্রিভুজের পরিসীমা 24 সে.মি. হলে উচ্চতা কত?', opts:['$2\\sqrt{3}$','$4\\sqrt{3}$','$8\\sqrt{3}$','$16\\sqrt{3}$'], ans:1, exp:'বাহু $=8$। উচ্চতা $=\\frac{\\sqrt{3}}{2}\\times8=4\\sqrt{3}$।'},
-  {q:'PQRS সামান্তরিকে $(\\angle Q+\\angle S)=220°$ হলে $\\angle P$ কত?', opts:['70°','90°','110°','140°'], ans:0, exp:'$\\angle Q=\\angle S=110°$। $\\angle P=180°-110°=70°$।'},
+  {q:'PQRS সামান্তরিকে $(\\angle Q+\\angle S)=220^\circ$ হলে $\\angle P$ কত?', opts:['70^\circ','90^\circ','110^\circ','140^\circ'], ans:0, exp:'$\\angle Q=\\angle S=110°$। $\\angle P=180^\circ-110^\circ=70^\circ$।'},
   {q:'$\\frac{1}{7}y^2-7$ এর উৎপাদকে বিশ্লেষণ কোনটি?', opts:['$\\frac{1}{7}(y-7)(y-7)$','$\\frac{1}{7}(y+7)(y-7)$','$\\frac{1}{7}(y+1)(y-1)$','$\\frac{1}{7}(y-1)(y-1)$'], ans:1, exp:'$\\frac{1}{7}y^2-7=\\frac{1}{7}(y^2-49)=\\frac{1}{7}(y+7)(y-7)$।'},
   {q:'10 সে.মি. ও 6 সে.মি. ব্যাসবিশিষ্ট দুটি বৃত্ত বহিঃস্পর্শ করলে কেন্দ্রদ্বয়ের দূরত্ব কত?', opts:['2 সে.মি.','4 সে.মি.','8 সে.মি.','16 সে.মি.'], ans:2, exp:'ব্যাসার্ধ 5 ও 3; বহিঃস্পর্শে দূরত্ব $=5+3=8$ সে.মি.।'},
   {q:'$y=\\sqrt{13}+\\sqrt{11}$ হলে $y^2+\\frac{4}{y^2}$ এর মান কত?', opts:['48','50','52','54'], ans:0, exp:'$\\frac{2}{y}=\\sqrt{13}-\\sqrt{11}$। $y+\\frac{2}{y}=2\\sqrt{13}$। $\\left(y+\\frac{2}{y}\\right)^2=52$। $y^2+\\frac{4}{y^2}=52-4=48$।'},
@@ -912,19 +1118,19 @@ jessore: [
   {q:'$y^4-7y^2+1=0$ হলে $y+\\frac{1}{y}$ এর মান কত?', opts:['$\\sqrt{5}$','3','7','9'], ans:1, exp:'$y^2+\\frac{1}{y^2}=7$। $(y+\\frac{1}{y})^2=9 \\Rightarrow y+\\frac{1}{y}=3$।'},
   {q:'ফ্রিকোয়েন্সি টেবিলে প্রচুরক নির্ণয়ে $(f_1+f_2)$ এর মান কোনটি? (শ্রেণি: 11-20:6, 21-30:12, 31-40:10, 41-50:4)', opts:['2','4','6','8'], ans:3, exp:'প্রচুরক শ্রেণি 21-30। $f_1=12-6=6$, $f_2=12-10=2$। $f_1+f_2=8$।'},
   {q:'প্রদত্ত উপাত্তের মধ্যক কত?', opts:['27.6','29.3','33','39.3'], ans:1, exp:'মধ্যক শ্রেণি 21-30, সূত্র প্রয়োগে মধ্যক $\\approx 29.3$।'},
-  {q:'O কেন্দ্রবিশিষ্ট বৃত্তে PA ও PB স্পর্শক, $\\angle APB=65°$ হলে $\\angle AOB$ কত?', opts:['115°','155°','245°','295°'], ans:0, exp:'$\\angle AOB+\\angle APB=180° \\Rightarrow \\angle AOB=115°$।'},
+  {q:'O কেন্দ্রবিশিষ্ট বৃত্তে PA ও PB স্পর্শক, $\\angle APB=65^\circ$ হলে $\\angle AOB$ কত?', opts:['115^\circ','155^\circ','245^\circ','295^\circ'], ans:0, exp:'$\\angle AOB+\\angle APB=180° \\Rightarrow \\angle AOB=115°$।'},
   {q:'$p:q=3:5$, $q:r=7:9$ হলে $p:r$ কত?', opts:['35:25','27:35','15:7','7:15'], ans:3, exp:'$p:r=\\frac{3}{5}\\times\\frac{7}{9}=\\frac{21}{45}=7:15$।'},
   {q:'$M=\\{1,3,5,7\\}$, $N=\\{2,3,6\\}$ হলে — i. $M\\cap N=\\{3\\}$, ii. $M\\setminus N$ এর প্রকৃত উপসেট 7, iii. $M\\times N$ এর উপাদান 11 — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$M\\cap N=\\{3\\}$ সঠিক। $M\\setminus N=\\{1,5,7\\}$, প্রকৃত উপসেট $2^3-1=7$ সঠিক।'},
   {q:'$a:b=5:3$ এবং $6:b=2:3$ হলে $a$ কত?', opts:['9','15','18','45'], ans:1, exp:'$b=9$। $a=\\frac{5}{3}\\times9=15$।'},
-  {q:'বৃত্তস্থ চতুর্ভুজ ABCD, $\\angle BAC=40°$। $x=\\angle BDC$ কত?', opts:['40°','80°','90°','140°'], ans:0, exp:'একই চাপে বৃত্তস্থ কোণ সমান: $\\angle BDC=\\angle BAC=40°$।'},
-  {q:'প্রবৃদ্ধ কোণ $\\angle BOD$ এর মান কত?', opts:['90°','180°','280°','360°'], ans:2, exp:'$\\angle BAD=40°$, কেন্দ্রস্থ কোণ $=80°$। প্রবৃদ্ধ $\\angle BOD=360°-80°=280°$।'},
+  {q:'বৃত্তস্থ চতুর্ভুজ ABCD, $\\angle BAC=40^\circ$। $x=\\angle BDC$ কত?', opts:['40^\circ','80^\circ','90^\circ','140^\circ'], ans:0, exp:'একই চাপে বৃত্তস্থ কোণ সমান: $\\angle BDC=\\angle BAC=40°$।'},
+  {q:'প্রবৃদ্ধ কোণ $\\angle BOD$ এর মান কত?', opts:['90^\circ','180^\circ','280^\circ','360^\circ'], ans:2, exp:'$\\angle BAD=40°$, কেন্দ্রস্থ কোণ $=80^\circ$। প্রবৃদ্ধ $\\angle BOD=360^\circ-80^\circ=280^\circ$।'},
   {q:'$f(y) = y^4-3y^2+2y+3$ হলে $f(2)$ কত?', opts:['11','17','23','35'], ans:0, exp:'$f(2)=16-12+4+3=11$।'},
   {q:'দুটি সংখ্যার অনুপাত 5:7 এবং লসাগু 210 হলে গসাগু কত?', opts:['35','12','7','6'], ans:3, exp:'সংখ্যা 5k ও 7k। লসাগু $=35k=210 \\Rightarrow k=6$। গসাগু $=k=6$।'},
   {q:'$S=\\{(-2,3),(2,5),(2,7),(5,8)\\}$ অন্বয়ের ডোমেন কোনটি?', opts:['$\\{-2,2,2,5\\}$','$\\{3,5,7,8\\}$','$\\{-2,2,5\\}$','$\\{3,5,8\\}$'], ans:2, exp:'ডোমেন = প্রথম পদগুলো (অনন্য): $\\{-2,2,5\\}$।'},
-  {q:'$\\triangle ABC$-এ $AC=2$, $BC=1$, $\\angle B=90°$ — i. $\\cos A=\\frac{\\sqrt{3}}{2}$, ii. $\\cosec^2C=\\frac{4}{3}$, iii. $\\tan A+\\cot C=\\frac{2}{\\sqrt{3}}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$AB=\\sqrt{3}$। $\\cos A=\\frac{\\sqrt{3}}{2}$, $\\cosec^2C=\\frac{4}{3}$ ও iii যাচাইযোগ্য। সবগুলো সঠিক।'},
-  {q:'ত্রিভুজের কোণের অনুপাত 5:6:7 হলে বৃহত্তম কোণটির মান কত?', opts:['50°','60°','70°','180°'], ans:2, exp:'মোট অনুপাত 18। বৃহত্তম কোণ $=\\frac{7}{18}\\times180°=70°$।'},
+  {q:'$\\triangle ABC$-এ $AC=2$, $BC=1$, $\\angle B=90^\circ$ — i. $\\cos A=\\frac{\\sqrt{3}}{2}$, ii. $\\cosec^2C=\\frac{4}{3}$, iii. $\\tan A+\\cot C=\\frac{2}{\\sqrt{3}}$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:3, exp:'$AB=\\sqrt{3}$। $\\cos A=\\frac{\\sqrt{3}}{2}$, $\\cosec^2C=\\frac{4}{3}$ ও iii যাচাইযোগ্য। সবগুলো সঠিক।'},
+  {q:'ত্রিভুজের কোণের অনুপাত 5:6:7 হলে বৃহত্তম কোণটির মান কত?', opts:['50^\circ','60^\circ','70^\circ','180^\circ'], ans:2, exp:'মোট অনুপাত 18। বৃহত্তম কোণ $=\\frac{7}{18}\\times180°=70°$।'},
   {q:'$a+b=8$ এবং $a-b=4$ হলে — i. $a^2-b^2=32$, ii. $a^2+b^2=40$, iii. $4ab=58$ — কোনটি সঠিক?', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'$a=6, b=2$। $a^2-b^2=32$ ✓, $a^2+b^2=40$ ✓, $4ab=4\\times12=48\\neq58$ ✗।'},
-  {q:'বৃত্তে বৃত্তস্থ কোণ x এবং কেন্দ্রস্থ প্রবৃদ্ধ কোণ 4x হলে x কত?', opts:['30°','45°','60°','90°'], ans:2, exp:'প্রবৃদ্ধ কেন্দ্রস্থ কোণ $=360°-2x$। $360°-2x=4x \\Rightarrow 6x=360° \\Rightarrow x=60°$।'},
+  {q:'বৃত্তে বৃত্তস্থ কোণ x এবং কেন্দ্রস্থ প্রবৃদ্ধ কোণ 4x হলে x কত?', opts:['30^\circ','45^\circ','60^\circ','90^\circ'], ans:2, exp:'প্রবৃদ্ধ কেন্দ্রস্থ কোণ $=360°-2x$। $360^\circ-2x=4x \\Rightarrow 6x=360^\circ \\Rightarrow x=60^\circ$।'},
   {q:'দুটি কর্ণের দৈর্ঘ্য দেওয়া থাকলে নিচের কোনটি আঁকা সম্ভব?', opts:['আয়ত','রম্বস','সামান্তরিক','ট্রাপিজিয়াম'], ans:1, exp:'রম্বসের কর্ণদ্বয় পরস্পর সমকোণে দ্বিখণ্ডিত করে, তাই কর্ণ দুটি দিলে রম্বস সম্পূর্ণ নির্ধারিত।'},
 ],
 
@@ -1044,5 +1250,163 @@ document.querySelectorAll('.tab').forEach(tab => {
 // Init
 Object.keys(DATA).forEach(b => render(b));
 </script>
+<script>
+window.addEventListener('load', function () {
+  if (typeof DATA !== 'undefined' && typeof render === 'function') {
+    Object.keys(DATA).forEach(function(board){ render(board); });
+  }
+});
+</script>
+<script>
+function openAdmissionForm() {
+  const formHtml = `<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পরবর্তী পরীক্ষার সলভ পেতে ক্লিক করো</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  font-family:'Noto Sans Bengali',sans-serif;
+  background:#f6f7fb;
+  color:#1f2937;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background-image:
+    radial-gradient(ellipse at 20% 0%,rgba(239,29,38,.10),transparent 55%),
+    radial-gradient(ellipse at 80% 100%,rgba(245,130,32,.10),transparent 55%);
+}
+.form-card{
+  width:min(560px,100%);
+  background:#fffdf9;
+  border:1px solid #eadfce;
+  border-radius:24px;
+  box-shadow:0 16px 40px rgba(100,72,40,.12);
+  overflow:hidden;
+}
+.form-head{
+  padding:30px 28px;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(135deg,#c90012 0%,#d71920 45%,#f58220 100%);
+}
+.form-head h1{
+  font-family:'Noto Serif Bengali',serif;
+  font-size:30px;
+  line-height:1.35;
+  margin-bottom:8px;
+}
+.form-head p{
+  font-size:15px;
+  opacity:.92;
+}
+form{
+  padding:28px;
+}
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:8px;
+  color:#111827;
+}
+input,select,textarea{
+  width:100%;
+  padding:14px 15px;
+  border:1px solid #e7dccb;
+  border-radius:14px;
+  font-family:'Noto Sans Bengali',sans-serif;
+  font-size:15px;
+  outline:none;
+  background:#fff;
+  margin-bottom:18px;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#ef1d26;
+  box-shadow:0 0 0 4px rgba(239,29,38,.10);
+}
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+.submit-btn{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:15px 18px;
+  cursor:pointer;
+  font-family:'Noto Serif Bengali',serif;
+  font-size:19px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#ef1d26,#f58220);
+  box-shadow:0 10px 22px rgba(239,29,38,.22);
+}
+.note{
+  margin-top:16px;
+  text-align:center;
+  font-size:13px;
+  color:#667085;
+}
+.success{
+  display:none;
+  padding:18px;
+  margin-top:18px;
+  border-radius:14px;
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  color:#15803d;
+  text-align:center;
+  font-weight:700;
+}
+</style>
+</head>
+<body>
+  <div class="form-card">
+    <div class="form-head">
+      <h1>10 Minute School</h1>
+      <p>ফর্মটি পূরণ করুন</p>
+    </div>
+    <form onsubmit="event.preventDefault(); document.querySelector('.success').style.display='block'; this.reset();">
+      <label>শিক্ষার্থীর নাম</label>
+      <input type="text" name="studentName" placeholder="নাম লিখুন" required>
+
+      <label>শ্রেণি</label>
+      <select name="className" required>
+        <option value="">বিভাগ</option>
+        <option>বিজ্ঞান</option>
+        <option>ব্যবসা শিক্ষা </option>
+        <option>মানবিক </option>
+      </select>
+
+      <label>SSC Batch</label>
+      <input type="text" name="guardianName" placeholder="২৬/২৭/২৮/">
+
+      <label>মোবাইল নম্বর</label>
+      <input type="tel" name="phone" placeholder="01XXXXXXXXX" required>
+
+      <button class="submit-btn" type="submit">জমা দিন</button>
+      <div class="success">ধন্যবাদ! আপনার তথ্য গ্রহণ করা হয়েছে।</div>
+      <div class="note">10 Minute School</div>
+    </form>
+  </div>
 </body>
-</html>
+</html>`;
+
+  const newTab = window.open("", "_blank");
+  if (!newTab) {
+    alert("Popup blocked. Browser থেকে popup allow করুন।");
+    return;
+  }
+  newTab.document.open();
+  newTab.document.write(formHtml);
+  newTab.document.close();
+}
+</script>
+</body>
+</html> 
+
