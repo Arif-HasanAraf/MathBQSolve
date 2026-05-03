@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10MS Math Question Solve</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #141720;
+  --card: #1a1e2a;
+  --border: #252a38;
+  --accent: #4ade80;
+  --accent2: #60a5fa;
+  --accent3: #f472b6;
+  --gold: #fbbf24;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --correct: #4ade80;
+  --wrong: #f87171;
+  --font-bn: 'Noto Sans Bengali', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-bn);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #0d1117 0%, #161b27 50%, #0d1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 24px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(74,222,128,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(96,165,250,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.header-tag {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  border: 1px solid rgba(74,222,128,0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.header h1 {
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: clamp(26px, 4.5vw, 52px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  position: relative;
+}
+.header h1 span { color: var(--accent); }
+.header p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 20px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; text-transform: uppercase; }
+
+
+.board-tabs {
+  text-align: center;
+  background: var(--surface);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.board-tabs::-webkit-scrollbar { display: none; }
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 14px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+  user-select: none;
+  font-family: var(--font-bn);
+  flex-shrink: 0;
+}
+.tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-icon { font-size: 18px; }
+
+/* ── CONTENT ── */
+.content { max-width: 900px; margin: 0 auto; padding: 32px 16px 80px; }
+
+/* ── BOARD SECTION ── */
+.board-section { display: none; animation: rise 0.3s ease; }
+.board-section.active { display: block; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.board-emoji { font-size: 36px; }
+.board-title { font-family: 'Noto Serif Bengali', serif; font-size: 24px; font-weight: 700; color: #fff; }
+.board-sub { color: var(--muted); font-size: 12px; margin-top: 3px; font-family: 'Space Mono', monospace; }
+.board-count {
+  margin-left: auto;
+  background: rgba(74,222,128,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(74,222,128,0.3);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-family: 'Space Mono', monospace;
+  white-space: nowrap;
+}
+
+/* ── MODE TOGGLE ── */
+.mode-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+}
+.mode-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--font-bn);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  color: var(--muted);
+}
+.mode-btn.active {
+  background: var(--accent);
+  color: #0a0f0a;
+}
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+.q-card:hover { border-color: #3a3f55; }
+.q-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.q-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(74,222,128,0.1);
+  border: 1px solid rgba(74,222,128,0.2);
+  min-width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.q-text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  flex: 1;
+}
+
+/* ── OPTIONS ── */
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--surface);
+  font-size: 14px;
+  color: #b0bac8;
+}
+.option:hover { border-color: #4ade8040; background: rgba(74,222,128,0.04); color: var(--text); }
+.option.selected { border-color: var(--accent2); background: rgba(96,165,250,0.08); color: #fff; }
+.option.correct { border-color: var(--correct); background: rgba(74,222,128,0.08); color: var(--correct); }
+.option.wrong { border-color: var(--wrong); background: rgba(248,113,113,0.07); color: var(--wrong); }
+.opt-key {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid currentColor;
+  opacity: 0.7;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.opt-text { flex: 1; line-height: 1.6; }
+
+/* answer mode direct show */
+.answer-mode .option.correct {
+  border-color: var(--correct);
+  background: rgba(74,222,128,0.08);
+  color: var(--correct);
+}
+
+/* ── EXPLANATION ── */
+.explanation-box {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(96,165,250,0.07);
+  border: 1px solid rgba(96,165,250,0.2);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #94b4d8;
+  line-height: 1.7;
+}
+.explanation-box.visible { display: block; }
+.explanation-box::before { content: '💡 ব্যাখ্যা: '; font-weight: 700; color: var(--accent2); }
+
+/* ── SCORE DISPLAY ── */
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.score-num { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; color: var(--gold); }
+.score-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.score-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #22d3ee); border-radius: 3px; transition: width 0.4s; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.footer span { color: var(--accent); font-family: 'Space Mono', monospace; }
+
+@media (max-width: 600px) {
+  .content { padding: 20px 12px 60px; }
+  .q-card { padding: 16px; }
+  .board-header { padding: 14px 16px; }
+  .stats-bar { gap: 20px; }
+  .tab { padding: 12px 14px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-tag">HSC 2026 · ICT MCQ</div>
+  <h1>ICT বোর্ড <span>প্রশ্নোত্তর</span> ২০২৬</h1>
+  <p>তথ্য ও যোগাযোগ প্রযুক্তি — বহুনির্বাচনি অভীক্ষা সমাধান</p>
+</header>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">৯</div><div class="stat-label">বোর্ড</div></div>
+  <div class="stat"><div class="stat-num">২২৫</div><div class="stat-label">প্রশ্ন</div></div>
+  <div class="stat"><div class="stat-num">৪</div><div class="stat-label">অপশন/প্রশ্ন</div></div>
+  <div class="stat"><div class="stat-num">১০০%</div><div class="stat-label">সমাধান</div></div>
+</div>
+
+<!-- TABS -->
+<nav class="board-tabs" id="tabs">
+  <div class="tab active" data-board="dhaka"><span class="tab-icon">🌆</span>ঢাকা</div>
+  <div class="tab" data-board="ctg"><span class="tab-icon">🌊</span>চট্টগ্রাম</div>
+  <div class="tab" data-board="cumilla"><span class="tab-icon">🏛️</span>কুমিল্লা</div>
+  <div class="tab" data-board="rajshahi"><span class="tab-icon">🏰</span>রাজশাহী</div>
+  <div class="tab" data-board="borishal"><span class="tab-icon">⛵</span>বরিশাল</div>
+  <div class="tab" data-board="sylhet"><span class="tab-icon">🍃</span>সিলেট</div>
+  <div class="tab" data-board="dinajpur"><span class="tab-icon">🏫</span>দিনাজপুর</div>
+  <div class="tab" data-board="mymensingh"><span class="tab-icon">🌿</span>ময়মনসিংহ</div>
+  <div class="tab" data-board="jessore"><span class="tab-icon">🌾</span>যশোর</div>
+</nav>
+
+<div class="content">
+
+<!-- ══════════════════ DHAKA ══════════════════ -->
+<section id="dhaka" class="board-section active">
+  <div class="board-header">
+    <span class="board-emoji">🌆</span>
+    <div>
+      <div class="board-title">ঢাকা বোর্ড</div>
+      <div class="board-sub">DHAKA BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('dhaka','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('dhaka','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-dhaka" style="display:none;">
+    <div><div class="score-num" id="score-num-dhaka">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-dhaka" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-dhaka"></div>
+</section>
+
+<!-- ══════════════════ CHITTAGONG ══════════════════ -->
+<section id="ctg" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🌊</span>
+    <div>
+      <div class="board-title">চট্টগ্রাম বোর্ড</div>
+      <div class="board-sub">CHITTAGONG BOARD — ICT MCQ 2026 (সেট: গ)</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('ctg','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('ctg','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-ctg" style="display:none;">
+    <div><div class="score-num" id="score-num-ctg">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-ctg" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-ctg"></div>
+</section>
+
+<!-- ══════════════════ CUMILLA ══════════════════ -->
+<section id="cumilla" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🏛️</span>
+    <div>
+      <div class="board-title">কুমিল্লা বোর্ড</div>
+      <div class="board-sub">CUMILLA BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('cumilla','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('cumilla','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-cumilla" style="display:none;">
+    <div><div class="score-num" id="score-num-cumilla">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-cumilla" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-cumilla"></div>
+</section>
+
+<!-- ══════════════════ RAJSHAHI ══════════════════ -->
+<section id="rajshahi" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🏰</span>
+    <div>
+      <div class="board-title">রাজশাহী বোর্ড</div>
+      <div class="board-sub">RAJSHAHI BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('rajshahi','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('rajshahi','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-rajshahi" style="display:none;">
+    <div><div class="score-num" id="score-num-rajshahi">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-rajshahi" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-rajshahi"></div>
+</section>
+
+<!-- ══════════════════ BORISHAL ══════════════════ -->
+<section id="borishal" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">⛵</span>
+    <div>
+      <div class="board-title">বরিশাল বোর্ড</div>
+      <div class="board-sub">BORISHAL BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('borishal','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('borishal','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-borishal" style="display:none;">
+    <div><div class="score-num" id="score-num-borishal">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-borishal" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-borishal"></div>
+</section>
+
+<!-- ══════════════════ SYLHET ══════════════════ -->
+<section id="sylhet" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🍃</span>
+    <div>
+      <div class="board-title">সিলেট বোর্ড</div>
+      <div class="board-sub">SYLHET BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('sylhet','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('sylhet','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-sylhet" style="display:none;">
+    <div><div class="score-num" id="score-num-sylhet">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-sylhet" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-sylhet"></div>
+</section>
+
+<!-- ══════════════════ DINAJPUR ══════════════════ -->
+<section id="dinajpur" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🏫</span>
+    <div>
+      <div class="board-title">দিনাজপুর বোর্ড</div>
+      <div class="board-sub">DINAJPUR BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('dinajpur','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('dinajpur','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-dinajpur" style="display:none;">
+    <div><div class="score-num" id="score-num-dinajpur">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-dinajpur" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-dinajpur"></div>
+</section>
+
+<!-- ══════════════════ MYMENSINGH ══════════════════ -->
+<section id="mymensingh" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🌿</span>
+    <div>
+      <div class="board-title">ময়মনসিংহ বোর্ড</div>
+      <div class="board-sub">MYMENSINGH BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('mymensingh','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('mymensingh','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-mymensingh" style="display:none;">
+    <div><div class="score-num" id="score-num-mymensingh">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-mymensingh" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-mymensingh"></div>
+</section>
+
+<!-- ══════════════════ JESSORE ══════════════════ -->
+<section id="jessore" class="board-section">
+  <div class="board-header">
+    <span class="board-emoji">🌾</span>
+    <div>
+      <div class="board-title">যশোর বোর্ড</div>
+      <div class="board-sub">JESSORE BOARD — ICT MCQ 2026</div>
+    </div>
+    <span class="board-count">25 MCQ</span>
+  </div>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('jessore','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn" onclick="setMode('jessore','answer')">✅ উত্তর দেখুন</button>
+  </div>
+  <div class="score-display" id="score-jessore" style="display:none;">
+    <div><div class="score-num" id="score-num-jessore">0/25</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">স্কোর</div></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="score-bar-jessore" style="width:0%"></div></div>
+  </div>
+  <div class="questions" id="q-jessore"></div>
+</section>
+
+</div><!-- /content -->
+
+<footer class="footer">
+  ICT বোর্ড প্রশ্নোত্তর ২০২৬ &nbsp;|&nbsp; <span>HSC · তথ্য ও যোগাযোগ প্রযুক্তি</span>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+//  QUESTION DATA  (question, options[4], correct index 0-3, explanation)
+// ══════════════════════════════════════════════
+const DATA = {
+
+  dhaka: [
+    { q:'সফটওয়্যার ইনস্টলের আগে কোন কোন বিষয় নিশ্চিত করতে হয়?\ni. হার্ডওয়্যার সাপোর্ট আছে কিনা\nii. অ্যান্টিভাইরাস বন্ধ কিনা\niii. অ্যাডমিন অনুমতি আছে কিনা', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'সফটওয়্যার ইনস্টলে হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ কিনা এবং অ্যাডমিন অনুমতি জরুরি।'},
+    { q:'বুলেট ও নম্বরের আইকন কমান্ড কোথায় পাওয়া যায়?', opts:['Insert Tab','Home Tab','Review Tab','Page Layout Tab'], ans:1, exp:'বুলেট ও নম্বরের আইকন কমান্ড Home ট্যাবে পাওয়া যায়।'},
+    { q:'স্প্রেডশিটে A1 সেলকে B1 সেল দিয়ে ভাগ করার সঠিক সূত্র কোনটি?', opts:['=A1*B1','=A1/B1','=A1-B1','=A1+B1'], ans:1, exp:'স্প্রেডশিটে A1 সেলকে B1 সেল দিয়ে ভাগ করার সূত্র =A1/B1।'},
+    { q:'কম্পিউটার চালু করলে সময়/তারিখ ভুল দেখানোর প্রধান কারণ কী?', opts:['RAM নষ্ট','HDD নষ্ট','Processor সমস্যা','CMOS ব্যাটারি নষ্ট'], ans:3, exp:'কম্পিউটার চালু করলে সময়/তারিখ ভুল দেখানোর প্রধান কারণ CMOS ব্যাটারি নষ্ট।'},
+    { q:'ওয়ার্ড-২০০৭-এ পৃষ্ঠা সংখ্যা যুক্ত করার অপশন কোথায়?', opts:['Home','Review','INSERT','Page Layout'], ans:2, exp:'ওয়ার্ড-২০০৭-এ পৃষ্ঠা সংখ্যা যুক্ত করার অপশন Insert ট্যাবে।'},
+    { q:'Insert ট্যাব থেকে যুক্ত করা যায় এমন দুটি উপাদান কোনটি?\ni. Picture\nii. Margin\niii. WordArt', opts:['i ও iii','ii ও iii','শুধু i','i, ii ও iii'], ans:0, exp:'Picture ও WordArt উভয়ই Insert ট্যাব থেকে যুক্ত করা যায় এবং Text Wrapping করানো যায়।'},
+    { q:'স্প্রেডশিটে সারি ও কলামের মিলিত স্থানকে কী বলা হয়?', opts:['Row','Column','Cell','Range'], ans:2, exp:'স্প্রেডশিটে সারি ও কলামের মিলিত স্থানকে Cell বলা হয়।'},
+    { q:'ছকে ১৮০০ টাকার লাভের পরিমাণের ঘরটির সেল অ্যাড্রেস কোনটি?', opts:['C4','D4','E4','B4'], ans:1, exp:'ছকে ১৮০০ টাকার লাভের পরিমাণের ঘরটির সেল অ্যাড্রেস D4।'},
+    { q:'লাভের পরিমাণ বের করার সঠিক সূত্র কোনটি?', opts:['=B4+C4','=B4-C4','=B4/C4%','=B4*C4%'], ans:3, exp:'লাভের পরিমাণ = ক্রয়মূল্য × লাভের শতকরা হার।'},
+    { q:'মাল্টিমিডিয়ার ন্যূনতম কতটি মাধ্যম থাকে?', opts:['১','২','৩','৪'], ans:2, exp:'বর্ণ, চিত্র এবং শব্দ — অন্তত এই তিনটি মাধ্যম মাল্টিমিডিয়ায় থাকে।'},
+    { q:'প্রেজেন্টেশনের এক একটি অংশকে কী বলা হয়?', opts:['Frame','Page','Slide','Sheet'], ans:2, exp:'প্রেজেন্টেশনের এক একটি অংশকে স্লাইড বলা হয়।'},
+    { q:'PowerPoint-এ নতুন স্লাইড যুক্ত করার শর্টকাট কী?', opts:['Ctrl+M','Ctrl+N','Ctrl+S','Ctrl+P'], ans:0, exp:'PowerPoint-এ নতুন স্লাইড যুক্ত করার শর্টকাট Ctrl+M।'},
+    { q:'MS PowerPoint-এর ফাইলকে কী বলা হয়?', opts:['Document','Workbook','Presentation','Database'], ans:2, exp:'MS PowerPoint-এর ফাইলকে Presentation বলা হয়।'},
+    { q:'Presentation-এর স্লাইডগুলো প্রদর্শনের কীবোর্ড কমান্ড কী?', opts:['F1','F5','F10','F12'], ans:1, exp:'Presentation-এর স্লাইডগুলো প্রদর্শনের কীবোর্ড কমান্ড F5।'},
+    { q:'মাল্টিমিডিয়ার কোন উপাদানটি চলমান চিত্র দেখায়?', opts:['Video','অ্যানিমেশন','Text','Audio'], ans:1, exp:'মাল্টিমিডিয়ার যে উপাদানটি চলমান চিত্র দেখায় সেটি অ্যানিমেশন।'},
+    { q:'মেশিন কোড কীসের উপর ভিত্তি করে তৈরি?', opts:['Decimal সংখ্যা','Hexadecimal সংখ্যা','Octal সংখ্যা','বাইনারি সংখ্যা'], ans:3, exp:'মেশিন কোড মূলত বাইনারি সংখ্যার উপর ভিত্তি করে তৈরি।'},
+    { q:'কোন প্রোগ্রামিং ভাষায় প্রতিটি স্টেটমেন্টের শেষে সেমিকোলন দিতে হয়?', opts:['Python','Java','C ভাষা','BASIC'], ans:2, exp:'C প্রোগ্রামিং ভাষায় প্রতিটি স্টেটমেন্টের শেষে সেমিকোলন দিতে হয়।'},
+    { q:'পাইথনে দুটি ভ্যালু সমান কিনা তা পরীক্ষা করতে কোন অপারেটর ব্যবহৃত হয়?', opts:['=','!=','==','>='], ans:2, exp:'পাইথনে দুটি ভ্যালু সমান কিনা তা পরীক্ষা করতে == অপারেটর ব্যবহৃত হয়।'},
+    { q:'পাইথন প্রোগ্রামিংয়ে bool কী?', opts:['একটি ফাংশন','একটি লাইব্রেরি','একটি মডিউল','একটি ডেটা টাইপ'], ans:3, exp:'পাইথন প্রোগ্রামিংয়ে bool একটি ডেটা টাইপ।'},
+    { q:'অনুবাদক প্রোগ্রাম কত প্রকার?', opts:['২','৩','৪','৫'], ans:1, exp:'অনুবাদক প্রোগ্রাম ৩ প্রকার: অ্যাসেম্বলার, কম্পাইলার এবং ইন্টারপ্রেটার।'},
+    { q:'সফটওয়্যার আনইনস্টল করলেও কিছু অংশ কোথায় থেকে যায়?', opts:['রেজিস্ট্রি ফাইলে','RAM-এ','HDD-এ','Temp folder-এ'], ans:0, exp:'সফটওয়্যার আনইনস্টল করলেও কিছু অংশ অপারেটিং সিস্টেমের রেজিস্ট্রি ফাইলে থেকে যায়।'},
+    { q:'প্রিন্টার কাজ না করলে প্রথমে কী পরীক্ষা করতে হবে?\ni. পোর্টের সংযোগ সঠিক আছে কিনা\nii. প্রিন্টারের কালি আছে কিনা\niii. পোর্ট লুজ কিনা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:2, exp:'পোর্টের সংযোগ সঠিক আছে কিনা এবং লুজ কিনা দেখতে হবে।'},
+    { q:'কম্পিউটারে "Out of memory" মেসেজ আসার কারণ কী?', opts:['i. HDD পূর্ণ','ii. একাধিক প্রোগ্রাম একসাথে ওপেন','iii. ভাইরাস আক্রান্ত','iv. পুরনো OS'], ans:1, exp:'একাধিক প্রোগ্রাম একসাথে ওপেন করলে "Out of memory" মেসেজ আসে।'},
+    { q:'বিশ্বে বেশিরভাগ কম্পিউটারে কোন অপারেটিং সিস্টেম ব্যবহৃত হয়?', opts:['Linux','উইন্ডোজ','macOS','Android'], ans:1, exp:'বিশ্বে বেশিরভাগ কম্পিউটারে Windows অপারেটিং সিস্টেম ব্যবহৃত হয়।'},
+    { q:'ডকুমেন্টকে টেমপ্লেট আকারে সংরক্ষণ করলে কী সুবিধা হয়?', opts:['সময় সাশ্রয়','স্থান সাশ্রয়','সুন্দর দেখায়','প্রিন্ট সহজ হয়'], ans:0, exp:'ডকুমেন্টকে টেমপ্লেট আকারে সংরক্ষণ করলে সময় সাশ্রয় হয়।'},
+  ],
+
+  ctg: [
+    { q:'স্লাইডে কোথায় টেক্সট বা ছবি বসবে তার পূর্বনির্ধারিত খসড়াকে কী বলে?', opts:['Slide Theme','Slide Transition','Slide Animation','Slide Layout'], ans:3, exp:'স্লাইডে কোথায় টেক্সট বা ছবি বসবে তার পূর্বনির্ধারিত খসড়াকে স্লাইড লেআউট বলে।'},
+    { q:'পৃষ্ঠার নম্বর সাধারণত কোথায় থাকে?', opts:['Home → Paragraph','Insert → Header & Footer','Review → Comments','Page Layout → Margins'], ans:1, exp:'পৃষ্ঠার নম্বর সাধারণত Insert ট্যাবের Header & Footer গ্রুপে থাকে।'},
+    { q:'পিসি হার্ডডিস্ক খুঁজে না পেলে কারণ কী হতে পারে?', opts:['হার্ডডিস্কের জাম্পার সেটিং','RAM সমস্যা','BIOS সমস্যা','CPU সমস্যা'], ans:0, exp:'মাদারবোর্ডের সাথে হার্ডডিস্কের ডেটা ক্যাবল বা জাম্পার সেটিং ঠিক না থাকলে পিসি হার্ডডিস্ক খুঁজে পায় না।'},
+    { q:'পাইথন ভ্যারিয়েবলের নামে কোন চিহ্ন ব্যবহার করা যায় না?', opts:['_','a','Z','%'], ans:3, exp:'পাইথন ভ্যারিয়েবলের নামে স্পেশাল ক্যারেক্টার (যেমন: % বা @) ব্যবহার করা যায় না।'},
+    { q:'পুরো ডকুমেন্টে যেকোনো শব্দ দ্রুত খুঁজে পরিবর্তন করা যায় কোন কমান্ডে?', opts:['ফাইন্ড-রিপ্লেস','Cut-Paste','Copy-Paste','Spell Check'], ans:0, exp:'Find & Replace কমান্ড ব্যবহার করে পুরো ডকুমেন্টে যেকোনো শব্দ দ্রুত খুঁজে পরিবর্তন করা যায়।'},
+    { q:'পাইথনে ভগ্নাংশ বা দশমিকযুক্ত সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিকযুক্ত সংখ্যা float ডেটা টাইপে রাখা হয়।'},
+    { q:'এমএস ওয়ার্ডে টেবিল যুক্ত করার সঠিক কমান্ড কোনটি?', opts:['Insert→Table→Insert table','Home→Table→Insert','Insert→Picture','Page Layout→Table'], ans:0, exp:'এমএস ওয়ার্ডে টেবিল যুক্ত করার সঠিক কমান্ড Insert→Table→Insert table।'},
+    { q:'ভ্যারিয়েবলের নামে কী দেওয়া যায় না?\ni. স্পেস\nii. আন্ডারস্কোর\niii. হাইফেন', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নামে স্পেস বা হাইফেন দেওয়া যায় না।'},
+    { q:'প্রেজেন্টেশনে নতুন স্লাইড যুক্ত করার শর্টকাট কী?', opts:['Ctrl+N','Ctrl+S','Ctrl+M','Ctrl+Z'], ans:2, exp:'প্রেজেন্টেশনে নতুন স্লাইড যুক্ত করার শর্টকাট হলো Ctrl+M।'},
+    { q:'variable1 = 10, variable2 = 5 হলে Result = variable1 * variable2 কত?', opts:['15','50','2','500'], ans:1, exp:'Result = variable1 * variable2 → 10 × 5 = 50।'},
+    { q:'ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?\ni. /\nii. %\niii. Modulo', opts:['i ও ii','শুধু ii','ii ও iii','i, ii ও iii'], ans:2, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (modulo operator) ব্যবহৃত হয়।'},
+    { q:'স্লাইডের উপাদানে আলাদাভাবে অ্যানিমেশন দেওয়ার সঠিক ধারাবাহিকতা কোনটি?', opts:['Animation→Custom Animation→Add effect','Insert→Animation→Add effect','Home→Animation→Custom','Slide Show→Animation→Custom'], ans:0, exp:'স্লাইডের উপাদানে আলাদাভাবে অ্যানিমেশন দেওয়ার সঠিক ধারাবাহিকতা Animation→Custom Animation→Add effect।'},
+    { q:'স্প্রেডশিটে সেলের রেঞ্জ গুণ করার ফাংশন কোনটি?', opts:['=SUM(B1:D1)','=PRODUCT(B1:D1)','=AVERAGE(B1:D1)','=MULTIPLY(B1:D1)'], ans:1, exp:'স্প্রেডশিটে সেলের রেঞ্জ গুণ করার ফাংশন হলো PRODUCT।'},
+    { q:'স্লাইডে ছবি বা Picture যুক্ত করার অপশনটি কোথায় থাকে?', opts:['Insert','Home','Design','Review'], ans:0, exp:'স্লাইডে ছবি বা Picture যুক্ত করার অপশনটি Insert মেনুতে থাকে।'},
+    { q:'অ্যানিমেশন কখনো কী হিসেবে ব্যবহৃত হয় না?', opts:['একক মাধ্যম','অডিওসহ','টেক্সটসহ','ভিডিওসহ'], ans:0, exp:'অ্যানিমেশন কখনো একক মাধ্যম হিসেবে ব্যবহৃত হয় না; সাথে অডিও বা টেক্সট থাকে।'},
+    { q:'ইন্টারঅ্যাকটিভ মাল্টিমিডিয়ার উদাহরণ কোনগুলো?\ni. ভিডিও গেমস\nii. শিক্ষামূলক সফটওয়্যার\niii. প্রোগ্রামিং', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ভিডিও গেমস, শিক্ষামূলক সফটওয়্যার এবং প্রোগ্রামিং — সবই ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া।'},
+    { q:'E3 = C3 + C3 × নির্দিষ্ট পার্সেন্টেজ — এর সঠিক Excel সূত্র কোনটি?', opts:['=C3+C3*D3','=C3+C3*D3%','=C3*D3%','=C3+D3%'], ans:1, exp:'Gross Salary (E3) = Basic (C3) + Basic × নির্দিষ্ট পার্সেন্টেজ।'},
+    { q:'Illustration গ্রুপে কোনগুলো থাকে?\ni. ক্লিপআর্ট\nii. ফন্ট\niii. স্মার্ট আর্ট', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'Illustration গ্রুপে ক্লিপআর্ট, শেইপ, স্মার্ট আর্ট এবং চার্ট থাকে।'},
+    { q:'কম্পিউটার চালু হওয়ার পর মনিটরে ডিসপ্লে না আসার প্রধান কারণ কী?', opts:['HDD সমস্যা','CPU সমস্যা','RAM','Power Supply'], ans:2, exp:'কম্পিউটার চালু হওয়ার পর মনিটরে ডিসপ্লে না আসার প্রধান কারণ RAM-এর সমস্যা।'},
+    { q:'উইন্ডোজ হ্যাং হওয়ার কারণ কোনটি?\ni. অতিরিক্ত গরম\nii. ভাইরাস আক্রান্ত\niii. অপারেটিং সিস্টেমে ত্রুটি', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:2, exp:'উইন্ডোজ হ্যাং হওয়ার কারণ: ভাইরাস আক্রান্ত বা অপারেটিং সিস্টেমে ত্রুটি।'},
+    { q:'ওয়েবসাইট ভিজিটের তথ্য ব্রাউজারে কীভাবে জমা থাকে?', opts:['কুকিজ','Cache','Session','History'], ans:0, exp:'ওয়েবসাইট ভিজিটের তথ্য ব্রাউজারের কুকিজ হিসেবে জমা থাকে।'},
+    { q:'একসাথে একাধিক ডিভাইস ব্যবহার করে কোনো সার্ভারে আক্রমণ করাকে কী বলে?', opts:['Phishing','Hacking','DDoS অ্যাটাক','Spamming'], ans:2, exp:'একসাথে একাধিক ডিভাইস ব্যবহার করে কোনো সার্ভারে আক্রমণ করাকে DDoS Attack বলে।'},
+    { q:'BSA (Business Software Alliance)-এর মূল কাজ কী?', opts:['ফ্রি সফটওয়্যার তৈরি','নতুন OS তৈরি','অ্যান্টিভাইরাস বিতরণ','পাইরেসি নজরদারি'], ans:3, exp:'BSA (Business Software Alliance)-এর মূল কাজ হলো সফটওয়্যার পাইরেসি বন্ধে কাজ করা।'},
+    { q:'সফটওয়্যার ইনস্টলে কী কী প্রয়োজন?\ni. হার্ডওয়্যার সাপোর্ট\nii. রিড-মি ফাইল পড়া\niii. অ্যাডমিন অনুমতি', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'সফটওয়্যার ইনস্টলে হার্ডওয়্যার সাপোর্ট, রিড-মি ফাইল পড়া এবং অ্যাডমিন অনুমতি প্রয়োজন।'},
+    { q:'স্লাইডে ব্যাকগ্রাউন্ড বা থিম যুক্ত করতে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','ডিজাইন','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
+  ],
+
+  cumilla: [
+    { q:'ওয়ার্ড প্রসেসরের সাহায্যে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট পরিবর্তন\niii. গাণিতিক হিসাব', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস ও ফন্ট পরিবর্তন করা যায়; গাণিতিক হিসাবের জন্য স্প্রেডশিট ব্যবহৃত হয়।'},
+    { q:'প্রেজেন্টেশন ফাইলকে কী বলা হয়?', opts:['Document','Slide','Workbook','Presentation'], ans:3, exp:'MS PowerPoint-এর ফাইলকে Presentation বলা হয়।'},
+    { q:'স্লাইডশো প্রদর্শনের জন্য কোন কী ব্যবহার করা হয়?', opts:['F1','F5','F7','F10'], ans:1, exp:'PowerPoint-এ স্লাইড শো শুরু করার জন্য F5 কী ব্যবহৃত হয়।'},
+    { q:'ক্যালকুলেশনের জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS Word','MS Excel','MS PowerPoint','MS Access'], ans:1, exp:'হিসাব-নিকাশের কাজের জন্য MS Excel (স্প্রেডশিট) ব্যবহৃত হয়।'},
+    { q:'ভাইরাস থেকে কম্পিউটার রক্ষা করতে কী ব্যবহার করা হয়?', opts:['Firewall','Antivirus','VPN','Registry Cleaner'], ans:1, exp:'ভাইরাস থেকে কম্পিউটার রক্ষা করতে অ্যান্টিভাইরাস সফটওয়্যার ব্যবহৃত হয়।'},
+    { q:'মাল্টিমিডিয়ার উপাদান কোনগুলো?\ni. Text\nii. Audio\niii. Video', opts:['i ও ii','শুধু i','ii ও iii','i, ii ও iii'], ans:3, exp:'Text, Audio, Video, Image, Animation — এগুলো সবই মাল্টিমিডিয়ার উপাদান।'},
+    { q:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে কোন চিহ্ন দিতে হয়?', opts:['+','*','=','-'], ans:2, exp:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে সমান (=) চিহ্ন দিতে হয়।'},
+    { q:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS Access','MS Excel','MS Word','MS PowerPoint'], ans:1, exp:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে স্প্রেডশিট (MS Excel) ব্যবহৃত হয়।'},
+    { q:'কোনগুলোকে মাল্টিমিডিয়া বলা যায় না?\ni. কাগজ\nii. রেডিও\niii. ইন্টারনেট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'কাগজ ও রেডিওতে একক মাধ্যম থাকায় এগুলোকে মাল্টিমিডিয়া বলা যায় না।'},
+    { q:'পাইথনে ভ্যারিয়েবলের নামে স্পেসের পরিবর্তে কী ব্যবহার করা যায়?', opts:['হাইফেন (-)','স্ল্যাশ (/)','_ আন্ডারস্কোর','ডট (.)'], ans:2, exp:'ভ্যারিয়েবলের নামে স্পেস দেওয়া যায় না; আন্ডারস্কোর ব্যবহার করা যায়।'},
+    { q:'ভ্যারিয়েবলের নামে কোনটি থাকতে পারে না?\ni. সংখ্যা দিয়ে শুরু\nii. আন্ডারস্কোর\niii. স্পেশাল ক্যারেক্টার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নাম সংখ্যা দিয়ে শুরু হতে পারে না এবং স্পেশাল ক্যারেক্টার থাকতে পারে না।'},
+    { q:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে কী সুবিধা হয়?', opts:['সুন্দর হয়','সময় সাশ্রয়','স্থান বাঁচে','প্রিন্ট সহজ'], ans:1, exp:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে সাজসজ্জায় সময় বাঁচে।'},
+    { q:'সফটওয়্যার ইনস্টলে কোনগুলো জরুরি?\ni. হার্ডওয়্যার সাপোর্ট\nii. অ্যান্টিভাইরাস বন্ধ\niii. এডমিন পারমিশন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ এবং এডমিন পারমিশন — সবগুলোই জরুরি।'},
+    { q:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল কোথায় থেকে দেখা যায়?', opts:['Windows Settings','Control Panel','BIOS','Device Manager'], ans:2, exp:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল আছে কিনা BIOS থেকে দেখা যায়।'},
+    { q:'মাউস কাজ না করলে সমাধান কী?\ni. অন্য পোর্টে লাগানো\nii. পিসি রিস্টার্ট\niii. নতুন মাউস ব্যবহার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'মাউস কাজ না করলে অন্য পোর্টে লাগানো বা নতুন মাউস ব্যবহার করাই সমাধান।'},
+    { q:'কম্পিউটার শুধু কোন সংখ্যা বোঝে?', opts:['Decimal','Hexadecimal','০ ও ১ (বাইনারি)','Octal'], ans:2, exp:'কম্পিউটার শুধু বাইনারি সংখ্যা (০ এবং ১) বোঝে।'},
+    { q:'ওয়ার্ড প্রসেসরে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট ছোট-বড় করা\niii. একাধিক ফাইলে কাজ', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস, ফন্ট ছোট-বড় করা এবং একাধিক ফাইলে কাজ করা যায়।'},
+    { q:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','Design','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
+    { q:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা (যেমন: 3.14) float ডেটা টাইপে রাখা হয়।'},
+    { q:'সোর্স কোডকে মেশিনের ভাষায় রূপান্তর করা কার কাজ?', opts:['প্রোগ্রামার','অনুবাদক প্রোগ্রাম','OS','RAM'], ans:1, exp:'সোর্স কোডকে মেশিনের ভাষায় (০ ও ১) রূপান্তর করাই অনুবাদক প্রোগ্রামের কাজ।'},
+    { q:'স্প্রেডশিটে গুণ করার উপায় কতটি?', opts:['এক','দুই','তিন','চার'], ans:1, exp:'গুণ করার দুটি উপায়: সাধারণ সূত্র (=A1*B1) এবং ফাংশন (=PRODUCT(A1:B1))।'},
+    { q:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে কী বলে?', opts:['Custom Animation','Transition Effect','Slide Show','Motion Effect'], ans:1, exp:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে Transition Effect বলে।'},
+    { q:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে কী ব্যবহার করতে হবে?', opts:['Firewall','VPN','আপডেটেড অ্যান্টিভাইরাস','Registry Cleaner'], ans:2, exp:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে অ্যান্টিভাইরাস ছাড়া ডিভাইস ব্যবহার ঝুঁকিপূর্ণ।'},
+    { q:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?', opts:['/','+','-','%'], ans:3, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (Modulo) অপারেটর ব্যবহৃত হয়।'},
+    { q:'লেখাকে নান্দনিক করে তুলতে কী ব্যবহার করা হয়?', opts:['ফন্ট পরিবর্তন','মার্জিন পরিবর্তন','পেজ কালার','হেডার'], ans:0, exp:'লেখাকে নান্দনিক ও আকর্ষণীয় করে তুলতে বিভিন্ন স্টাইলের ফন্ট ব্যবহার করা হয়।'},
+  ],
+
+  rajshahi: [
+    { q:'বানান সংশোধনের কাজ কোন টুল দিয়ে করা হয়?', opts:['Grammar Check','Auto Correct','Spell Checker','Find & Replace'], ans:2, exp:'Spell Checker-এর সাহায্যে বানান সংশোধনের কাজ করা হয়।'},
+    { q:'মাল্টিমিডিয়ার সূচনা কোন সাল থেকে ধরা হয়?', opts:['১৮৭৫','১৮৮০','১৮৯০','১৮৯৫'], ans:3, exp:'১৮৯৫ সালে সিনেমার উদ্ভব হওয়ার পর থেকে মাল্টিমিডিয়ার সূচনা ধরা হয়।'},
+    { q:'মোট মূল্য = দাম × পরিমাণ — স্প্রেডশিটে এর সূত্র কোনটি?', opts:['=B2+C2','=B2*C2','=B2/C2','=B2-C2'], ans:1, exp:'মোট মূল্য = দাম × পরিমাণ, তাই সূত্র =B2*C2।'},
+    { q:'ডালের লাভ = মোট ক্রয়মূল্য × ৫% — এর সূত্র কোনটি?', opts:['=E3*5','E3=D3*5','D3=E3/5','E3=D3*5/100'], ans:3, exp:'ডালের লাভ = মোট ক্রয়মূল্য × ৫%।'},
+    { q:'E কলামে লাভের গড় বের করার সঠিক সূত্র কোনটি?', opts:['=(E2-E3)/2','=(E2+E3)/2','=SUM(E2:E3)','=AVERAGE(E2,E3,2)'], ans:1, exp:'E কলামে লাভের পরিমাণ আছে; গড় = দুটি লাভের যোগফল ÷ ২।'},
+    { q:'মাল্টিমিডিয়ার প্রধান মাধ্যম কতটি?', opts:['২টি','৩টি','৪টি','৫টি'], ans:1, exp:'বর্ণ (Text), চিত্র (Graphics) এবং শব্দ (Audio) — তিনটি মাধ্যম।'},
+    { q:'F5 চাপলে PowerPoint-এ কী হয়?', opts:['শেষ স্লাইড যায়','প্রথম স্লাইড থেকে প্রদর্শনী শুরু','ফাইল সেভ হয়','নতুন স্লাইড যোগ হয়'], ans:1, exp:'F5 চাপলে প্রথম স্লাইড থেকে প্রদর্শনী শুরু হয়।'},
+    { q:'ডিজিটাল মাধ্যমে প্রেরক ও প্রাপকের মধ্যে তথ্য চুরিকে কী বলে?', opts:['Hacking','Phishing','ডেটা ইন্টারসেপশন','Spamming'], ans:2, exp:'ডিজিটাল মাধ্যমে তথ্য আদান-প্রদানে প্রেরক ও প্রাপকের মধ্যে তথ্য চুরিকে ডেটা ইন্টারসেপশন বলে।'},
+    { q:'ওয়ার্ড প্রসেসরের সুবিধা কোনগুলো?\ni. গ্রাফ/চার্ট সংযোজন\nii. একাধিক ডকুমেন্ট ব্যবহার\niii. ভুল সংশোধন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'গ্রাফ/চার্ট সংযোজন, একাধিক ডকুমেন্ট ব্যবহার এবং ভুল সংশোধন — সব সুবিধাই পাওয়া যায়।'},
+    { q:'প্রেজেন্টেশনের প্রতিটি অংশকে কী বলে?', opts:['Frame','স্লাইড','Page','Chapter'], ans:1, exp:'প্রেজেন্টেশনের প্রতিটি অংশকে স্লাইড বলে।'},
+    { q:'ICT বইয়ে ডেটা টাইপ কত ধরনের?', opts:['২','৩','৪','৫'], ans:2, exp:'ICT বইয়ে ৪ ধরনের ডেটা টাইপ: Integer, Float, String, Boolean।'},
+    { q:'i%2==0 শর্তটি কোন সংখ্যা নির্দেশ করে?', opts:['বিজোড় সংখ্যা','জোড় সংখ্যা','মৌলিক সংখ্যা','ঋণাত্মক সংখ্যা'], ans:1, exp:'i%2==0 শর্তটি জোড় সংখ্যা নির্দেশ করে।'},
+    { q:'ভাগশেষ বের করার জন্য কোন অপারেটর ব্যবহৃত হয়?', opts:['/','+','%','*'], ans:2, exp:'ভাগশেষ বের করার জন্য মডুলাস অপারেটর (%) ব্যবহৃত হয়।'},
+    { q:'পাইথনে স্ক্রিনে লেখা প্রদর্শনের জন্য কোন ফাংশন ব্যবহার করা হয়?', opts:['input()','display()','show()','print()'], ans:3, exp:'কোনো লেখা প্রদর্শনের জন্য print() ফাংশন ব্যবহার করা হয়।'},
+    { q:'অ্যানিমেশনের সাথে কোনগুলোর সম্পর্ক আছে?\ni. অডিও\nii. ভিডিও\niii. টেক্সট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'অ্যানিমেশনের সাথে অডিও, ভিডিও, টেক্সট ও গ্রাফিক্স সবার সাথেই সম্পর্ক রয়েছে।'},
+    { q:'স্প্রেডশিটে গুণ বা ভাগ করার জন্য কোন চিহ্ন ব্যবহৃত হয়?', opts:['+ বা -','* বা /','= বা ==','& বা |'], ans:1, exp:'স্প্রেডশিটে সাধারণত * (গুণ) বা / (ভাগ)-এর ব্যবহার বেশি।'},
+    { q:'স্লাইডে ছবি যোগ করার Picture আইকন কোথায় থাকে?', opts:['Home','Insert','Design','Review'], ans:1, exp:'স্লাইডে ছবি যোগ করার Picture আইকন Insert মেনুতে রয়েছে।'},
+    { q:'কোনো সংখ্যা জোড় না বিজোড় নির্ণয়ে কোন স্টেটমেন্ট ব্যবহার করতে হয়?', opts:['for loop','while loop','if....else','switch'], ans:2, exp:'কোনো সংখ্যা জোড় না বিজোড় — এটি নির্ণয়ে if...else স্টেটমেন্ট ব্যবহার করতে হয়।'},
+    { q:'প্রেজেন্টেশন ফাইলে নতুন স্লাইড যোগ করার কীবোর্ড কমান্ড কোনটি?', opts:['Ctrl+N','Ctrl+M','Ctrl+S','Ctrl+P'], ans:1, exp:'প্রেজেন্টেশন ফাইলে নতুন স্লাইড যোগ করার কীবোর্ড কমান্ড Ctrl+M।'},
+    { q:'কম্পিউটারে সফটওয়্যার ইনস্টল করার সময় প্রথমে কোন প্রোগ্রামটি সচল হয়?', opts:['Setup Wizard','Auto Run','Install Manager','Config Manager'], ans:1, exp:'কম্পিউটারে সফটওয়্যার ইনস্টল করার সময় Auto Run প্রোগ্রামটি প্রথমে সচল হয়।'},
+    { q:'আনইনস্টলকৃত সফটওয়্যারের কিছু অংশ কোথায় থেকে যায়?', opts:['Temp Folder-এ','Desktop-এ','রেজিস্ট্রি ফাইলে','RAM-এ'], ans:2, exp:'আনইনস্টলকৃত সফটওয়্যারের কিছু অংশ রেজিস্ট্রি ফাইলে থেকে যায়।'},
+    { q:'ডিভাইস নিরাপদ রাখতে কোনগুলো কার্যকর?\ni. নিয়মিত পাসওয়ার্ড পরিবর্তন\nii. অপরিচিত সফটওয়্যার ইনস্টল\niii. 2-step verification', opts:['i ও iii','ii ও iii','i ও ii','i, ii ও iii'], ans:0, exp:'নিয়মিত পাসওয়ার্ড পরিবর্তন ও 2-step verification ব্যবহার করে ডিভাইস নিরাপদ রাখা যায়।'},
+    { q:'অন্যের লোগো বা সফটওয়্যার প্রতিলিপি করে নিজ নামে চালানোকে কী বলে?', opts:['Hacking','Cracking','পাইরেসি','Phishing'], ans:2, exp:'অন্যের লোগো বা সফটওয়্যার প্রতিলিপি করে নিজ নামে চালানোকে পাইরেসি বলে।'},
+    { q:'Line Spacing নির্ধারণ করতে কোন ট্যাব ব্যবহার করা হয়?', opts:['Insert','Review','Home','Page Layout'], ans:2, exp:'Home ট্যাবের Paragraph গ্রুপ থেকে Line Spacing নির্ধারণ করা হয়।'},
+    { q:'বড় পরিসরে আয়-ব্যয় হিসাব এবং এয়ারলাইন্স রিজার্ভেশনে কোন সফটওয়্যার ব্যবহার করা হয়?', opts:['Word Processor','Spreadsheet','ডেটাবেজ','Presentation'], ans:2, exp:'বড় পরিসরে আয়-ব্যয় হিসাব এবং এয়ারলাইন্স রিজার্ভেশনে ডেটাবেজ সফটওয়্যার ব্যবহার করা হয়।'},
+  ],
+
+  borishal: [
+    { q:'যে স্লাইডটি নির্ধারিত থাকে তাকে কী বলা হয়?', opts:['সক্রিয় স্লাইড','নির্ধারিত স্লাইড','প্রথম স্লাইড','খালি স্লাইড'], ans:1, exp:'যে স্লাইডটি নির্ধারিত থাকে তাকে সক্রিয় স্লাইড বলা হয়।'},
+    { q:'ট্রাবলশুটিং অংশে কী নিয়ে আলোচনা হয়?', opts:['প্রোগ্রামিং','সাধারণ সমস্যার উৎস','মাল্টিমিডিয়া','ওয়ার্ড প্রসেসিং'], ans:0, exp:'ট্রাবলশুটিং অংশে সাধারণ সমস্যার উৎস ও সমাধান নিয়ে আলোচনা হয়।'},
+    { q:'মনিটরে পাওয়ার না থাকার কারণ কী হতে পারে?', opts:['পাওয়ার বোতাম অফ','RAM নষ্ট','HDD সমস্যা','VGA কেবল সমস্যা'], ans:0, exp:'পাওয়ার বোতাম অফ থাকলে মনিটরে পাওয়ার থাকবে না।'},
+    { q:'কম্পিউটারের বোঝার ভাষাকে কী বলা হয়?', opts:['মেশিন ভাষা','প্রোগ্রামিং ভাষা','বাংলা ভাষা','সংকেত ভাষা'], ans:1, exp:'কম্পিউটারের বোঝার ভাষাকে প্রোগ্রামিং ভাষা বলা হয়।'},
+    { q:'ভ্যারিয়েবল শব্দটির অর্থ কী?', opts:['ধ্রুবক','পরিবর্তন বা চলক','স্থির','অপরিবর্তনীয়'], ans:1, exp:'ভ্যারিয়েবল শব্দটির অর্থ হলো পরিবর্তন বা চলক।'},
+    { q:'পাইথনের সংরক্ষিত শব্দ (keyword) কোনটি?', opts:['print','input','While','output'], ans:2, exp:'While হলো পাইথন ৩-১০ ভার্সনের একটি সংরক্ষিত শব্দ (keyword)।'},
+    { q:'একটি নতুন কম্পিউটার কীভাবে কাজ করে?', opts:['ধীরে ধীরে','স্বাভাবিক গতিতে','মাঝেমধ্যে হ্যাং করে','দ্রুত গতিতে'], ans:3, exp:'একটি নতুন কম্পিউটার দ্রুত গতিতে কাজ করে।'},
+    { q:'কীবোর্ড কোন ধরনের যন্ত্র?', opts:['ইনপুট','আউটপুট','প্রসেসিং','স্টোরেজ'], ans:0, exp:'কীবোর্ড একটি ইনপুট যন্ত্র।'},
+    { q:'CMOS ব্যাটারি কম্পিউটারের কোথায় থাকে?', opts:['RAM স্লটে','CPU-তে','মাদারবোর্ডে','হার্ডডিস্কে'], ans:2, exp:'CMOS ব্যাটারি কম্পিউটারের মাদারবোর্ডে থাকে।'},
+    { q:'Save অর্থ কী?', opts:['খোলা','সংরক্ষণ','মুছে দেওয়া','নতুন তৈরি'], ans:1, exp:'Save অর্থ হলো সংরক্ষণ করা।'},
+    { q:'হিসাব নিকাশের জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['Word Processor','স্প্রেডশিট','Database','Presentation'], ans:1, exp:'হিসাব নিকাশের জন্য স্প্রেডশিট সফটওয়্যার ব্যবহৃত হয়।'},
+    { q:'লিখিত ডকুমেন্ট কোন কোন কাজে প্রয়োজন?\ni. তথ্য গ্রহণে\nii. সংরক্ষণে\niii. উপস্থাপনে', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'তথ্য গ্রহণে, সংরক্ষণে এবং উপস্থাপনে লিখিত ডকুমেন্ট প্রয়োজন।'},
+    { q:'টেলিভিশন, ভিডিও, সিনেমাকে একত্রে কী বলে?', opts:['ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া','ডিজিটাল মিডিয়া','লিনিয়ার মাল্টিমিডিয়া','নন-লিনিয়ার মিডিয়া'], ans:2, exp:'টেলিভিশন, ভিডিও, সিনেমাকে একত্রে লিনিয়ার মাল্টিমিডিয়া বলে।'},
+    { q:'প্রোগ্রামে একই কাজ একাধিকবার সম্পন্ন করতে কী ব্যবহৃত হয়?', opts:['Function','Array','লুপ','Variable'], ans:2, exp:'প্রোগ্রামে একই কাজ একাধিকবার সম্পন্ন করতে লুপ ব্যবহৃত হয়।'},
+    { q:'বার্তা স্ক্রিনে লেখার আগে অবজেক্টটি কীসে পরিণত হয়?', opts:['Integer','Float','Boolean','একটি স্ট্রিং'], ans:3, exp:'বার্তা স্ক্রিনে লেখার আগে অবজেক্টটি স্ট্রিংয়ে পরিণত হয়।'},
+    { q:'C, C++, Java, Python এগুলোকে কী বলে?', opts:['মেশিন ভাষা','Assembly ভাষা','প্রোগ্রামিং ভাষা','Markup ভাষা'], ans:2, exp:'C, C++, Java, Python এগুলোকে প্রোগ্রামিং ভাষা বলে।'},
+    { q:'কম্পিউটারের গতি বাড়াতে সবচেয়ে বুদ্ধিমানের কাজ কোনটি?', opts:['নতুন RAM লাগানো','অপ্রয়োজনীয় সফটওয়্যার আনইনস্টল','নতুন HDD লাগানো','OS পুনরায় ইনস্টল'], ans:1, exp:'বুদ্ধিমানের কাজ হলো অপ্রয়োজনীয় সফটওয়্যার আনইনস্টল করা।'},
+    { q:'কুকিজ এবং টেম্পোরারি ফাইল কোথায় জমা হয়?', opts:['HDD-এ','RAM-এ','ক্যাশ মেমোরিতে','Register-এ'], ans:2, exp:'কুকিজ এবং টেম্পোরারি ফাইল ক্যাশ মেমোরিতে জমা হয়।'},
+    { q:'"for i in range(1, 6): print(\'ICT\')" — লুপটি কতবার চলবে?', opts:['৪','৫','৬','৭'], ans:1, exp:'for i in range(1, 6): print("ICT") — লুপটি ১ থেকে ৫ পর্যন্ত মোট ৫ বার চলবে।'},
+    { q:'বিজ্ঞাপন তৈরিতে আকর্ষণের জন্য কী ব্যবহার করা হয়?', opts:['Photo','Text','অ্যানিমেশন','Audio'], ans:2, exp:'বিজ্ঞাপন তৈরিতে আকর্ষণের জন্য অ্যানিমেশন ব্যবহার করা হয়।'},
+    { q:'মাল্টিমিডিয়া অর্থ কী?', opts:['একমাধ্যম','দ্বিমাধ্যম','বহুমাধ্যম','ডিজিটাল মাধ্যম'], ans:2, exp:'মাল্টিমিডিয়া অর্থ বহুমাধ্যম।'},
+    { q:'X-এর বাংলা ও ইংরেজি নম্বর যোগ করার সূত্র কোনটি?', opts:['=B2+C2','=B2*C2','=B2-C2','=B2/C2'], ans:0, exp:'X-এর বাংলা ও ইংরেজি নম্বর যোগ করার সূত্র =B2+C2।'},
+    { q:'যোগ-বিয়োগ, গুণ, ভাগের কাজ কীসের সাহায্যে করা যায়?', opts:['গাণিতিক ফর্মুলা','ডেটাবেজ','Word Processor','Presentation'], ans:0, exp:'যোগ-বিয়োগ, গুণ, ভাগের কাজ গাণিতিক ফর্মুলার সাহায্যে করা যায়।'},
+    { q:'পাইথনে if একটি কী?', opts:['ফাংশন','লাইব্রেরি','কীওয়ার্ড','ডেটা টাইপ'], ans:2, exp:'পাইথনে if একটি সংরক্ষিত কীওয়ার্ড, যা ভ্যারিয়েবল হিসেবে ব্যবহার করা যায় না।'},
+    { q:'কম্পিউটারের প্রধান হার্ডড্রাইভে কোথায় অপারেটিং সিস্টেম ইনস্টল থাকে?', opts:['"A" ড্রাইভ','"B" ড্রাইভ','"C" ড্রাইভ','"D" ড্রাইভ'], ans:2, exp:'কম্পিউটারের প্রধান হার্ডড্রাইভ C ড্রাইভেই অপারেটিং সিস্টেম ইনস্টল থাকে।'},
+  ],
+
+  sylhet: [
+    { q:'পাইথনে print() ফাংশনের কাজ কী?', opts:['ইনপুট নেওয়া','ফাইল সেভ করা','বার্তা প্রিন্ট করা','ক্যালকুলেশন করা'], ans:2, exp:'পাইথনে print() ফাংশন ব্যবহার করে স্ক্রিনে ফলাফল বা বার্তা প্রদর্শন করা হয়।'},
+    { q:'CD-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Computer Disc','Central Disc','Compact Device','Compact Disc'], ans:3, exp:'CD-এর সঠিক পূর্ণরূপ হলো Compact Disc।'},
+    { q:'PowerPoint-এ স্লাইড শো শুরু করার জন্য কোন কী ব্যবহৃত হয়?', opts:['F1','F5','F7','F12'], ans:1, exp:'PowerPoint-এ স্লাইড শো শুরু করার জন্য F5 কী ব্যবহৃত হয়।'},
+    { q:'সহজে হ্যাক হয় না এমন পাসওয়ার্ড কোনটি?', opts:['12345','password','abcde','Aksa # 2015 Bsc'], ans:3, exp:'বড় ও ছোট হাতের অক্ষর, সংখ্যা এবং চিহ্নের সংমিশ্রণে তৈরি পাসওয়ার্ড সহজে হ্যাক হয় না।'},
+    { q:'কোনো ফাইলকে নতুন নামে সংরক্ষণ করার জন্য কোন অপশন ব্যবহার করা হয়?', opts:['Save','Open','Save As','Close'], ans:2, exp:'কোনো ফাইলকে নতুন নামে সংরক্ষণ করার জন্য Save As অপশন ব্যবহার করা হয়।'},
+    { q:'সংরক্ষিত ফাইল খুলতে কোন অপশন বা শর্টকাট ব্যবহার করা যায়?\ni. Open\nii. Ctrl+O\niii. Save', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'সংরক্ষিত ফাইল খুলতে Open অপশন বা Ctrl+O শর্টকাট ব্যবহার করা যায়।'},
+    { q:'আধুনিক মাল্টিমিডিয়ার অন্যতম পূর্বপুরুষ হিসেবে কোনটিকে গণ্য করা হয়?', opts:['রেডিও','টেলিভিশন','সিনেমা','টেলিফোন'], ans:2, exp:'সিনেমাকে আধুনিক মাল্টিমিডিয়ার অন্যতম পূর্ব পুরুষ হিসেবে গণ্য করা হয়।'},
+    { q:'বর্তমান যুগে ICT যন্ত্রের পূর্ণাঙ্গ ব্যবহারের জন্য কী আবশ্যক?', opts:['ইন্টারনেট','Printer','Scanner','Webcam'], ans:0, exp:'বর্তমান যুগে ইন্টারনেট ছাড়া ICT যন্ত্রের পূর্ণাঙ্গ ব্যবহার প্রায় অসম্ভব।'},
+    { q:'কম্পিউটারের অপারেটিং সিস্টেম সাধারণত কোথায় থাকে?', opts:['D ড্রাইভ','E ড্রাইভ','C ড্রাইভ','F ড্রাইভ'], ans:2, exp:'কম্পিউটারের অপারেটিং সিস্টেম সাধারণত C ড্রাইভে থাকে।'},
+    { q:'কম্পিউটারকে সচল ও গতিশীল রাখার উপায় কোনটি?\ni. রেজিস্ট্রি ক্লিনআপ সফটওয়্যার ব্যবহার\nii. ভাইরাস রাখা\niii. Temp file মুছে ফেলা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:2, exp:'রেজিস্ট্রি ক্লিনআপ সফটওয়্যার ব্যবহার করে কম্পিউটারকে সচল ও গতিশীল রাখা যায়।'},
+    { q:'ICT যন্ত্র চালাতে কী কী লাগে?\ni. অপারেটিং সিস্টেম\nii. প্রয়োজনীয় সফটওয়্যার\niii. ম্যালওয়্যার', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ICT যন্ত্র চালাতে অপারেটিং সিস্টেম ও প্রয়োজনীয় সফটওয়্যার লাগে (ম্যালওয়্যার ক্ষতিকর)।'},
+    { q:'সিস্টেম চললেও ডিসপ্লে না আসার প্রধান কারণ কী?', opts:['HDD সমস্যা','CPU সমস্যা','RAM-এ সমস্যা','VGA কার্ড নেই'], ans:2, exp:'সিস্টেম চললেও ডিসপ্লে না আসার প্রধান কারণ RAM-এর সংযোগে সমস্যা।'},
+    { q:'RAM-এর সমস্যা সমাধানে কী করতে হবে?\ni. RAM পরিষ্কার করে পুনরায় লাগানো\nii. OS পুনরায় ইনস্টল\niii. নতুন RAM লাগানো', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'RAM পরিষ্কার করে পুনরায় লাগানো বা নতুন RAM লাগানো সমস্যার সমাধান।'},
+    { q:'কোনো তথ্য বা ফাইল কপি করার শর্টকাট কমান্ড কোনটি?', opts:['Ctrl+V','Ctrl+X','Ctrl+C','Ctrl+Z'], ans:2, exp:'কোনো তথ্য বা ফাইল কপি করার শর্টকাট কমান্ড হলো Ctrl+C।'},
+    { q:'প্রদত্ত বিকল্পগুলোর মধ্যে সবচেয়ে আধুনিক সংস্করণ কোনটি?', opts:['MS Word 2003','MS Word 2007','MS Word 2010','Microsoft Word 2016'], ans:3, exp:'প্রদত্ত বিকল্পগুলোর মধ্যে মাইক্রোসফট ওয়ার্ড ২০১৬ সবচেয়ে আধুনিক সংস্করণ।'},
+    { q:'পৃষ্ঠার আকার (যেমন: Legal, A4) পরিবর্তন করতে কোন ট্যাব ব্যবহৃত হয়?', opts:['Insert','Home','Review','Page Layout'], ans:3, exp:'পৃষ্ঠার আকার (যেমন: Legal, A4) পরিবর্তন করতে Page Layout ট্যাব ব্যবহৃত হয়।'},
+    { q:'Excel প্রোগ্রামে কতগুলো ওয়ার্কশিট যুক্ত করা যায়?', opts:['শুধু একটি','একাধিক','সর্বোচ্চ ৩টি','সর্বোচ্চ ৫টি'], ans:1, exp:'Excel প্রোগ্রামে ডিফল্ট ৩টি ছাড়াও প্রয়োজনে অনেকগুলো ওয়ার্কশিট যুক্ত করা যায়।'},
+    { q:'Excel-এ গুণ করার সূত্র কোনটি?', opts:['=A1+B1','=A1-B1','=A1*B1','=A1/B1'], ans:2, exp:'Excel-এ গুণ করার জন্য = চিহ্নের পর সেল অ্যাড্রেস এবং * চিহ্ন দিতে হয়।'},
+    { q:'সফটওয়্যার ব্যবহার করে কী কী করা যায়?\ni. গাণিতিক হিসাব\nii. লেখালেখি\niii. মেশিন মেরামত', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:0, exp:'সফটওয়্যার ব্যবহার করে গাণিতিক হিসাব এবং লেখালেখির কাজ করা যায়।'},
+    { q:'উইন্ডোজে যেকোনো প্রোগ্রাম খুলতে কোথায় ক্লিক করতে হয়?', opts:['Desktop','Taskbar','Start','Control Panel'], ans:2, exp:'উইন্ডোজে যেকোনো প্রোগ্রাম খুলতে Start বাটনে ক্লিক করতে হয়।'},
+    { q:'কম্পিউটারের ব্যাপক ব্যবহার রয়েছে কোথায়?\ni. অফিসে\nii. ডিজাইনে\niii. স্থাপত্যশিল্পে', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'অফিস, ডিজাইন এবং স্থাপত্যশিল্প — সবক্ষেত্রে কম্পিউটারের ব্যাপক ব্যবহার রয়েছে।'},
+    { q:'মাল্টিমিডিয়ার বিবর্তনে গুরুত্বপূর্ণ সাল কোনটি?', opts:['১৮৭৫','১৮৮০','১৮৯৫','১৯০০'], ans:2, exp:'মাল্টিমিডিয়ার বিবর্তনে ১৮৯৫ সাল একটি গুরুত্বপূর্ণ মাইলফলক (সিনেমার উদ্ভব)।'},
+    { q:'বিজ্ঞাপন নির্মাণে কোন মিডিয়া ব্যবহৃত হয়?', opts:['Podcast','Blog','অ্যানিমেশন','Brochure'], ans:2, exp:'বিজ্ঞাপন নির্মাণে অডিও, ভিডিও ও গ্রাফিক্সের সমন্বয়ে অ্যানিমেশন মিডিয়া ব্যবহৃত হয়।'},
+    { q:'অ্যানিমেশন সম্পর্কে সঠিক তথ্য কোনটি?\ni. স্থির হতে পারে\nii. 2D হতে পারে\niii. 3D হতে পারে', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'অ্যানিমেশন স্থির হতে পারে এবং এটি 2D বা 3D — উভয়ই হতে পারে।'},
+    { q:'কম্পিউটারকে নির্দিষ্ট কাজ করার জন্য নির্দেশ দেওয়াকে কী বলে?', opts:['ওয়ার্ড প্রসেসিং','নির্দেশ দেওয়া','প্রোগ্রামিং','ডেটা এন্ট্রি'], ans:1, exp:'কম্পিউটারকে নির্দিষ্ট কাজ করার জন্য নির্দেশ দেওয়াই প্রোগ্রামিং ভাষার কাজ।'},
+  ],
+
+  dinajpur: [
+    { q:'কম্পিউটার কোন ভাষা বোঝে?', opts:['Decimal (0–9)','Binary (0, 1)','Hexadecimal','Octal'], ans:1, exp:'কম্পিউটার কেবল বাইনারি ভাষা (0 এবং 1) বোঝে।'},
+    { q:'কম্পাইলার কী?', opts:['একটি প্রোগ্রামিং ভাষা','একটি অনুবাদক প্রোগ্রাম','একটি অ্যান্টিভাইরাস','একটি OS'], ans:1, exp:'কম্পাইলার একটি অনুবাদক প্রোগ্রাম, কোনো প্রোগ্রামিং ভাষা নয়।'},
+    { q:'পাইথনে সংখ্যার ডেটা টাইপ কোনটি?', opts:['str','bool','int','list'], ans:2, exp:'পাইথনে পূর্ণসংখ্যার ডেটা টাইপ হলো int।'},
+    { q:'কম্পিউটার মেইনটেন্যান্স কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটার রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার মেইনটেন্যান্স।'},
+    { q:'ব্রাউজিংয়ের সুবিধার্থে ক্যাশ মেমোরিতে কী জমা হয়?', opts:['ভাইরাস','Cookies','টেম্পোরারি ফাইল','Registry'], ans:2, exp:'ব্রাউজিংয়ের সুবিধার্থে ক্যাশ মেমোরিতে সাময়িকভাবে টেম্পোরারি ফাইল জমা হয়।'},
+    { q:'স্প্রেডশিটে মূলত কী কী করা হয়?\ni. গাণিতিক হিসাব\nii. উপাত্ত বিন্যাস\niii. ভিডিও তৈরি', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'স্প্রেডশিটে মূলত গাণিতিক হিসাব-নিকাশ ও উপাত্ত বিন্যাস করা হয়।'},
+    { q:'স্প্রেডশিটে যেকোনো সূত্র লেখার শুরুতে কোন চিহ্ন দিতে হয়?', opts:['#','+','=','@'], ans:2, exp:'স্প্রেডশিটে যেকোনো সূত্র বা ফাংশন লেখার শুরুতে সমান (=) চিহ্ন দিতে হয়।'},
+    { q:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে কোন সফটওয়্যার ব্যবহৃত হয়?', opts:['MS PowerPoint','MS Excel','MS Access','MS Word'], ans:1, exp:'খেলোয়াড়দের পারফরম্যান্স বিশ্লেষণে স্প্রেডশিট ব্যবহৃত হয়।'},
+    { q:'কোনগুলোকে মাল্টিমিডিয়া বলা যায় না?\ni. কাগজ\nii. রেডিও\niii. ইন্টারনেট', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'কাগজ ও রেডিওতে একক মাধ্যম থাকায় এগুলোকে মাল্টিমিডিয়া বলা যায় না।'},
+    { q:'ভ্যারিয়েবলের নামে স্পেসের পরিবর্তে কী ব্যবহার করা যায়?', opts:['হাইফেন','কমা','_ আন্ডারস্কোর','ডট'], ans:2, exp:'ভ্যারিয়েবলের নামে স্পেস দেওয়া যায় না; আন্ডারস্কোর ব্যবহার করা যায়।'},
+    { q:'ভ্যারিয়েবলের নামে কোনটি থাকতে পারে না?\ni. সংখ্যা দিয়ে শুরু\nii. আন্ডারস্কোর\niii. স্পেশাল ক্যারেক্টার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ভ্যারিয়েবলের নাম সংখ্যা দিয়ে শুরু হতে পারে না এবং স্পেশাল ক্যারেক্টার থাকতে পারে না।'},
+    { q:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে কী সুবিধা?', opts:['সুন্দর হয়','সময় সাশ্রয়','মেমোরি বাঁচে','সিকিউরিটি বাড়ে'], ans:1, exp:'আগে থেকে তৈরি টেমপ্লেট ব্যবহার করলে সাজসজ্জায় সময় বাঁচে।'},
+    { q:'সফটওয়্যার ইনস্টলে কোনগুলো জরুরি?\ni. হার্ডওয়্যার সাপোর্ট\nii. অ্যান্টিভাইরাস বন্ধ\niii. এডমিন পারমিশন', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'হার্ডওয়্যার সাপোর্ট, অ্যান্টিভাইরাস বন্ধ এবং এডমিন পারমিশন — সবগুলোই জরুরি।'},
+    { q:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল কোথায় থেকে দেখা যায়?', opts:['Control Panel','Task Manager','BIOS','Settings'], ans:2, exp:'মাদারবোর্ডের পোর্ট এনাবল বা ডিজেবল আছে কিনা BIOS থেকে দেখা যায়।'},
+    { q:'মাউস কাজ না করলে সমাধান কী?\ni. অন্য পোর্টে লাগানো\nii. পিসি বন্ধ করা\niii. নতুন মাউস ব্যবহার', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'মাউস কাজ না করলে অন্য পোর্টে লাগানো বা নতুন মাউস ব্যবহার করাই সমাধান।'},
+    { q:'কম্পিউটার শুধু কোন সংখ্যা বোঝে?', opts:['Decimal','Octal','০ ও ১','Hexadecimal'], ans:2, exp:'কম্পিউটার শুধু বাইনারি সংখ্যা (০ এবং ১) বোঝে।'},
+    { q:'ওয়ার্ড প্রসেসরে কী কী করা যায়?\ni. লেখা পুনর্বিন্যাস\nii. ফন্ট ছোট-বড়\niii. একাধিক ফাইলে কাজ', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'ওয়ার্ড প্রসেসরে লেখা পুনর্বিন্যাস, ফন্ট ছোট-বড় করা এবং একাধিক ফাইলে কাজ করা যায়।'},
+    { q:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল যুক্ত করতে কোন মেনু?', opts:['Insert','Home','Design','Review'], ans:2, exp:'স্লাইডে ব্যাকগ্রাউন্ড স্টাইল বা থিম যুক্ত করতে Design মেনু ব্যবহার করা হয়।'},
+    { q:'পাইথনে ভগ্নাংশ সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা (যেমন: 3.14) float ডেটা টাইপে রাখা হয়।'},
+    { q:'সোর্স কোডকে মেশিনের ভাষায় রূপান্তর করাকে কী বলে?', opts:['রূপান্তর করা','Compile করা','Debug করা','Interpret করা'], ans:0, exp:'সোর্স কোডকে মেশিনের ভাষায় (০ ও ১) রূপান্তর করাই অনুবাদক প্রোগ্রামের কাজ।'},
+    { q:'স্প্রেডশিটে গুণ করার উপায় কতটি?', opts:['এক','দুই','তিন','চার'], ans:1, exp:'গুণ করার দুটি উপায়: সাধারণ সূত্র (=A1*B1) এবং ফাংশন (=PRODUCT(A1:B1))।'},
+    { q:'Transition Effect কাকে বলে?', opts:['Custom Animation','স্লাইডের ইফেক্ট','Slide to Slide ইফেক্ট','Background Effect'], ans:2, exp:'এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময়ের অ্যানিমেশনকে Transition Effect বলে।'},
+    { q:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে কী ব্যবহার করতে হবে?', opts:['Registry Cleaner','VPN','আপডেটেড অ্যান্টিভাইরাস','Firewall'], ans:2, exp:'ক্ষতিকর ম্যালওয়্যার থেকে বাঁচতে অ্যান্টিভাইরাস ছাড়া ডিভাইস ব্যবহার ঝুঁকিপূর্ণ।'},
+    { q:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য কোন অপারেটর?', opts:['/','+','*','%'], ans:3, exp:'প্রোগ্রামিংয়ে ভাগশেষ বের করার জন্য % (Modulo) অপারেটর ব্যবহৃত হয়।'},
+    { q:'লেখাকে নান্দনিক করে তুলতে কী ব্যবহার করা হয়?', opts:['ফন্ট পরিবর্তন','পেজ কালার','বর্ডার যোগ','মার্জিন পরিবর্তন'], ans:0, exp:'লেখাকে নান্দনিক ও আকর্ষণীয় করে তুলতে বিভিন্ন স্টাইলের ফন্ট ব্যবহার করা হয়।'},
+  ],
+
+  mymensingh: [
+    { q:'এক স্লাইড থেকে পরবর্তী স্লাইডে যাওয়ার সময় যে ইফেক্ট ব্যবহার হয় তাকে কী বলে?', opts:['অ্যানিমেশন','Slide Show','ট্রানজিশন','Custom Effect'], ans:2, exp:'এক স্লাইড থেকে পরবর্তী স্লাইডে যাওয়ার সময় যে ইফেক্ট ব্যবহার হয় তাকে ট্রানজিশন বলে।'},
+    { q:'Page Layout ট্যাবে কোনগুলো থাকে?\ni. Margins\nii. Orientation\niii. Illustrations', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'Page Layout ট্যাবে Margins এবং Orientation থাকে; Illustrations থাকে Insert ট্যাবে।'},
+    { q:'CMOS-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Central Metal-Oxide Semiconductor','Complementary Metal-Oxide Semiconductor','Computer Metal-Oxide Semiconductor','Complex Metal-Oxide Semiconductor'], ans:1, exp:'CMOS-এর সঠিক পূর্ণরূপ Complementary Metal-Oxide Semiconductor।'},
+    { q:'ওয়েব পেজ কোন ধরনের মাল্টিমিডিয়া?', opts:['লিনিয়ার মাল্টিমিডিয়া','Non-Linear','ওয়েব পেজ','ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া'], ans:3, exp:'ওয়েব পেজ একটি ইন্টারঅ্যাকটিভ মাল্টিমিডিয়া।'},
+    { q:'কম্পিউটারের রক্ষণাবেক্ষণ কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটারের রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার।'},
+    { q:'অফিস বাটনে ক্লিক করলে কোন অপশন পাওয়া যায়?', opts:['Home','Print','Insert','Review'], ans:1, exp:'অফিস বাটনে ক্লিক করলে Print অপশন পাওয়া যায়।'},
+    { q:'কম্পিউটারের মেমোরি স্লটে কী থাকে?', opts:['CPU','HDD','RAM','GPU'], ans:2, exp:'কম্পিউটারের মেমোরি স্লটে RAM থাকে।'},
+    { q:'অ্যানিমেশন হলো কী?', opts:['স্থির ছবি','চলমান গ্রাফিক্স','শুধু টেক্সট','অডিও ফাইল'], ans:1, exp:'অ্যানিমেশন হলো চলমান গ্রাফিক্স।'},
+    { q:'সফটওয়্যার আনইনস্টল করার সঠিক কমান্ড কোনটি?', opts:['My Computer → Uninstall','Start→Control Panel→Uninstall','Desktop → Properties','Task Manager → Uninstall'], ans:1, exp:'সফটওয়্যার আনইনস্টল করার সঠিক কমান্ড Start→Control Panel→Uninstall।'},
+    { q:'বেশিরভাগ কম্পিউটারে কোন অপারেটিং সিস্টেম ব্যবহৃত হয়?', opts:['Linux','Mac OS','উইন্ডোজ','Android'], ans:2, exp:'বেশিরভাগ কম্পিউটারে উইন্ডোজ অপারেটিং সিস্টেম ব্যবহৃত হয়।'},
+    { q:'ওয়ার্ড প্রসেসরে ফন্ট সাইজ পরিবর্তন কোন ধরনের কাজ?', opts:['ফরম্যাটিং','ফন্ট সাইজ','সম্পাদনা','ডিজাইন'], ans:1, exp:'ওয়ার্ড প্রসেসরে ফন্ট সাইজ পরিবর্তন একটি ফরম্যাটিং কাজ।'},
+    { q:'পাইথন অ্যাপ্লিকেশন ডাউনলোড করার সঠিক ওয়েব ঠিকানা কোনটি?', opts:['www.python.com','www.python.net','www.python.org/downloads','www.getpython.org'], ans:2, exp:'পাইথন অ্যাপ্লিকেশন ডাউনলোড করার সঠিক ওয়েব ঠিকানা www.python.org/downloads।'},
+    { q:'বাইনারি কোডকে কী বলা হয়?', opts:['Source Code','Object Code','বাইনারি','মেশিন কোড'], ans:3, exp:'বাইনারি কোডকে মেশিন কোড বলা হয়।'},
+    { q:'Design মেনুর রিবনের একেবারে ডান দিকে কী থাকে?', opts:['Theme','Slide Layout','Background Style','Animation'], ans:2, exp:'Design মেনুর রিবনের একেবারে ডান দিকে Background Style থাকে।'},
+    { q:'মাল্টিমিডিয়ার ব্যবহার কোথায় রয়েছে?\ni. বিনোদনে\nii. গেমসে\niii. বিজ্ঞাপনে', opts:['শুধু i','i ও ii','ii ও iii','i, ii ও iii'], ans:3, exp:'বিনোদন, গেমস এবং বিজ্ঞাপন — সব ক্ষেত্রে মাল্টিমিডিয়ার ব্যবহার রয়েছে।'},
+    { q:'ফন্ট স্টাইল ও সাইজ পরিবর্তন করাকে ওয়ার্ড প্রসেসরের ভাষায় কী বলে?', opts:['Editing','ফরম্যাটিং টেক্সট','Insert করা','Review করা'], ans:1, exp:'ফন্ট স্টাইল ও সাইজ পরিবর্তন করা — ওয়ার্ড প্রসেসরের ভাষায় ফরম্যাটিং টেক্সট।'},
+    { q:'রিপোর্ট নান্দনিকভাবে উপস্থাপন করতে কী করতে হয়?\ni. ফন্ট নির্বাচন\nii. ফন্ট সাইজ নির্ধারণ\niii. পৃষ্ঠা কালো করা', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'ফন্ট নির্বাচন এবং ফন্ট সাইজ নির্ধারণ করে রিপোর্ট নান্দনিকভাবে উপস্থাপন করা যায়।'},
+    { q:'ভ্যারিয়েবলের নামে কোনটি ব্যবহার করা যায়?', opts:['হাইফেন (-)','ডট (.)','_ আন্ডারস্কোর','স্পেস'], ans:2, exp:'ভ্যারিয়েবলের নামে শুধু লেটার, নাম্বার ও আন্ডারস্কোর ব্যবহার করা যায়।'},
+    { q:'মাল্টিমিডিয়া সফটওয়্যারের উদাহরণ কোনটি?', opts:['MS Excel','Google Docs','শিশু শিক্ষা','Notepad'], ans:2, exp:'বিজয় শিশু শিক্ষা, অবসর, বিশ্বকোষ — বাংলাদেশে প্রস্তুতকৃত মাল্টিমিডিয়া সফটওয়্যার।'},
+    { q:'প্রেজেন্টেশন সংরক্ষণ করার সঠিক কমান্ড কোনটি?', opts:['File Menu→Save→Ok','File Menu→Save As→File Name→Ok','Insert→Save→Ok','Review→Save→Ok'], ans:1, exp:'প্রেজেন্টেশন সংরক্ষণ করার সঠিক কমান্ড File Menu→Save As→File Name→Ok।'},
+    { q:'ক্লিপবোর্ড গ্রুপে কোনগুলো থাকে?\ni. Cut\nii. Paste\niii. Copy', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ক্লিপবোর্ড গ্রুপে Cut, Paste ও Copy — তিনটিই থাকে।'},
+    { q:'পাইথন কী?', opts:['একটি OS','একটি Browser','একটি Hardware','একটি প্রোগ্রামিং ভাষা'], ans:3, exp:'পাইথন একটি প্রোগ্রামিং ভাষার নাম।'},
+    { q:'পেন ড্রাইভ থেকে সফটওয়্যার ইনস্টল করতে গেলে কোনটি প্রথমে চালু হয়?', opts:['Setup','Install Manager','Auto Run','Wizard'], ans:2, exp:'পেন ড্রাইভ থেকে সফটওয়্যার ইনস্টল করতে গেলে Auto Run প্রথমে চালু হয়।'},
+    { q:'ওয়ার্ড ডকুমেন্টে টেবিল যোগ করার সঠিক কমান্ড কোনটি?', opts:['Home→Table→Insert Table→Ok','Insert→Table→Insert Table→Ok','Page Layout→Table→Ok','Review→Table→Insert→Ok'], ans:1, exp:'ওয়ার্ড ডকুমেন্টে টেবিল যোগ করার সঠিক কমান্ড Insert→Table→Insert Table→Ok।'},
+    { q:'পাইথন প্রোগ্রামে ব্যবহৃত int কী?', opts:['একটি ফাংশন','একটি লাইব্রেরি','একটি ডেটা টাইপ','একটি কীওয়ার্ড'], ans:2, exp:'পাইথন প্রোগ্রামে ব্যবহৃত int একটি ডেটা টাইপ।'},
+  ],
+
+  jessore: [
+    { q:'লাইন স্পেসিং অপশনটি কোথায় থাকে?', opts:['Insert → Spacing','Home → Paragraph','Page Layout → Line','Review → Format'], ans:1, exp:'লাইন স্পেসিং অপশনটি Home ট্যাবের Paragraph গ্রুপে থাকে।'},
+    { q:'স্প্রেডশিটে D2, D3, D4 সেলগুলোর যোগফল বের করার সঠিক সূত্র কোনটি?', opts:['=SUM(D2:D4)','=(D2+D3+D4)','=ADD(D2,D3,D4)','=D2:D4'], ans:1, exp:'স্প্রেডশিটে সেলগুলোর যোগফল বের করার সঠিক সূত্র =(D2+D3+D4)।'},
+    { q:'গুণ করার জন্য স্প্রেডশিটে কোনগুলো ব্যবহার করা যায়?\ni. =B2*C2\nii. =B2+C2\niii. =PRODUCT(B2:C2)', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'গুণ করার জন্য সরাসরি * সহ সূত্র (=B2*C2) অথবা PRODUCT ফাংশন ব্যবহার করা যায়।'},
+    { q:'লেখালেখির জন্য ব্যবহৃত বিভিন্ন স্টাইলের অক্ষরকে কী বলা হয়?', opts:['Style','Format','Font','Text'], ans:2, exp:'লেখালেখির জন্য ব্যবহৃত বিভিন্ন স্টাইলের অক্ষরকে ফন্ট বলা হয়।'},
+    { q:'কীবোর্ডে % চিহ্ন টাইপ করতে কোন কী চাপতে হয়?', opts:['Alt+5','Ctrl+5','Shift+5','Fn+5'], ans:2, exp:'কীবোর্ডের ৫ নম্বর কি-এর উপরে % চিহ্ন থাকে, যা Shift চেপে টাইপ করতে হয়।'},
+    { q:'স্লাইডের ব্যাকগ্রাউন্ড পরিবর্তন বা থিম নির্বাচনে কোন মেনু ব্যবহার করা হয়?', opts:['Insert','Home','Design','Animation'], ans:2, exp:'স্লাইডের ব্যাকগ্রাউন্ড পরিবর্তন বা থিম নির্বাচনে Design মেনু ব্যবহার করা হয়।'},
+    { q:'ওয়ার্ড ডকুমেন্টে টেবিল যুক্ত করার স্ট্যান্ডার্ড কমান্ড কোনটি?', opts:['Home→Insert Table','Insert→Table→Insert Table','Page Layout→Table','View→Table→Insert'], ans:1, exp:'ওয়ার্ড ডকুমেন্টে টেবিল যুক্ত করার স্ট্যান্ডার্ড কমান্ড Insert→Table→Insert Table।'},
+    { q:'প্রোগ্রামিং ভাষায় Boolean ডেটা টাইপকে সংক্ষেপে কী লেখা হয়?', opts:['int','float','str','bool'], ans:3, exp:'প্রোগ্রামিং ভাষায় Boolean ডেটা টাইপকে সংক্ষেপে bool লেখা হয়।'},
+    { q:'ট্রাবলশুটিং বলতে কী বোঝায়?\ni. সমস্যার উৎস খুঁজে বের করা\nii. নতুন প্রোগ্রাম ইনস্টল\niii. উৎপত্তি স্থল খুঁজে বের করা', opts:['i ও ii','i ও iii','ii ও iii','i, ii ও iii'], ans:1, exp:'ট্রাবলশুটিং বলতে সমস্যার উৎস এবং উৎপত্তি স্থল খুঁজে বের করার প্রক্রিয়া বোঝায়।'},
+    { q:'একটি জনপ্রিয় প্রেজেন্টেশন সফটওয়্যার কোনটি?', opts:['MS Word','MS Excel','Microsoft PowerPoint','MS Access'], ans:2, exp:'Microsoft PowerPoint একটি জনপ্রিয় প্রেজেন্টেশন সফটওয়্যার।'},
+    { q:'পাইথনে স্ক্রিনে আউটপুট দেখানোর জন্য কোন ফাংশন ব্যবহৃত হয়?', opts:['input()','show()','display()','print()'], ans:3, exp:'পাইথনে স্ক্রিনে আউটপুট দেখানোর জন্য print() ফাংশন ব্যবহৃত হয়।'},
+    { q:'ভ্যারিয়েবলের নামে কোনটি অবৈধ?', opts:['my_var','_name','var123','$variable'], ans:3, exp:'ভ্যারিয়েবলের নামে শুরুতে সংখ্যা বা @ চিহ্ন ব্যবহার করা যায় না।'},
+    { q:'CMOS-এর সঠিক পূর্ণরূপ কোনটি?', opts:['Central Metal-Oxide Semiconductor','Complementary Metal-Oxide Semiconductor','Complex Multi-Output Semiconductor','Computer Metal-Oxide Semiconductor'], ans:1, exp:'CMOS-এর সঠিক পূর্ণরূপ Complementary Metal-Oxide Semiconductor।'},
+    { q:'দশমিকযুক্ত সংখ্যাকে প্রোগ্রামিংয়ের পরিভাষায় কী বলা হয়?', opts:['a = 5','a = "9.5"','a = 9.5','a = True'], ans:2, exp:'দশমিকযুক্ত সংখ্যাকে প্রোগ্রামিংয়ের পরিভাষায় float বলা হয়।'},
+    { q:'স্লাইডগুলো মুদ্রণের জন্য ছোট আকারে এক পৃষ্ঠায় সাজানো হলে তাকে কী বলে?', opts:['Slide Master','Notes Page','Slide Layout','Handouts'], ans:3, exp:'স্লাইডগুলো মুদ্রণের জন্য ছোট আকারে এক পৃষ্ঠায় সাজানো হলে তাকে হ্যান্ডআউটস বলে।'},
+    { q:'নতুন স্লাইডে কোন লেখা থাকে?\ni. "click to add title"\nii. "click to add text"\niii. "click to save"', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:0, exp:'নতুন স্লাইডে "click to add title" এবং "click to add text" লেখা থাকে।'},
+    { q:'Blinds, Fly in, Diamond — এগুলো কোনটির উদাহরণ?', opts:['Custom Animation','Slide Layout','Slide Transition','Slide Design'], ans:2, exp:'Blinds, Fly in, Diamond — এগুলো Slide Transition-এর উদাহরণ।'},
+    { q:'কম্পিউটার মেইনটেন্যান্স কত প্রকার?', opts:['১','২','৩','৪'], ans:1, exp:'কম্পিউটার রক্ষণাবেক্ষণ ২ প্রকার: হার্ডওয়্যার ও সফটওয়্যার।'},
+    { q:'উইন্ডোজে Start বাটনে ক্লিক করে কোন মেনু পাওয়া যায়?', opts:['Program List','Start Menu','Main Menu','Control Panel'], ans:1, exp:'উইন্ডোজে Start বাটনে ক্লিক করলে Start Menu পাওয়া যায়।'},
+    { q:'পাইথনে ভগ্নাংশ সংখ্যা কোন ডেটা টাইপে রাখা হয়?', opts:['int','str','bool','float'], ans:3, exp:'পাইথনে ভগ্নাংশ বা দশমিক সংখ্যা float ডেটা টাইপে রাখা হয়।'},
+    { q:'স্প্রেডশিটে গড় বের করার ফাংশন কোনটি?', opts:['=SUM()','=MAX()','=AVERAGE()','=COUNT()'], ans:2, exp:'স্প্রেডশিটে গড় বের করার জন্য AVERAGE ফাংশন ব্যবহৃত হয়।'},
+    { q:'MS PowerPoint-এর ফাইলের এক্সটেনশন কোনটি?', opts:['.doc','.xls','.ppt','.pdf'], ans:2, exp:'MS PowerPoint-এর ফাইলের এক্সটেনশন হলো .ppt বা .pptx।'},
+    { q:'ক্লিপবোর্ড গ্রুপে কোনগুলো থাকে?\ni. Cut\nii. Paste\niii. Copy', opts:['i ও ii','ii ও iii','i ও iii','i, ii ও iii'], ans:3, exp:'ক্লিপবোর্ড গ্রুপে Cut, Paste ও Copy — তিনটিই থাকে।'},
+    { q:'Ctrl+C কীবোর্ড শর্টকাটের কাজ কী?', opts:['পেস্ট করা','কাটা','কপি করা','আনডু করা'], ans:2, exp:'Ctrl+C কীবোর্ড শর্টকাট ব্যবহার করে নির্বাচিত কন্টেন্ট কপি করা যায়।'},
+    { q:'অনুবাদক প্রোগ্রাম কত প্রকার?', opts:['২','৩','৪','৫'], ans:1, exp:'অনুবাদক প্রোগ্রাম ৩ প্রকার: অ্যাসেম্বলার, কম্পাইলার এবং ইন্টারপ্রেটার।'},
+  ],
+};
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+const state = {};
+Object.keys(DATA).forEach(b => {
+  state[b] = { answers: {}, mode: 'practice' };
+});
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render(board) {
+  const container = document.getElementById('q-' + board);
+  const qs = DATA[board];
+  const st = state[board];
+  const isAnswer = st.mode === 'answer';
+
+  container.innerHTML = qs.map((q, qi) => {
+    const keys = ['ক', 'খ', 'গ', 'ঘ'];
+    const chosen = st.answers[qi];
+    const opts = q.opts.map((opt, oi) => {
+      let cls = 'option';
+      if (isAnswer) {
+        if (oi === q.ans) cls += ' correct';
+      } else if (chosen !== undefined) {
+        if (oi === chosen && oi === q.ans) cls += ' correct';
+        else if (oi === chosen) cls += ' wrong';
+        else if (oi === q.ans) cls += ' correct';
+      } else if (chosen === undefined && oi === chosen) {
+        cls += ' selected';
+      }
+      const clickFn = isAnswer ? '' : `onclick="pick('${board}',${qi},${oi})"`;
+      return `<div class="${cls}" ${clickFn}>
+        <span class="opt-key">${keys[oi]}</span>
+        <span class="opt-text">${opt}</span>
+      </div>`;
+    }).join('');
+
+    const showExp = isAnswer || chosen !== undefined;
+    const qText = q.q.replace(/\n/g, '<br>');
+
+    return `<div class="q-card" id="${board}-q${qi}">
+      <div class="q-top">
+        <div class="q-num">${qi+1}</div>
+        <div class="q-text">${qText}</div>
+      </div>
+      <div class="options ${isAnswer ? 'answer-mode' : ''}">${opts}</div>
+      <div class="explanation-box ${showExp ? 'visible' : ''}">${q.exp}</div>
+    </div>`;
+  }).join('');
+
+  updateScore(board);
+}
+
+function pick(board, qi, oi) {
+  const st = state[board];
+  if (st.answers[qi] !== undefined) return; // already answered
+  st.answers[qi] = oi;
+  render(board);
+  // Scroll to next unanswered
+  const qs = DATA[board];
+  for (let i = qi+1; i < qs.length; i++) {
+    if (st.answers[i] === undefined) {
+      document.getElementById(board+'-q'+i)?.scrollIntoView({behavior:'smooth', block:'nearest'});
+      break;
+    }
+  }
+}
+
+function updateScore(board) {
+  const st = state[board];
+  const qs = DATA[board];
+  let correct = 0;
+  let answered = 0;
+  qs.forEach((q, qi) => {
+    if (st.answers[qi] !== undefined) {
+      answered++;
+      if (st.answers[qi] === q.ans) correct++;
+    }
+  });
+
+  const scoreEl = document.getElementById('score-' + board);
+  const scoreNum = document.getElementById('score-num-' + board);
+  const scoreBar = document.getElementById('score-bar-' + board);
+
+  if (answered > 0 || st.mode === 'answer') {
+    scoreEl.style.display = 'flex';
+    scoreNum.textContent = `${correct}/${qs.length}`;
+    scoreBar.style.width = ((correct / qs.length) * 100) + '%';
+  } else {
+    scoreEl.style.display = 'none';
+  }
+}
+
+function setMode(board, mode) {
+  state[board].mode = mode;
+  // update buttons
+  const section = document.getElementById(board);
+  const btns = section.querySelectorAll('.mode-btn');
+  btns.forEach((b, i) => {
+    b.classList.toggle('active', (i===0 && mode==='practice') || (i===1 && mode==='answer'));
+  });
+  if (mode === 'answer') {
+    document.getElementById('score-' + board).style.display = 'flex';
+  }
+  render(board);
+}
+
+// ══════════════════════════════════════════════
+//  TABS
+// ══════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const board = tab.dataset.board;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.board-section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(board).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+Object.keys(DATA).forEach(b => render(b));
+</script>
+</body>
+</html>
