@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -99,6 +100,9 @@ body {
 
 /* ── TABS ── */
 .board-tabs {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   display: flex;
   overflow-x: auto;
   scrollbar-width: none;
@@ -145,7 +149,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-
+/* ── BOARD HEADER (centered) ── */
 .board-header {
   text-align: center;
   padding: 32px 24px 28px;
@@ -204,34 +208,41 @@ body {
 }
 
 /* ── MODE BAR ── */
-.mode-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 6px;
+.mode-bar{
+  display:flex;
+  gap:8px;
+  margin-bottom:24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:8px;
 }
-.mode-btn {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  font-family: var(--font-bn);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: transparent;
-  color: var(--muted);
-  letter-spacing: 0.2px;
+.mode-btn{
+  flex:1;
+  padding:14px 20px;
+  border-radius:14px;
+  border:none;
+  font-family:var(--font-bn);
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .25s ease;
+  background:transparent;
+  color:var(--muted);
+  letter-spacing:.2px;
 }
-.mode-btn.active {
-  background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(129,140,248,0.15));
-  color: var(--accent);
-  border: 1px solid rgba(56,189,248,0.25);
+.mode-btn:hover{
+  color:#dbeafe;
 }
+.mode-btn.active{
+  background:linear-gradient(180deg,#1f3b5a 0%, #1b3350 100%);
+  color:#38bdf8;
+  border:1px solid rgba(56,189,248,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 0 0 1px rgba(56,189,248,.08);
+}
+
 
 /* ── SCORE ── */
 .score-display {
@@ -426,8 +437,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('dhaka','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('dhaka','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('dhaka','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('dhaka','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-dhaka" style="display:none">
     <div><div class="score-num" id="score-num-dhaka">0/30</div><div class="score-label">স্কোর</div></div>
@@ -448,8 +459,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('ctg','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('ctg','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('ctg','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('ctg','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-ctg" style="display:none">
     <div><div class="score-num" id="score-num-ctg">0/30</div><div class="score-label">স্কোর</div></div>
@@ -470,8 +481,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('cumilla','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('cumilla','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('cumilla','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('cumilla','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-cumilla" style="display:none">
     <div><div class="score-num" id="score-num-cumilla">0/30</div><div class="score-label">স্কোর</div></div>
@@ -492,8 +503,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('rajshahi','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('rajshahi','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('rajshahi','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('rajshahi','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-rajshahi" style="display:none">
     <div><div class="score-num" id="score-num-rajshahi">0/30</div><div class="score-label">স্কোর</div></div>
@@ -514,8 +525,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('borishal','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('borishal','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('borishal','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('borishal','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-borishal" style="display:none">
     <div><div class="score-num" id="score-num-borishal">0/30</div><div class="score-label">স্কোর</div></div>
@@ -536,8 +547,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('sylhet','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('sylhet','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('sylhet','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('sylhet','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-sylhet" style="display:none">
     <div><div class="score-num" id="score-num-sylhet">0/30</div><div class="score-label">স্কোর</div></div>
@@ -558,8 +569,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('dinajpur','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('dinajpur','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('dinajpur','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('dinajpur','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-dinajpur" style="display:none">
     <div><div class="score-num" id="score-num-dinajpur">0/30</div><div class="score-label">স্কোর</div></div>
@@ -580,8 +591,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('mymensingh','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('mymensingh','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('mymensingh','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('mymensingh','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-mymensingh" style="display:none">
     <div><div class="score-num" id="score-num-mymensingh">0/30</div><div class="score-label">স্কোর</div></div>
@@ -602,8 +613,8 @@ body {
     </div>
   </div>
   <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('jessore','practice')">📝 অনুশীলন মোড</button>
-    <button class="mode-btn" onclick="setMode('jessore','answer')">✅ উত্তর দেখুন</button>
+    <button class="mode-btn" onclick="setMode('jessore','practice')">📝 অনুশীলন মোড</button>
+    <button class="mode-btn active" onclick="setMode('jessore','answer')">✅ উত্তর দেখুন</button>
   </div>
   <div class="score-display" id="score-jessore" style="display:none">
     <div><div class="score-num" id="score-num-jessore">0/30</div><div class="score-label">স্কোর</div></div>
@@ -619,13 +630,7 @@ body {
 </footer>
 
 <script>
-// ══════════════════════════════════════════════
-//  QUESTION DATA
-//  q = question text (LaTeX with $...$ for inline math)
-//  opts = 4 options
-//  ans = correct answer index (0-based)
-//  exp = explanation
-// ══════════════════════════════════════════════
+
 const DATA = {
 
 dhaka: [
@@ -925,8 +930,11 @@ jessore: [
 
 };
 
+// ══════════════════════════════════════════════
+//  STATE & LOGIC
+// ══════════════════════════════════════════════
 const state = {};
-Object.keys(DATA).forEach(b => { state[b] = { answers: {}, mode: 'practice' }; });
+Object.keys(DATA).forEach(b => { state[b] = { answers: {}, mode: 'answer' }; });
 
 const KEYS = ['ক','খ','গ','ঘ'];
 
